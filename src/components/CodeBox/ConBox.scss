@@ -1,0 +1,38 @@
+@import "../../sass/ning-ui/variable.scss";
+
+.code-box{
+    margin-bottom: 20px;
+    border: 1px dashed $b_c;
+    pre{
+        max-height: 0;
+        padding: 0 $md;
+        opacity: .8;
+        background: #f5f5f5;
+        overflow: hidden;
+        transition: max-height ease-out .5s;
+        &.active{
+            max-height: 100%;
+        }
+    }
+    code{
+        padding: $sm 0;
+        display: inline-block;
+        width: 100%;
+        line-height: 1.8;
+        background: transparent;
+        border: none;
+    }
+    .code-toggle {
+        display: block;
+        padding: 8px 12px;
+        color: #C5D9E8;
+        font-size: 12px;
+        text-align: center;
+        background-color: #FAFBFC;
+        cursor: pointer;
+        transition: color .5s;
+        &:hover {
+            color: $blue;
+        }
+    }
+}
