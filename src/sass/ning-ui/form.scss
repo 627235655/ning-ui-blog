@@ -1,4 +1,15 @@
-
+input::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color: $light;
+}
+input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:    #909;
+}
+input::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:    #909;
+}
+input:-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color:    #909;
+}
 input[type="radio"],
 input[type="checkbox"] {
     margin: 0;
@@ -62,7 +73,7 @@ textarea:disabled {
             right: 3px;
             width: 6px;
             height: 6px;
-            background: url('./images/required.png');
+            background: url('../images/required.png');
             background-size: cover;
         }
         &.xs {

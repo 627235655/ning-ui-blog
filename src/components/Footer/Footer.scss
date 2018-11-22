@@ -1,0 +1,14 @@
+@import "../../sass/ning-ui/variable.scss";
+
+footer{
+	box-shadow: 0 -2px 16px 0 rgba(223, 225, 230, 0.5);
+	.last-content{
+		display: flex;
+		justify-content: space-between;
+		width: 50%;
+		margin: 0 25%;
+		line-height: 80px;
+		font-size: 12px;
+		color: $gray;
+	}
+}

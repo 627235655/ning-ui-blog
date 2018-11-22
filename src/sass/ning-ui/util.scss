@@ -14,6 +14,9 @@
 .w-100 {
     width: 100%;
 }
+.h-100{
+    height: 100%;
+}
 
 .w_300 {
     width: 300px;
@@ -64,7 +67,7 @@
         content: '';
         width: 100px;
         height: 60px;
-        background: url('./images/null-data.png');
+        background: url('../images/null-data.png');
         background-size: cover;
     }
     &::after {
@@ -363,5 +366,70 @@ dot::before {
         height: 100%;
         background-image: linear-gradient(45deg, rgba(61, 112, 178, 0), rgba(61, 112, 178, 0.1), rgba(61, 112, 178, 0));
         animation: skeletonLoading 3s ease-in-out infinite;
+    }
+}
+
+.ning-tag{
+    padding: 0 8px;
+    border-radius: 4px;
+    border: 1px solid $b_c;
+    font-size: 12px;
+    color: $t_c_weak;
+    &.blue{
+        border-color: $blue;
+        background-color: $blue-3;
+        color: #fff;
+    }
+    &.green{
+        border-color: $green;
+        background-color: $green-3;
+        color: #fff;
+    }
+    &.orange{
+        border-color: $orange;
+        background-color: $orange-3;
+        color: #fff;
+    }
+    &.red{
+        border-color: $red;
+        background-color: $red-3;
+        color: #fff;
+    }
+    &.gray{
+        border-color: $gray;
+        background-color: $light_gray;
+    }
+}
+.ning-badge{
+    line-height: 16px;
+    padding: 0 8px;
+    border-radius: 10px;
+    border: 1px solid $b_c;
+    font-size: 12px;
+    color: $t_c_weak;
+    text-align: center;
+    &.blue{
+        border-color: $blue;
+        background-color: $blue-3;
+        color: #fff;
+    }
+    &.green{
+        border-color: $green;
+        background-color: $green-3;
+        color: #fff;
+    }
+    &.orange{
+        border-color: $orange;
+        background-color: $orange-3;
+        color: #fff;
+    }
+    &.red{
+        border-color: $red;
+        background-color: $red-3;
+        color: #fff;
+    }
+    &.gray{
+        border-color: $gray;
+        background-color: $light_gray;
     }
 }

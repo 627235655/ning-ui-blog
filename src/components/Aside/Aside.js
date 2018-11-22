@@ -6,11 +6,11 @@ class NavItem extends Component {
     render() {
         let props = this.props;
         return (
-            <a
+            <p
                 className={"nav-item" + (props.which_active == props.item.id ? ' active' : '')}
                 href={'#' + props.item.id}
                 onClick={() => {props.checkActive(props.item.id)}}
-            >{props.item.text}</a>
+            >{props.item.text}</p>
         )
     }
 }

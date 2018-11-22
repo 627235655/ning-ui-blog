@@ -8,6 +8,40 @@ class ConUtils extends Component {
             <div>
                 <h1>工具类<span className="_md">(代码参看源代码)</span></h1>
                 <hr/>
+                <p>badge 徽标</p>
+                <div className="example-box flex-row-box" id="test">
+                    <span className="ning-badge">1</span>
+                    <span className="ning-badge blue">12</span>
+                    <span className="ning-badge green">123</span>
+                    <span className="ning-badge orange">1234</span>
+                    <span className="ning-badge red">12345</span>
+                    <span className="ning-badge gray">123456</span>
+                </div>
+                <CodeBox
+                    params={
+                        {
+                            type: 'js',
+                            content: `<span className="ning-badge '' || 'blue' || 'green' || 'orange' || 'red' || 'gray'">徽标内容</span>`,
+                        }
+                    }
+                />
+                <p>tag 标签</p>
+                <div className="example-box flex-row-box" id="test">
+                    <span className="ning-tag">默认标签</span>
+                    <span className="ning-tag blue">蓝色标签</span>
+                    <span className="ning-tag green">绿色标签</span>
+                    <span className="ning-tag orange">橙色标签</span>
+                    <span className="ning-tag red">红色标签</span>
+                    <span className="ning-tag gray">灰色标签</span>
+                </div>
+                <CodeBox
+                    params={
+                        {
+                            type: 'js',
+                            content: `<span className="ning-tag '' || 'blue' || 'green' || 'orange' || 'red' || 'gray'">标签内容</span>`,
+                        }
+                    }
+                />
                 <p>skeleton 骨架loading</p>
                 <div className="example-box" id="test">
                     <div className="ning-skeleton" style={{height: '100px', width: '100%',}}></div>
@@ -16,7 +50,7 @@ class ConUtils extends Component {
                     params={
                         {
                             type: 'js',
-                            content: `<div className="ning-alert '' || 'blue' || 'green' || 'orange' || 'red'">提示信息</div>`,
+                            content: `<div className="ning-skeleton">...</div>`,
                         }
                     }
                 />

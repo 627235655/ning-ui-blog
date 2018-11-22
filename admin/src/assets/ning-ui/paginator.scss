@@ -1,0 +1,61 @@
+.ning-paginator{
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	margin: $md 0;
+	line-height: 32px;
+	ul{
+		display: flex;
+		li{
+			display: inline-flex;
+			justify-content: center;
+			align-items: center;
+			min-width: 32px;
+			padding: 0 12px;
+			border-radius: 2px;
+			background: #f5f5f5;
+			text-align: center;
+			cursor: pointer;
+			transition: .5s;
+			&:not(:last-child){
+				margin-right: 8px;
+			}
+			&:hover{
+				color: $blue;
+			}
+			&.active{
+				background: $blue;
+				color: #fff;
+			}
+		}
+	}
+	&.xs{
+		line-height: 24px;
+		font-size: 12px;
+		ul{
+			display: flex;
+			li{
+				display: inline-flex;
+				justify-content: center;
+				align-items: center;
+				min-width: 24px;
+				padding: 0 8px;
+				border-radius: 2px;
+				background: #f5f5f5;
+				text-align: center;
+				cursor: pointer;
+				transition: .5s;
+				&:not(:last-child){
+					margin-right: 8px;
+				}
+				&:hover{
+					color: $blue;
+				}
+				&.active{
+					background: $blue;
+					color: #fff;
+				}
+			}
+		}
+	}
+}

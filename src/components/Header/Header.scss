@@ -1,0 +1,28 @@
+@import "../../sass/ning-ui/variable.scss";
+
+header{
+	text-align: center;
+	box-shadow: 0 2px 16px 0 rgba(223, 225, 230, 0.5);
+	background: #fff;
+	nav{
+		width: 1200px;
+		margin: auto;
+		li{
+			&.active a{
+				color: $blue;
+				font-weight: bold;
+			}
+			a{
+				line-height: 60px;
+				padding: 0 $md;
+			}
+		}
+		.sign-box{
+			a{
+				padding: 0 $sm;
+				font-size: 12px;
+				color: $gray;
+			}
+		}
+	}
+}

@@ -7,7 +7,9 @@ import ConForm from '../ConForm/ConForm';
 import ConTable from '../ConTable/ConTable';
 import ConGrid from '../ConGrid/ConGrid';
 import ConLayout from '../ConLayout/ConLayout';
-
+import ConTabs from '../ConTabs/ConTabs';
+import ConMind from '../ConMind/ConMind';
+import ConIcon from '../ConIcon/ConIcon';
 
 class ConItem extends Component {
     render() {
@@ -34,6 +36,12 @@ class ConItem extends Component {
                                 return <ConGrid/>;
                             case 'layout':
                                 return <ConLayout/>;
+                            case 'tabs':
+                                return <ConTabs/>;
+                            case 'mind':
+                                return <ConMind/>;
+                            case 'icon':
+                                return <ConIcon/>;
                             default:
                                 return null;
                         }
