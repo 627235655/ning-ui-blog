@@ -35,7 +35,6 @@ textarea:disabled {
     .ning-btn {
         line-height: 30px;
         padding: 0 15px !important;
-        color: $blue !important;
     }
 }
 
@@ -236,6 +235,12 @@ textarea:disabled {
                 background-color: #fff;
                 transform: scale(0);
                 transition: .25s;
+            }
+            &+label{
+                width: auto;
+                min-width: 0;
+                padding: 0;
+                font-weight: normal;
             }
         }
         &:hover+.virtual-checkbox{

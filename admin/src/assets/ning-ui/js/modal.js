@@ -12,9 +12,13 @@ class Modal {
         document.body.addEventListener('click', function(ev) {
             ev = ev || window.event;
             let target = ev.target || ev.srcElement;
-            // 选项卡 初始化
+            // 关闭弹窗
             if (target.className.indexOf('cancle-modal-btn') > -1) {
                 self.closeAll();
+            }
+            // 关闭弹窗
+            if (target.className.indexOf('ning-thumbnail') > -1) {
+                self.renderThumbnail(target.getAttribute('src'));
             }
         })
     }
@@ -34,6 +38,10 @@ class Modal {
         modals.forEach(function(v, i, a) {
             self.close(v.getAttribute('id'));
         })
+    }
+
+    renderThumbnail(params) {
+        console.log(params)
     }
 }
 

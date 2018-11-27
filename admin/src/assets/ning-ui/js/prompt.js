@@ -71,7 +71,7 @@ class Prompt {
     }
 
     htmlAttrToObject(attr) {
-        let JSONstringify = attr.replace(/\'/g, '').replace(/\s*/g, '').replace(/{/g, '{"').replace(/:/g, '":"').replace(/}/g, '"}').replace(/,/g, '","');
+        let JSONstringify = attr.replace(/\'/g, '').replace(/\s*/g, '').replace(/{/g, '{"').replace(/:/g, '":"').replace(/}/g, '"}').replace(/,/g, '","')
         return JSON.parse(JSONstringify)
     }
 

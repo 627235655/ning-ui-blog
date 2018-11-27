@@ -1,164 +1,106 @@
 <template>
     <div id="article_list">
-       <h2 class="page-title">文章列表</h2>
-       <divider></divider>
-       <div class="ning-row">
-          <div class=" col-12 border p-md">
-            <div class="example-box flex-col-box">
-                    <table class="ning-border-table">
-                        <thead>
-                            <tr>
-                                <th>文章标题</th>
-                                <th>文章标签</th>
-                                <th>文章字数</th>
-                                <th>文章内容</th>
-                                <th>操作</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="item in tagList">
-                                <td>《{{item.tagName}}》</td>
-                                <td>《{{item.tagName}}》</td>
-                                <td>《{{item.tagName}}》</td>
-                                <td>《{{item.tagName}}》</td>
-                                <td>
-                                  <button class="ning-btn _xs" @click="setUpdate(item)">编辑</button>
-                                  <button class="ning-btn _xs _red m-l-md" @click="openRemoveModal(item)">删除</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-          </div>
-      </div>
-       <!-- 删除 -->
-      <div class="ning-modal" tabindex="-1" id="remove_modal">
-          <div class="ning-modal-dialog" style="width: 300px;">
-              <div class="ning-modal-hd">
-                  <span class="modal-title">删除</span>
-                  <a href="javascript: void(0)" class="ning-modal-close-btn cancle-modal-btn" data-modal-close>&times;</a>
-              </div>
-              <div class="ning-modal-bd m-t-md">
-                  <p class="p-b-md b-b tc">请确认是否删除此条数据?</p>
-                  <div class="flex-allcenter-box m-t-md">
-                      <button class="ning-btn m-r-md confrim-btn" @click="removeTag">确定</button>
-                      <button class="ning-btn _white cancle-modal-btn">关闭</button>
-                  </div>
-              </div>
-          </div>
-      </div>
+        <h2 class="page-title">主页</h2>
+        <divider></divider>
+        <div class="ning-row border p-md">
+            <div class="col-4">
+              <h3>总数统计</h3>
+                <!-- 文章数, 标签数，总字数 -->
+                <div id="total_chart"></div>
+            </div>
+        </div>
     </div>
 </template>
-
 <script>
 import axios from 'axios';
 import showdown from 'showdown';
 import notify from '../assets/ning-ui/js/notify'
 import modal from '../assets/ning-ui/js/modal'
-
-
+import G2 from '@antv/g2';
 
 export default {
-    name:'article_list',
-    data () {
+    name: 'home',
+    data() {
         return {
-          data: {
-            tagName: '',
-          },
-          tagList: [],
-          is_add: true,
-          el_tag_name: null,
+            tagList: [],
+            articleList: [],
+            totalChart: {
+                tag_total: 0,
+                article_total: 0,
+            }
         }
     },
-    mounted: function(){
-      this.el_tag_name = document.getElementById('tag_name');
-      this.getTagList();
+    mounted: function() {
+        Promise.all([this.getTagList(), this.getArticleList()]).then((result) => {
+            if (!result.includes(false)) {
+                this.renderChart();
+            }
+        }).catch((error) => {
+            console.log(error) // 失败了，打出 '失败'
+        })
     },
     methods: {
-      getTagList() {
-        let self = this;
-        axios.get('/api/getTagList')
-        .then(function (response) {
-          let res = response.data;
-          if (res.status === 200) {
-            self.tagList = res.data;
-          }
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-      },
-      addTag() {
-        let self = this;
-        let data = self.data;
-        if (!data.tagName) {
-          notify.warning('请输入标签名!');
-          return;
+        getTagList() {
+            let self = this;
+            return new Promise((resolve, reject) => {
+                axios.get('/api/getTagList')
+                    .then(function(response) {
+                        let res = response.data;
+                        if (res.status === 200) {
+                            resolve(true)
+                            self.tagList = res.data.list;
+                            self.totalChart.tag_total = res.data.totalCount;
+                        }
+                    })
+                    .catch(function(error) {
+                        reject(false)
+                        console.log(error);
+                    });
+            })
+        },
+        getArticleList() {
+            let self = this;
+            return new Promise((resolve, reject) => {
+                axios.get('/api/getArticleList')
+                    .then(function(response) {
+                        let res = response.data;
+                        if (res.status === 200) {
+                            resolve(true)
+                            self.articleList = res.data.list;
+                            self.totalChart.article_total = res.data.totalCount;
+                        }
+                    })
+                    .catch(function(error) {
+                        reject(false)
+                        console.log(error);
+                    });
+            })
+        },
+        renderChart() {
+            let self = this;
+            const data = [
+                { genre: '标签', sold: self.totalChart.tag_total },
+                { genre: '文章', sold: self.totalChart.article_total },
+            ]; // G2 对数据源格式的要求，仅仅是 JSON 数组，数组的每个元素是一个标准 JSON 对象。
+            console.log(data)
+            // Step 1: 创建 Chart 对象
+            const chart = new G2.Chart({
+                container: 'total_chart', // 指定图表容器 ID
+                // width: 300, // 指定图表宽度
+                height: 300 // 指定图表高度
+            });
+            // Step 2: 载入数据源
+            chart.source(data);
+            // Step 3：创建图形语法，绘制柱状图，由 genre 和 sold 两个属性决定图形位置，genre 映射至 x 轴，sold 映射至 y 轴
+            chart.interval().position('genre*sold').color('genre')
+            // Step 4: 渲染图表
+            chart.render();
         }
-        axios.post('/api/addTag', data)
-        .then(function (response) {
-          let res = response.data;
-          if (res.status === 200) {
-            notify.success(res.message)
-            self.data.tagName = '';
-            self.getTagList();
-          } else {
-            notify.warning(res.message)
-          }
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-      },
-      setUpdate(item) {
-        let self = this;
-        self.is_add = false;
-        self.data = item;
-        self.el_tag_name.focus();
-      },
-      updateTag() {
-        let self = this;
-        axios.post('/api/updateTag', self.data)
-        .then(function (response) {
-          let res = response.data;
-          if (res.status === 200) {
-            notify.success(res.message)
-            self.data.tagName = '';
-            self.is_add = true;
-            self.getTagList();
-          }
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-
-      },
-      addOrUpdateTag() {
-        let self = this;
-        self.is_add ? self.addTag(): self.updateTag();
-      },
-      openRemoveModal(item) {
-        this.item = item;
-        modal.open('remove_modal');
-      },
-      removeTag() {
-        let self = this;
-        axios.post('/api/removeTag', self.item)
-        .then(function (response) {
-          let res = response.data;
-          if (res.status === 200) {
-            modal.close('remove_modal');
-            notify.success(res.message)
-            self.getTagList();
-          }
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-      },
     }
 }
 </script>
-
 <style lang="scss">
+  canvas{
+    width: 100%;
+  }
 </style>

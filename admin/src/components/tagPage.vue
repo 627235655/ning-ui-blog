@@ -169,7 +169,10 @@ export default {
       },
       removeTag() {
         let self = this;
-        axios.post('/api/removeTag', self.item)
+        let data = {
+          _id: self.item._id,
+        }
+        axios.post('/api/removeTag', data)
         .then(function (response) {
           let res = response.data;
           if (res.status === 200) {
