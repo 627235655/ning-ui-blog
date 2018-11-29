@@ -2,20 +2,20 @@
     <div id="article_list">
         <h2 class="page-title">文章列表</h2>
         <divider></divider>
-        <div class="ning-row">
+        <div class="ning-row  border p-md">
             <div class="col-12 ning-from m-b-md">
                 <div class="ning-form-item">
-                  <label>文章标签</label>
+                    <label>文章标签</label>
                     <div class="checkbox-wrap">
                         <span v-for="item in tagList">
-                    <input type="checkbox" :value="item.tagName" v-model="filter.articleTags" :id="item._id" />
+                    <input type="checkbox" :value="item.tagName" v-model="filter.articleTags" :id="item._id" @change="getArticleList(currentPage)" />
                     <span class="virtual-checkbox"></span>
                         <label :for="item._id">{{ item.tagName }}</label>
                         </span>
                     </div>
                 </div>
             </div>
-            <div class=" col-12 border p-md">
+            <div class="col-12">
                 <table class="ning-border-table">
                     <thead>
                         <tr>
@@ -36,8 +36,8 @@
                             </td>
                             <td>{{item.articleContentLength}}</td>
                             <td><img class="table-thumbnail ning-thumbnail" :src="item.thumbnailUrl" alt=""></td>
-                            <td>{{new Date(item.createDate).Format()}}</td>
-                            <td>{{new Date(item.updateDate).Format()}}</td>
+                            <td class="_xs">{{new Date(item.createDate).Format()}}</td>
+                            <td class="_xs">{{new Date(item.updateDate).Format()}}</td>
                             <td>
                                 <router-link :to="{path: '/addArticle', query: {_id: item._id}}">
                                     <button class="ning-btn _xs" @click="setUpdate(item)">编辑</button>
@@ -93,7 +93,7 @@ export default {
             totalCount: 0,
             item: {},
             filter: {
-              articleTags: [],
+                articleTags: [],
             }
         }
     },
@@ -102,13 +102,16 @@ export default {
         this.getTagList();
     },
     methods: {
-        getArticleList(currentPage, filter) {
+        getArticleList(currentPage) {
             let self = this;
+            console.log(self.filter)
             self.currentPage = currentPage;
             let data = {
                 currentPage: self.currentPage,
                 pageSize: self.pageSize,
+                filter: self.filter,
             }
+            console.log(data)
             axios.get('/api/getArticleList', { params: data })
                 .then(function(response) {
                     let res = response.data;

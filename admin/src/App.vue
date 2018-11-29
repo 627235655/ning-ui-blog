@@ -1,9 +1,9 @@
 <template>
     <div id="app">
         <Header></Header>
-        <div class="flex-box flex-1">
+        <div class="container">
             <Aside></Aside>
-            <div class="flex-1 p-lg">
+            <div class="page-container">
                 <router-view class="fade-in"></router-view>
             </div>
         </div>
@@ -52,7 +52,6 @@ export default {
         };
         window.onscroll = function(e) {
             var doc = document.body.scrollTop ? document.body : document.documentElement;
-            console.log(doc.scrollTop - doc.clientHeight > 0)
             self.show_return_top = (doc.scrollTop - doc.clientHeight) > 0;
         }
 
@@ -80,6 +79,15 @@ export default {
 
 .fade-in {
     animation: 1s ease fadeIn;
+}
+.container{
+    display: flex;
+    min-height: calc(100vh - 140px);
+}
+
+.page-container{
+    flex: 1;
+    padding: $lg;
 }
 
 .return-top {

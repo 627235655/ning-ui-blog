@@ -37,6 +37,11 @@ export default {
             font-size: 12px;
             animation: fadeIn .5s;
         }
+        &+.page-container{
+            #home canvas{
+                height: 330px !important;
+            }
+        }
     }
     .aside-collapsed-btn{
         position: absolute;

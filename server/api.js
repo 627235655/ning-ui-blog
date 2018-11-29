@@ -44,7 +44,7 @@ api.get('/api/getTagList', function(req, res) {
         var sort = options.sort || { _id: -1 };
         var pageSize = Number(options.pageSize) || DB.defaultOptions.pageSize;
         var currentPage = Number(options.currentPage) || 1;
-        var condition = options.condition || {}
+        var filter = options.filter || {}
     }
     // 先查询总条数
     DB.find({}, function(err, docs) {
@@ -62,7 +62,7 @@ api.get('/api/getTagList', function(req, res) {
             return
         }
         // 此部分为条件查询/分页查询
-        DB.find(condition).sort(sort).skip((currentPage - 1) * pageSize).limit(pageSize).exec(function(err, docs) {
+        DB.find(filter).sort(sort).skip((currentPage - 1) * pageSize).limit(pageSize).exec(function(err, docs) {
             if (err) {
                 console.log('出错' + err);
                 return
@@ -136,14 +136,24 @@ api.get('/api/getArticleList', function(req, res) {
     var DB = db.ArticleList;
     var options = req.query;
     var is_search_all = JSON.stringify(options) == "{}";
+    var filter = {};
     if (!is_search_all) {
         var sort = options.sort || { _id: -1 };
         var pageSize = Number(options.pageSize) || DB.defaultOptions.pageSize;
         var currentPage = Number(options.currentPage) || 1;
-        var condition = options.condition || {}
+        filter = JSON.parse(options.filter);
+        if (filter.articleTags && filter.articleTags.length === 0) {
+            filter = {};
+        } else {
+            let arr = filter.articleTags;
+            filter.articleTags = {
+                $in: arr,
+            }
+        }
+        console.log(filter.articleTags)
     }
     // 先查询总条数
-    DB.find({}, function(err, docs) {
+    DB.find(filter, function(err, docs) {
         if (err) {
             console.log('出错' + err);
             return
@@ -158,7 +168,7 @@ api.get('/api/getArticleList', function(req, res) {
             return
         }
         // 此部分为条件查询/分页查询
-        DB.find(condition).sort(sort).skip((currentPage - 1) * pageSize).limit(pageSize).exec(function(err, docs) {
+        DB.find(filter).sort(sort).skip((currentPage - 1) * pageSize).limit(pageSize).exec(function(err, docs) {
             if (err) {
                 console.log('出错' + err);
                 return

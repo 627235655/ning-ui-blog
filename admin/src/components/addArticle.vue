@@ -22,14 +22,23 @@
                     <label for="article_name">封面图</label>
                     <label class="ning-btn file-upload" for="file_upload">选择文件</label>
                     <input type="file" name="file" id="file_upload" accept="image/*" @input="uploadFile($event)" />
-                    <img class="ning-form-file-upload-img ning-thumbnail" :src="data.thumbnailUrl">
+                    <span class="_tips m-l-md">【默认图片见右侧预览区】</span>
                 </div>
-                <div class="ning-form-item">
-                    <label for="article-content">文章内容</label>
-                    <div class="flex-1 ning-row">
-                        <textarea id="articleContent" @input="renderMarkDown" v-model="data.articleContent"></textarea>
+                <!-- <div class="ning-form-item">
+                    <label for="article_name">文章内容</label>
+                    <input class="flex-1" type="text" placeholder="请在下方 markdown 编辑器中输入" disabled>
+                </div> -->
+                <div class="flex-1 ning-row">
+                        <mavon-editor
+                            v-model="data.articleContent"
+                            @change="renderMarkDown"
+                            @imgAdd="$imgAdd"
+                            ref=md
+                            v-bind:subfield=false
+                            codeStyle="ocean"
+                            fontSize="12px"
+                        />
                     </div>
-                </div>
                 <div class="ning-form-item flex-allcenter-box">
                     <button class="ning-btn" @click="addArticle">保存</button>
                     <button class="ning-btn _green m-l-md" id="form_collapsed_btn" @click="collapsed = !collapsed">{{ collapsed ? '编辑' : '预览' }}</button>
@@ -54,7 +63,6 @@
 import axios from 'axios';
 import showdown from 'showdown';
 import notify from '../assets/ning-ui/js/notify'
-import autoTextarea from '../assets/ning-ui/js/autoTextarea'
 
 const ThumbnailUrl = 'https://zongyuan.oss-cn-shenzhen.aliyuncs.com/ning-ui-blog/1543218076685.png'
 
@@ -82,16 +90,15 @@ export default {
     mounted: function() {
         this.el_articleContent = document.getElementById("articleContent");
         this.el_articleContentResult = document.getElementById("articleContentResult");
-        autoTextarea(this.el_articleContent);
         this.getTagList();
         this.data._id = this.$route.query._id;
         // 有id 则为编辑
         this.data._id && this.getArticleDetail(this.data._id);
     },
     methods: {
-        renderMarkDown() {
+        renderMarkDown(value, render) {
             //获取要转换的文字
-            var text = this.el_articleContent.value;
+            var text = value;
             //创建实例
             var converter = new showdown.Converter();
             //进行转换
@@ -173,40 +180,59 @@ export default {
                     let res = response.data;
                     if (res.status === 200) {
                         self.data = res.data;
-                        self.el_articleContent.value = self.data.articleContent;
-                        self.el_articleContent.focus();
-                        self.renderMarkDown();
                     }
                 })
                 .catch(function(error) {
                     console.log(error);
                 });
         },
-        uploadFile($event){
+        // 绑定@imgAdd event
+        $imgAdd(pos, $file){
+            let self = this;
+            // 第一步.将图片上传到服务器.
+           var formdata = new FormData();
+           formdata.append('file', $file);
+           axios({
+               url: '/api/uploadFile',
+               method: 'post',
+               data: formdata,
+               headers: { 'Content-Type': 'multipart/form-data' },
+           }).then((res) => {
+            console.log(res)
+               // 第二步.将返回的url替换到文本原位置![...](0) -> ![...](url)
+               /**
+               * $vm 指为mavonEditor实例，可以通过如下两种方式获取
+               * 1. 通过引入对象获取: `import {mavonEditor} from ...` 等方式引入后，`$vm`为`mavonEditor`
+               * 2. 通过$refs获取: html声明ref : `<mavon-editor ref=md ></mavon-editor>，`$vm`为 `this.$refs.md`
+               */
+               self.$refs.md.$img2Url(pos, res.data.imageUrl);
+           })
+        },
+        uploadFile($event) {
             let self = this;
             var file = $event.target.files[0]; //获取文件流
-            var data =  new FormData();
+            var data = new FormData();
             data.append('file', file);
             axios({
-              method: 'post',
-              url: '/api/uploadFile',
-              anync: true,
-              contentType: false,
-              processData: false,
-              data: data
-            })
-            .then(function(response) {
-                let res = response.data;
-                if (res.status === 200) {
-                    notify.success(res.message);
-                    self.data.thumbnailUrl = res.imageUrl;
-                } else {
-                    notify.warning(res.message);
-                }
-            })
-            .catch(function(error) {
-                console.log(error);
-            });
+                    method: 'post',
+                    url: '/api/uploadFile',
+                    anync: true,
+                    contentType: false,
+                    processData: false,
+                    data: data
+                })
+                .then(function(response) {
+                    let res = response.data;
+                    if (res.status === 200) {
+                        notify.success(res.message);
+                        self.data.thumbnailUrl = res.imageUrl;
+                    } else {
+                        notify.warning(res.message);
+                    }
+                })
+                .catch(function(error) {
+                    console.log(error);
+                });
         },
     }
 }
@@ -227,8 +253,12 @@ export default {
                 max-width: 90px;
                 margin-left: 0;
             }
-            #form_collapsed_btn{
-              margin-left: 0;
+            #form_collapsed_btn {
+                margin-left: 0;
+            }
+            .markdown-body{
+                min-width: auto;
+                width: 113px;
             }
         }
     }
@@ -264,25 +294,27 @@ export default {
             h4 {
                 line-height: 28px;
             }
-            blockquote{
-              padding: 8px;
-              background: linear-gradient(to right, rgba(236, 242, 252, .5),rgba(236, 242, 252, 0.2));
-              margin: 8px 0;
-              border-left: 2px solid $blue_3;
-              border-radius: 2px;
-              code{
-                  background: $b_c;
-              }
+            blockquote {
+                padding: 8px;
+                background: linear-gradient(to right, rgba(236, 242, 252, .5), rgba(236, 242, 252, 0.2));
+                margin: 8px 0;
+                border-left: 2px solid $blue_3;
+                border-radius: 2px;
+                code {
+                    background: $b_c;
+                }
             }
             p {
                 line-height: 22px;
-                &+p {
-                    margin-top: 8px;
+                 margin-top: 8px;
+                img{
+                    max-width: 100%;
+                    max-height: 240px;
                 }
             }
-            ul{
-              list-style: inside;
-              text-indent: 2em;
+            ul {
+                list-style: inside;
+                text-indent: 2em;
             }
         }
         .count {
@@ -298,22 +330,37 @@ export default {
         overflow: hidden;
     }
     .collapsed-btn {
-        position: absolute;
-        z-index: 1;
-        left: -18px;
-        top: 50%;
-        width: 18px;
-        height: 80px;
-        padding: 0;
-        border: 1px dashed $b_c;
-        border-left: none;
-        border-right: none;
-        background-color: #fff;
+        position: fixed;
+        z-index: 999;
+        right: 16px;
+        bottom: 120px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        border: 1px solid $b_c;
+        background: #fff;
+        box-shadow: 0 4px 10px -2px $gray;
+        font-size: 12px;
         color: $gray;
-        transition: .25s;
+        transition: .5s;
         &:hover {
-            font-weight: bold;
             color: $blue-3;
+            font-weight: bold;
+            box-shadow: 0 4px 10px -2px $blue-3;
+        }
+    }
+    .markdown-body{
+        margin-top: 16px;
+        .shadow{
+            border: 1px dashed $b_c;
+            box-shadow: none;
+            &:nth-child(1){
+                border-bottom: none;
+                border-radius: 4px 4px 0 0;
+            }
+            &:nth-child(2){
+                 border-radius: 0 0 4px 4px;
+            }
         }
     }
 }
