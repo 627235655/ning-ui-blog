@@ -1,4 +1,6 @@
-import React, { Component } from 'react';
+import React, {
+    Component
+} from 'react';
 import ReactDOM from 'react-dom';
 import ConText from '../ConText/ConText';
 import ConButton from '../ConButton/ConButton';

@@ -1,7 +1,10 @@
 const webpack = require('webpack');
 const webpackMerge = require('webpack-merge');
 const common = require('./webpack.common');
-const { getIP, root } = require('./webpack.util');
+const {
+    getIP,
+    root
+} = require('./webpack.util');
 
 
 module.exports = webpackMerge(common, {
@@ -19,7 +22,7 @@ module.exports = webpackMerge(common, {
         historyApiFallback: true, //不跳转
         inline: true, //实时刷新
         open: true,
-        openPage: '#/home',
+        openPage: '#/index/home',
         proxy: {
             '/api/*': {
                 target: 'http://localhost:9999',

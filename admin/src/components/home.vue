@@ -4,17 +4,17 @@
         <divider></divider>
         <div class="ning-row border p-md">
             <div class="col-6 border p-sm m-b-md">
-                <h3 class="p-b-md">总数统计</h3>
+                <h3 class="p-b-md flex-center-box"><i class="ning-icon icon-count m-r-sm"></i>总数统计</h3>
                 <!-- 文章数, 标签数，总字数 -->
                 <div id="total_chart"></div>
             </div>
             <div class="flex-1 border p-sm m-b-md m-l-md">
-                <h3 class="p-b-md">标签占比</h3>
+                <h3 class="p-b-md flex-center-box"><i class="ning-icon icon-percentage m-r-sm"></i>标签占比</h3>
                 <!-- 文章数, 标签数，总字数 -->
                 <div id="tags_chart"></div>
             </div>
             <div class="col-6 border p-sm">
-                <h3 class="p-b-md">时间活跃度</h3>
+                <h3 class="p-b-md flex-center-box"><i class="ning-icon icon-date m-r-sm"></i>时间活跃度</h3>
                 <!-- 文章数, 标签数，总字数 -->
                 <div id="date_chart"></div>
             </div>
@@ -30,8 +30,9 @@ import G2 from '@antv/g2';
 
 let initDateChartData = function(length) {
     let today = new Date();
+    let start_day = new Date('2018-11-01');
     let timestamp = new Date().getTime();
-    let len = length || today.getDate();
+    let len = length || Math.ceil((timestamp - start_day.getTime())/ (3600 * 1000 * 24)); // 得出总天数
     let arr = [];
     for (let i = 0; i < len; i++) {
         let current_date = new Date(timestamp - 3600 * 1000 * 24 * i)
@@ -40,10 +41,9 @@ let initDateChartData = function(length) {
             "articles": 0,
             "month": current_date.getMonth(),
             "day": current_date.getDay(),
-            "week": Math.ceil((current_date.getDate() + 6 - current_date.getDay()) / 7 ).toString()
+            "week": Math.ceil((len + 4 - i) / 7 ).toString() // 因为 2018-11-01 是周四
         }
         arr.unshift(obj)
-        console.log(obj)
     }
     return arr
 }
@@ -141,7 +141,7 @@ export default {
             const data = [
                 { genre: '标签', sold: self.totalChartData.tag_total },
                 { genre: '文章', sold: self.totalChartData.article_total },
-                { genre: '总字数(k)', sold: self.totalChartData.count_total / 1000 },
+                { genre: '总字数(w)', sold: self.totalChartData.count_total / 10000 },
             ]; // G2 对数据源格式的要求，仅仅是 JSON 数组，数组的每个元素是一个标准 JSON 对象。
             // Step 1: 创建 Chart 对象
             const chart = new G2.Chart({
@@ -174,7 +174,7 @@ export default {
             chart.source(data, {
                 percent: {
                     formatter: function formatter(val) {
-                        val = val.toFixed(4) * 100 + '%';
+                        val = (val.toFixed(4) * 100 + '').substr(0, 5) + '%';
                         return val;
                     }
                 }
@@ -277,6 +277,7 @@ export default {
                     type: 'cat',
                 },
                 articles: {
+                    alias: '新增文章',
                     sync: true
                 }
             });
@@ -292,11 +293,10 @@ export default {
                         textBaseline: 'top'
                     },
                     formatter: function formatter(val) {
-                        console.log(val)
-                        if (val === '2') {
-                            return 'MAY';
-                        } else if (val === '6') {
-                            return 'JUN';
+                        if (val === '1') {
+                            return '十一月';
+                        } else if (val === '5') {
+                            return '十二月';
                         } else if (val === '10') {
                             return 'JUL';
                         } else if (val === '15') {

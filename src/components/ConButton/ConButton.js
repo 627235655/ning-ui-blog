@@ -1,11 +1,13 @@
-import React, { Component } from 'react';
+import React, {
+    Component
+} from 'react';
 import ReactDOM from 'react-dom';
 import CodeBox from '../CodeBox/CodeBox';
 
 class ConButton extends Component {
     render() {
-        return (
-            <div>
+            return (
+                    <div>
                 <h1>按钮<span className="_md">(代码参看源代码)</span></h1>
                 <hr/>
                 <p className="ning-summary">

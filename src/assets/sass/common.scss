@@ -1,0 +1,9 @@
+@import "../ning-ui/ning-ui.scss";
+
+#app{
+    min-height: 100vh;
+}
+.common-container{
+	min-height: calc(100vh - 140px);
+	animation: fadeIn 1s;
+}

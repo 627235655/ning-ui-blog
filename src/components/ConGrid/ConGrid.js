@@ -1,4 +1,6 @@
-import React, { Component } from 'react';
+import React, {
+    Component
+} from 'react';
 import ReactDOM from 'react-dom';
 import CodeBox from '../CodeBox/CodeBox';
 
@@ -71,8 +73,7 @@ class ConGrid extends Component {
             </div>
         )
     }
-    componentDidMount() {
-    }
+    componentDidMount() {}
 }
 
 export default ConGrid;

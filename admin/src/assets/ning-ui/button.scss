@@ -72,17 +72,6 @@ button,
             background: $gray;
         }
     }
-    .ning-icon{
-        display: inline-block;
-        width: 20px;
-        height: 20px;
-        background-size: cover;
-        opacity: .8;
-        transition: all .25s;
-    }
-    &:hover .ning-icon{
-        opacity: 1;
-    }
 }
 
 .ning-line-btn {

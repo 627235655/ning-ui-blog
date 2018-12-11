@@ -1,9 +1,11 @@
-import React, { Component } from 'react';
+import React, {
+	Component
+} from 'react';
 import ReactDOM from 'react-dom';
-import './sass/common.scss';
-import Router from './router/router';
+import Router from 'router/router';
 
 ReactDOM.render(
-    <Router/>,
-    document.getElementById('app')
+	<Router/>,
+	document.getElementById('app')
 )
+

@@ -1,4 +1,6 @@
-import React, { Component } from 'react';
+import React, {
+    Component
+} from 'react';
 import ReactDOM from 'react-dom';
 import CodeBox from '../CodeBox/CodeBox';
 
@@ -219,8 +221,7 @@ class ConForm extends Component {
             </div>
         )
     }
-    componentDidMount() {
-    }
+    componentDidMount() {}
 }
 
 export default ConForm;

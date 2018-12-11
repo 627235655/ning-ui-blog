@@ -1,4 +1,6 @@
-import React, { Component } from 'react';
+import React, {
+    Component
+} from 'react';
 import ReactDOM from 'react-dom';
 import CodeBox from '../CodeBox/CodeBox';
 
@@ -73,8 +75,7 @@ class ConTabs extends Component {
             </div>
         )
     }
-    componentDidMount() {
-    }
+    componentDidMount() {}
 }
 
 export default ConTabs;

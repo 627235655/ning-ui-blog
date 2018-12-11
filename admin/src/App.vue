@@ -87,6 +87,7 @@ export default {
 
 .page-container{
     flex: 1;
+    width: 0;
     padding: $lg;
 }
 

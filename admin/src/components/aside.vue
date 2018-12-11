@@ -1,11 +1,11 @@
 <template>
     <aside id="aside" :class="{active: collapsed}">
         <button class="aside-collapsed-btn" @click="collapsed = !collapsed">{{ collapsed ? '展开' : '收起' }}</button>
-        <router-link class="aside-nav-item" to="/home">主页</router-link>
-        <router-link class="aside-nav-item" to="/addArticle">新增文章</router-link>
-        <router-link class="aside-nav-item" to="/articleList">文章列表</router-link>
-        <router-link class="aside-nav-item" to="/tagPage">标签页</router-link>
-        <router-link class="aside-nav-item" to="/about">关于</router-link>
+        <router-link class="aside-nav-item" to="/home"><i class="ning-icon icon-home m-r-sm"></i>主页</router-link>
+        <router-link class="aside-nav-item" to="/addArticle"><i class="ning-icon icon-add m-r-sm"></i>新增文章</router-link>
+        <router-link class="aside-nav-item" to="/articleList"><i class="ning-icon icon-article m-r-sm"></i>文章列表</router-link>
+        <router-link class="aside-nav-item" to="/tagPage"><i class="ning-icon icon-tag m-r-sm"></i>标签页</router-link>
+        <router-link class="aside-nav-item" to="/about"><i class="ning-icon icon-about m-r-sm"></i>关于</router-link>
     </aside>
 </template>
 
@@ -30,12 +30,11 @@ export default {
     border-right: 1px solid $b_c;
     transition: ease-in .25s;
     &.active{
-        min-width: 100px;
-        width: 100px;
+        min-width: 80px;
+        width: 80px;
         .aside-nav-item{
             padding: 0 24px;
-            font-size: 12px;
-            animation: fadeIn .5s;
+            font-size: 0;
         }
         &+.page-container{
             #home canvas{
@@ -66,9 +65,10 @@ export default {
         align-items: center;
         position: relative;
         width: 100%;
-        padding: 0 40px;
+        padding: 0 32px;
         height: 60px;
         transition: background color .5s;
+        animation: fadeIn 1s;
         cursor: pointer;
         &::after {
             position: absolute;

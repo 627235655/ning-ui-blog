@@ -24,6 +24,10 @@
                     <input type="file" name="file" id="file_upload" accept="image/*" @input="uploadFile($event)" />
                     <span class="_tips m-l-md">【默认图片见右侧预览区】</span>
                 </div>
+                <div class="ning-form-item">
+                    <label for="article_summary">文章简介</label>
+                    <textarea class="flex-1" id="article_summary" v-model="data.articleSummary"></textarea>
+                </div>
                 <!-- <div class="ning-form-item">
                     <label for="article_name">文章内容</label>
                     <input class="flex-1" type="text" placeholder="请在下方 markdown 编辑器中输入" disabled>
@@ -45,7 +49,6 @@
                 </div>
             </div>
             <div class="border flex-1 m-l-md p-md pos-r" id="article_preview">
-                <button class="collapsed-btn" @click="collapsed = !collapsed">{{ collapsed ? '继续编辑' : '预览文章' }}</button>
                 <div class="article_preview-header" :style="{backgroundImage: 'url(' + (data.thumbnailUrl) + ')'}">
                     <h2 class="article_preview-title">{{ data.articleName }}</h2>
                     <p class="article_preview-tags" v-if="data.articleTags.length > 0">
@@ -53,9 +56,11 @@
                         <span v-for="item in data.articleTags">{{ `【${item}】` }}</span>
                     </p>
                 </div>
+                <p class="ning-summary" v-if="data.articleSummary">{{ data.articleSummary }}</p>
                 <div id="articleContentResult" v-highlight></div>
                 <p class="count">字数统计:<span> {{data.articleContentLength}} </span></p>
             </div>
+            <button class="collapsed-btn" @click="collapsed = !collapsed">{{ collapsed ? '继续编辑' : '预览文章' }}</button>
         </div>
     </div>
 </template>
@@ -76,6 +81,7 @@ export default {
                 _id: null,
                 articleName: '',
                 articleTags: [],
+                articleSummary: '',
                 articleContent: '',
                 articleContentResult: '',
                 articleContentLength: 0,
@@ -88,22 +94,23 @@ export default {
         }
     },
     mounted: function() {
-        this.el_articleContent = document.getElementById("articleContent");
-        this.el_articleContentResult = document.getElementById("articleContentResult");
         this.getTagList();
         this.data._id = this.$route.query._id;
+        this.collapsed = this.$route.query.view_type === 'detail';
         // 有id 则为编辑
         this.data._id && this.getArticleDetail(this.data._id);
     },
     methods: {
         renderMarkDown(value, render) {
+            this.el_articleContent = document.getElementById("articleContent");
+            this.el_articleContentResult = document.getElementById("articleContentResult");
             //获取要转换的文字
             var text = value;
             //创建实例
             var converter = new showdown.Converter();
             //进行转换
             var html = converter.makeHtml(text);
-            //展示到对应的地方  result便是id名称
+            //展示到对应的地方
             this.el_articleContentResult.innerHTML = html;
             this.data.articleContentResult = html;
             this.data.articleContentLength = this.data.articleContent.replace(/#/g, "").replace(/\s+/g, "").length;
@@ -306,11 +313,11 @@ export default {
             }
             p {
                 line-height: 22px;
-                 margin-top: 8px;
-                img{
-                    max-width: 100%;
-                    max-height: 240px;
-                }
+                word-break: break-word;
+            }
+            img{
+                width: 80%;
+                margin: 0 10%;
             }
             ul {
                 list-style: inside;

@@ -1,4 +1,6 @@
 var express = require('express');
+var session = require('express-session');
+var FileStore = require('session-file-store')(session);
 var api = express.Router();
 var fs = require('fs');
 var db = require('./db');
@@ -22,6 +24,68 @@ var { client, ali_oss } = require('./alioss') // 这里不方便暴露自己的�
 //     endPoint: 'oss-cn-shenzhen.aliyuncs.com',
 // }
 // module.exports = { client, ali_oss };
+
+
+var identityKey = 'skey';
+
+api.use(session({
+    name: identityKey,
+    secret: 'zongyuan.ning', // 用来对session id相关的cookie进行签名
+    store: new FileStore(), // 本地存储session（文本文件，也可以选择其他store，比如redis的）
+    saveUninitialized: false, // 是否自动保存未初始化的会话，建议false
+    resave: false, // 是否每次都重新保存会话，建议false
+    cookie: {
+        maxAge: 1000 * 3600 * 24 * 7 // 有效期，单位是毫秒
+    }
+}));
+
+
+// 登录接口
+api.post('/api/signIn', function(req, res) {
+    db.User.find({ username: req.body.username, password: req.body.password }, function(err, docs) {
+        if (err) {
+            console.log('出错' + err);
+            return
+        }
+        if (docs.length > 0) {
+            let user = docs[0];
+            req.session.regenerate(function(err) {
+                if (err) {
+                    return res.json({ status: 400, message: '登录失败' });
+                }
+                req.session.loginUser = user.username;
+                res.json({ status: 200, message: '登录成功' })
+                res.send()
+            });
+        } else {
+            res.json({ status: 404, message: '登录失败，账号不存在或用户名密码错误' })
+        }
+    })
+});
+
+// 登出接口
+api.post('/api/logOut', function(req, res) {
+    req.session.destroy(function(err) {
+        if (err) {
+            res.json({ status: 500, message: '登出失败' })
+            return;
+        }
+        req.session.loginUser = null;
+        res.json({ status: 200, message: '登出成功' })
+    })
+});
+
+// 检查是否登录
+api.get('/api/isSignIn', function(req, res) {
+    var sess = req.session;
+    var loginUser = sess.loginUser;
+    var isLogined = !!loginUser;
+    if (isLogined) {
+        res.json({ status: 200, message: '成功，用户已登录！', data: loginUser })
+    } else {
+        res.json({ status: 404, message: '失败，用户未登录！' })
+    }
+});
 
 
 // 获取navlist
@@ -141,16 +205,17 @@ api.get('/api/getArticleList', function(req, res) {
         var sort = options.sort || { _id: -1 };
         var pageSize = Number(options.pageSize) || DB.defaultOptions.pageSize;
         var currentPage = Number(options.currentPage) || 1;
-        filter = JSON.parse(options.filter);
-        if (filter.articleTags && filter.articleTags.length === 0) {
-            filter = {};
-        } else {
-            let arr = filter.articleTags;
-            filter.articleTags = {
-                $in: arr,
+        if (options.filter) {
+            filter = JSON.parse(options.filter);
+            if (filter.articleTags && filter.articleTags.length === 0) {
+                filter = {};
+            } else {
+                let arr = filter.articleTags;
+                filter.articleTags = {
+                    $in: arr,
+                }
             }
         }
-        console.log(filter.articleTags)
     }
     // 先查询总条数
     DB.find(filter, function(err, docs) {
@@ -254,40 +319,6 @@ api.post('/api/removeArticle', function(req, res) {
     })
 });
 
-// 登录接口
-api.post('/api/signIn', function(req, res) {
-    db.User.find({ username: req.body.username, password: req.body.password }, function(err, docs) {
-        if (err) {
-            console.log('出错' + err);
-            return
-        }
-        if (docs.length > 0) {
-            let user = docs[0];
-            req.session.regenerate(function(err) {
-                if (err) {
-                    return res.json({ status: 400, message: '登录失败' });
-                }
-                req.session.loginUser = user.username;
-                res.json({ status: 500, message: '登录成功' })
-            });
-        } else {
-            res.json({ status: 404, message: '登录失败，账号不存在或用户名密码错误' })
-        }
-    })
-});
-
-// 登录接口
-api.get('/api/isSignIn', function(req, res) {
-    var sess = req.session;
-    var sess = req.session;
-    var loginUser = sess.loginUser;
-    var isLogined = !!loginUser;
-    if (isLogined) {
-        res.json({ status: 500, message: '成功，用户已登录！', data: loginUser })
-    } else {
-        res.json({ status: 404, message: '失败，用户未登录！' })
-    }
-});
 
 // 图片上传
 var multer = require('multer')
@@ -323,7 +354,7 @@ api.all('/api/uploadFile', upload.single('file'), function(req, res, next) {
                 //   expires: 3600
                 // });
                 // console.log(url);
-                res.json({ status: 200, message: '上传成功', imageUrl: result.url});
+                res.json({ status: 200, message: '上传成功', imageUrl: result.url });
             }).catch(function(err) {
                 console.log(err)
                 // 上传之后删除本地文件

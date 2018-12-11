@@ -1,10 +1,12 @@
 var mongoose = require('mongoose')
 mongoose.Promise = require('bluebird')
 
-mongoose.connect('mongodb://localhost:27017/test', { useNewUrlParser: true },(err,res)=>{
-    if(err){
-        console.log(err)
-    }
+mongoose.connect('mongodb://localhost:27017/test', {
+	useNewUrlParser: true
+}, (err, res) => {
+	if (err) {
+		console.log(err)
+	}
 })
 
 
@@ -21,13 +23,14 @@ var tagListSchema = new mongoose.Schema({
 var ArticleListSchema = new mongoose.Schema({
 	id: String,
 	articleName: String,
-    articleTags: Array,
-    articleContent: String,
-    articleContentResult: String,
-    articleContentLength: Number,
-    thumbnailUrl: String,
-    createDate: Date,
-    updateDate: Date,
+	articleTags: Array,
+	articleSummary: String,
+	articleContent: String,
+	articleContentResult: String,
+	articleContentLength: Number,
+	thumbnailUrl: String,
+	createDate: Date,
+	updateDate: Date,
 })
 
 var UserSchema = new mongoose.Schema({

@@ -30,7 +30,11 @@
                     </thead>
                     <tbody>
                         <tr v-for="item in articleList">
-                            <td>《{{item.articleName}}》</td>
+                            <td>
+                                <router-link :to="{path: '/addArticle', query: {_id: item._id, view_type: 'detail'}}">
+                                    《{{item.articleName}}》
+                                </router-link>
+                            </td>
                             <td>
                                 <span class="ning-tag" v-for="tag in item.articleTags">{{ tag }}</span>
                             </td>
@@ -39,8 +43,8 @@
                             <td class="_xs">{{new Date(item.createDate).Format()}}</td>
                             <td class="_xs">{{new Date(item.updateDate).Format()}}</td>
                             <td>
-                                <router-link :to="{path: '/addArticle', query: {_id: item._id}}">
-                                    <button class="ning-btn _xs" @click="setUpdate(item)">编辑</button>
+                                <router-link :to="{path: '/addArticle', query: {_id: item._id, view_type: 'edit'}}">
+                                    <button class="ning-btn _xs">编辑</button>
                                 </router-link>
                                 <button class="ning-btn _xs _red m-l-md" @click="openRemoveModal(item)">删除</button>
                             </td>

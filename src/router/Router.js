@@ -1,23 +1,25 @@
-import React, { Component } from 'react';
+import React, {
+	Component
+} from 'react';
 import ReactDOM from 'react-dom';
-import {HashRouter, Route, Switch} from 'react-router-dom';
-import Home from '../views/home';
-import NingUI from '../views/ning-ui';
-import Login from '../views/login';
-import ArticleList from '../views/article-list'
+import {
+	HashRouter,
+	Route,
+	Switch
+} from 'react-router-dom';
+import indexHtml from 'pages/index';
+import Login from 'pages/login/login';
 
 class BasicRoute extends Component {
-	render (){
+	render() {
 		return (
-				    <HashRouter>
-				        <Switch>
-				            <Route exact path="/home" component={Home}/>
-				            <Route exact path="/ning-ui" component={NingUI}/>
-				            <Route exact path="/login" component={Login}/>
-				            <Route exact path="/article-list" component={ArticleList}/>
-				        </Switch>
-				    </HashRouter>
-				);
+			<HashRouter>
+		        <Switch>
+		            <Route path="/index" component={indexHtml}/>
+		            <Route path="/login" component={Login}/>
+		        </Switch>
+		    </HashRouter>
+		);
 	}
 }
 

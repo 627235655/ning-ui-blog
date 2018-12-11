@@ -1,4 +1,6 @@
-import React, { Component } from 'react';
+import React, {
+    Component
+} from 'react';
 import ReactDOM from 'react-dom';
 import CodeBox from '../CodeBox/CodeBox';
 
@@ -177,7 +179,8 @@ class ConTable extends Component {
                                                 <tbody>...</tbody>
                                             </table>
                                         </div>
-                                    </div>`,
+                                    </div>
+            `,
                         }
                     }
                 />
@@ -274,24 +277,28 @@ class ConTable extends Component {
                     params={
                         {
                             type: 'html',
-                            content: `<div className="ning-scroll-x-table" style={{height: 120}}>
-                                        <table className="ning-border-table">
+                            content: ` < div className = "ning-scroll-x-table"
+            style = {
+                {
+                    height: 120
+                }
+            } >
+            <table className="ning-border-table">
                                             <thead>...</thead>
                                             <tbody>...</tbody>
-                                        </table>
-                                    </div>`,
-                        }
-                    }
-                />
-                <p>优化：</p>
-                <ul className="style-ul">
-                    <li>移动上去滚动条出现，移出消失</li>
-                </ul>
-            </div>
-        )
+                                        </table> <
+            /div>`,
+        }
     }
-    componentDidMount() {
-    }
+    /> <
+    p > 优化： < /p> <
+    ul className = "style-ul" >
+        <li>移动上去滚动条出现，移出消失</li> <
+        /ul> < /
+    div >
+)
+}
+componentDidMount() {}
 }
 
 export default ConTable;

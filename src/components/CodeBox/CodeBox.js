@@ -1,9 +1,11 @@
-import React, { Component } from 'react';
+import React, {
+    Component
+} from 'react';
 import ReactDOM from 'react-dom';
 import './ConBox.scss'
 
 class CodeBox extends Component {
-    constructor () {
+    constructor() {
         super()
         this.state = {
             is_active: false,

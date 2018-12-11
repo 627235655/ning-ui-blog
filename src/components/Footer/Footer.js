@@ -1,12 +1,13 @@
-import React, { Component } from 'react';
+import React, {
+    Component
+} from 'react';
 import ReactDOM from 'react-dom';
 import './Footer.scss';
 
 class Footer extends Component {
-    constructor () {
+    constructor() {
         super()
-        this.state = {
-        }
+        this.state = {}
     }
 
     render() {
