@@ -31,13 +31,13 @@ class ConTabs extends Component {
                         {
                             type: 'html',
                             content: `<div className="ning-tabs">
-                                            <ul className="ning-tabs_nav">
-                                                <li className="ning-tabs_nav-item {active || disabled}">标签页一</li> * n
-                                            </ul>
-                                            <ul className="ning-tabs_body">
-                                                <li>标签页内容一</li> * n
-                                            </ul>
-                                        </div>`,
+    <ul className="ning-tabs_nav">
+        <li className="ning-tabs_nav-item {active || disabled}">标签页一</li> * n
+    </ul>
+    <ul className="ning-tabs_body">
+        <li>标签页内容一</li> * n
+    </ul>
+</div>`,
                         }
                     }
                 />
@@ -61,14 +61,14 @@ class ConTabs extends Component {
                     params={
                         {
                             type: 'html',
-                            content: `<div className="ning-tabs">
-                                            <ul className="ning-tabs_nav text">
-                                                <li className="ning-tabs_nav-item {active || disabled}">标签页一</li> * n
-                                            </ul>
-                                            <ul className="ning-tabs_body">
-                                                <li>标签页内容一</li> * n
-                                            </ul>
-                                        </div>`,
+                            content: `<div className="ning-tabs text">
+    <ul className="ning-tabs_nav text">
+        <li className="ning-tabs_nav-item {active || disabled}">标签页一</li> * n
+    </ul>
+    <ul className="ning-tabs_body">
+        <li>标签页内容一</li> * n
+    </ul>
+</div>`,
                         }
                     }
                 />

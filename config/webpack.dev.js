@@ -22,7 +22,7 @@ module.exports = webpackMerge(common, {
         historyApiFallback: true, //不跳转
         inline: true, //实时刷新
         open: true,
-        openPage: '#/index/home',
+        openPage: 'blog/index/home',
         proxy: {
             '/api/*': {
                 target: 'http://localhost:9999',

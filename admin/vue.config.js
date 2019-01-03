@@ -49,9 +49,7 @@ module.exports = {
   css: {
     loaderOptions: {
       sass: {
-        data: `
-          @import "@/assets/ning-ui/ning-ui.scss";
-        `
+        data: `@import "@/assets/ning-ui/sass/ning-ui.scss";`
       }
     }
   },

@@ -11,7 +11,7 @@
         width: 100%;
         padding: 0 40px;
         line-height: 40px;
-        transition: background color .5s;
+        transition: all .25s;
         cursor: pointer;
         &::after {
             position: absolute;
@@ -24,18 +24,20 @@
             border-bottom-right-radius: 4px;
             background: #4284ed;
             box-shadow: 1px 0 12px 0 #4284ed;
-            opacity: 0;
-            transition: opacity.5s;
+            transform: scaleY(0);
         }
         &:hover {
             background: rgba(236, 242, 252, 0.2);
             color: #4284ed;
+            font-weight: bold;
         }
         &.active {
             background: linear-gradient(to right, rgba(236, 242, 252, .8),rgba(236, 242, 252, 0.2));
             color: #4284ed;
+            font-weight: bold;
             &::after {
-                opacity: 1;
+                transition: all .25s;
+                transform: scaleY(1);
             }
         }
     }

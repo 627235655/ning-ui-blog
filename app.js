@@ -50,39 +50,39 @@ app.use(api)
 //     })
 // });
 
-// 后台管理页
-app.get('/admin.html', function(req, res) {
-    var sess = req.session;
-    var loginUser = sess.loginUser;
-    var isLogined = !!loginUser;
-    // if (isLogined){
-    //     console.log('已登录')
-    //     var html = fs.readFileSync(resolve('./' + 'admin.html'), 'utf-8');
-    // }else{
-    //     console.log('未登录')
-    //     var html = fs.readFileSync(resolve('./' + 'login.html'), 'utf-8');
-    // }
-    var html = fs.readFileSync(resolve('./dist/' + 'admin.html'), 'utf-8');
-	res.send(html)
-});
+// // 后台管理页
+// app.get('/admin', function(req, res) {
+//     var sess = req.session;
+//     var loginUser = sess.loginUser;
+//     var isLogined = !!loginUser;
+//     // if (isLogined){
+//     //     console.log('已登录')
+//     //     var html = fs.readFileSync(resolve('./' + 'admin.html'), 'utf-8');
+//     // }else{
+//     //     console.log('未登录')
+//     //     var html = fs.readFileSync(resolve('./' + 'login.html'), 'utf-8');
+//     // }
+//     var html = fs.readFileSync(resolve('./dist/' + 'admin.html'), 'utf-8');
+// 	res.send(html)
+// });
 
-// 博客首页
-app.get('/index.html', function(req, res) {
-    var html = fs.readFileSync(resolve('./dist/' + 'index.html'), 'utf-8');
-    res.send(html)
-    // fs.readFile(__dirname + '/dist/index.html', function(err, data){
-    //     if(err){
-    //         console.log(err);
-    //         res.send('后台错误');
-    //     } else {
-    //         res.writeHead(200, {
-    //             'Content-type': 'text/html',
-    //             'Connection':'keep-alive'
-    //         });
-    //         res.end(data);
-    //     }
-    // })
-});
+// // 博客首页
+// app.get('/index', function(req, res) {
+//     var html = fs.readFileSync(resolve('./dist/' + 'index.html'), 'utf-8');
+//     res.send(html)
+//     // fs.readFile(__dirname + '/dist/index.html', function(err, data){
+//     //     if(err){
+//     //         console.log(err);
+//     //         res.send('后台错误');
+//     //     } else {
+//     //         res.writeHead(200, {
+//     //             'Content-type': 'text/html',
+//     //             'Connection':'keep-alive'
+//     //         });
+//     //         res.end(data);
+//     //     }
+//     // })
+// });
 
 app.listen(process.env.PORT || 9999, function() {
     console.log("应用实例，访问地址为 localhost:9999")

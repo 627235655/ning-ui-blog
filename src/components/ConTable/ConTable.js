@@ -41,7 +41,7 @@ class ConTable extends Component {
                     params={
                         {
                             type: 'html',
-                            content: `<table className="ning-border-table"></table>`,
+                            content: `<table class="ning-border-table"></table>`,
                         }
                     }
                 />
@@ -76,7 +76,7 @@ class ConTable extends Component {
                     params={
                         {
                             type: 'html',
-                            content: `<table className="ning-border-table _row"></table>`,
+                            content: `<table class="ning-border-table _row"></table>`,
                         }
                     }
                 />
@@ -100,12 +100,12 @@ class ConTable extends Component {
                     params={
                         {
                             type: 'html',
-                            content: `<table className="ning-border-table w-100">
-                                            <thead></thead>
-                                            <tbody>
-                                                <tr><td className="no-data" colSpan="99"></td></tr>
-                                            </tbody>
-                                        </table>`,
+                            content: `<table class="ning-border-table w-100">
+    <thead></thead>
+    <tbody>
+        <tr><td class="no-data" colSpan="99"></td></tr>
+    </tbody>
+</table>`,
                         }
                     }
                 />
@@ -170,17 +170,16 @@ class ConTable extends Component {
                     params={
                         {
                             type: 'html',
-                            content: `<div className="ning-fixed-header-table" style={{height: 120}}>
-                                        <table className="ning-border-table">
-                                            <thead>...</thead>
-                                        </table>
-                                        <div className="scroll-y">
-                                            <table className="ning-border-table">
-                                                <tbody>...</tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-            `,
+                            content: `<div class="ning-fixed-header-table" style={{height: 120}}>
+    <table class="ning-border-table">
+        <thead>...</thead>
+    </table>
+    <div class="scroll-y">
+        <table class="ning-border-table">
+            <tbody>...</tbody>
+        </table>
+    </div>
+</div>`,
                         }
                     }
                 />
@@ -277,28 +276,22 @@ class ConTable extends Component {
                     params={
                         {
                             type: 'html',
-                            content: ` < div className = "ning-scroll-x-table"
-            style = {
-                {
-                    height: 120
-                }
-            } >
-            <table className="ning-border-table">
-                                            <thead>...</thead>
-                                            <tbody>...</tbody>
-                                        </table> <
-            /div>`,
+                            content: `<div class = "ning-scroll-x-table" style = {{height: 120}}>
+    <table class="ning-border-table">
+        <thead>...</thead>
+        <tbody>...</tbody>
+    </table>
+</div>`,
+                        }
+                    }
+                />
+                <p> 优化： </p>
+                <ul className = "style-ul" >
+                    <li>移动上去滚动条出现，移出消失</li>
+                </ul>
+            </div>
+            )
         }
-    }
-    /> <
-    p > 优化： < /p> <
-    ul className = "style-ul" >
-        <li>移动上去滚动条出现，移出消失</li> <
-        /ul> < /
-    div >
-)
-}
-componentDidMount() {}
 }
 
 export default ConTable;

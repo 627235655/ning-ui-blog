@@ -2,7 +2,7 @@ import React, {
     Component
 } from 'react';
 import ReactDOM from 'react-dom';
-import { a } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './Header.scss';
 
 const LOGO_URL = 'https://zongyuan.oss-cn-shenzhen.aliyuncs.com/ning-ui-blog/1543199721357.png'
@@ -10,25 +10,24 @@ const LOGO_URL = 'https://zongyuan.oss-cn-shenzhen.aliyuncs.com/ning-ui-blog/154
 class Header extends Component {
     constructor(props) {
         super(props)
-        console.log(this.props)
     }
 
     render() {
         return (
             <header>
                 <nav className="flex-center-box">
-                    <a href="#/index/home">
+                    <Link to="/index/home" replace>
                         <img className="logo" src={LOGO_URL} alt="logo"/>
-                    </a>
+                    </Link>
                     <ul className="flex-box flex-1">
-                        <li className={this.props.nav_active_item === '/index/home' ? 'active' : ''}>
-                            <a href="#/index/home"><i className="ning-icon icon-home"></i>Home</a>
+                        <li className={this.props.nav_active_item.indexOf('home') > -1 ? 'active' : ''}>
+                            <Link to="/index/home" replace><i className="ning-icon icon-home"></i>Home</Link>
                         </li>
-                        <li className={this.props.nav_active_item === '/index/ning-ui' ? 'active' : ''}>
-                            <a href="#/index/ning-ui"><i className="ning-icon icon-ning"></i>ning-ui</a>
+                        <li className={this.props.nav_active_item.indexOf('ning-ui') > -1 ? 'active' : ''}>
+                            <Link to='/index/ning-ui/icon' replace><i className="ning-icon icon-ning"></i>ning-ui</Link>
                         </li>
-                        <li className={this.props.nav_active_item === '/index/article-list' ? 'active' : ''}>
-                            <a href="#/index/article-list"><i className="ning-icon icon-article"></i>ArticleList</a>
+                        <li className={this.props.nav_active_item.indexOf('article-list') > -1 ? 'active' : ''}>
+                            <Link to="/index/article-list" replace><i className="ning-icon icon-article"></i>ArticleList</Link>
                         </li>
                         { this.props.user_name &&
                             <li>
@@ -46,8 +45,7 @@ class Header extends Component {
                                 ) :
                                 (
                                     <span>
-                                        <a href="#/login"><i className="ning-icon icon-sign-in"></i>Sign-in</a>
-                                        <a href="#/login?signup=1"><i className="ning-icon icon-sign-up"></i>Sign-up</a>
+                                        <Link to="/login"><i className="ning-icon icon-sign-in"></i>Sign-in</Link>
                                     </span>
                                 )
                             }
@@ -58,5 +56,8 @@ class Header extends Component {
         )
     }
 }
+
+{/*<a href="#/login?signup=1"><i className="ning-icon icon-sign-up"></i>Sign-up</a>*/}
+
 
 export default Header;

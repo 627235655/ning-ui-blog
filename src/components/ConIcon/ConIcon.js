@@ -3,6 +3,7 @@ import React, {
 } from 'react';
 import ReactDOM from 'react-dom';
 import CodeBox from '../CodeBox/CodeBox';
+import './ConIcon.scss'
 
 class ConUtils extends Component {
     render() {
@@ -12,6 +13,22 @@ class ConUtils extends Component {
                 <hr/>
                 <p>单元素</p>
                 <div className="example-box flex-box" id="test">
+                    <div className="icon-box">
+                        <i className="triangle-border"></i>
+                        <span>透明边框法</span>
+                    </div>
+                    <div className="icon-box">
+                        <i className="triangle-background"></i>
+                        <span>背景渐变法</span>
+                    </div>
+                    <div className="icon-box">
+                        <i className="circle"></i>
+                        <span>点、圆</span>
+                    </div>
+                    <div className="icon-box">
+                        <i className="ellipse"></i>
+                        <span>椭圆</span>
+                    </div>
                 	<div className="icon-box">
                     	<i className="ning-icon icon-plus"></i>
                     	<span>icon-plus</span>
@@ -135,6 +152,38 @@ class ConUtils extends Component {
                     <div className="icon-box">
                         <i className="ning-icon icon-log-out"></i>
                         <span>icon-log-out</span>
+                    </div>
+                    <div className="icon-box">
+                        <i className="ning-icon icon-more"></i>
+                        <span>icon-more</span>
+                    </div>
+                    <div className="icon-box">
+                        <i className="ning-icon icon-info"></i>
+                        <span>icon-info</span>
+                    </div>
+                    <div className="icon-box">
+                        <i className="ning-icon icon-error"></i>
+                        <span>icon-error</span>
+                    </div>
+                    <div className="icon-box">
+                        <i className="ning-icon icon-success"></i>
+                        <span>icon-success</span>
+                    </div>
+                    <div className="icon-box">
+                        <i className="ning-icon icon-warning"></i>
+                        <span>icon-warning</span>
+                    </div>
+                    <div className="icon-box">
+                        <i className="ning-icon icon-summary"></i>
+                        <span>icon-summary</span>
+                    </div>
+                    <div className="icon-box">
+                        <i className="ning-icon icon-reading"></i>
+                        <span>icon-reading</span>
+                    </div>
+                    <div className="icon-box">
+                        <i className="ning-icon icon-comment"></i>
+                        <span>icon-comment</span>
                     </div>
                 </div>
                 <CodeBox

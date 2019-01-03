@@ -34,4 +34,7 @@ export default {
 </script>
 
 <style lang="scss">
+p+p{
+  margin-top: 16px;
+}
 </style>

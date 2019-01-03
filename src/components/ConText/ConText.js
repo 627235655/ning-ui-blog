@@ -4,6 +4,36 @@ import React, {
 import ReactDOM from 'react-dom';
 import CodeBox from '../CodeBox/CodeBox';
 
+class HoverSpan extends Component {
+    constructor() {
+        super()
+        this.state = {
+            is_hover: false,
+        }
+    }
+
+    onMouseOver = () => {
+        this.setState({
+            is_hover: !this.state.is_hover,
+        });
+    }
+
+    onMouseOut = () => {
+        this.setState({
+            is_hover: !this.state.is_hover,
+        });
+    }
+
+    render() {
+        return (
+                <span className="p-sm" onMouseOver={() => this.onMouseOver()} onMouseOut={() => this.onMouseOut()}>
+                    <span className={this.state.is_hover ? "m-r-sm" : ''}>{this.props.str}</span>
+                    <span className='_xs'>{this.state.is_hover ? this.props.hover_str : ''}</span>
+                </span>
+                )
+    }
+}
+
 class ConText extends Component {
     render() {
         return (
@@ -13,52 +43,65 @@ class ConText extends Component {
                 <p>颜色</p>
                 <div className="example-box">
                     <div className="flex-row-box">
-                        <span className="_white b-drak">白色</span>
-                        <span className="_gray">灰色</span>
-                        <span className="_dark">黑色</span>
-                        <span className="_blue">蓝色</span>
-                        <span className="_green">绿色</span>
-                        <span className="_orange">橙色</span>
-                        <span className="_red">红色</span>
+                        <span className="_white b-dark"><HoverSpan str="白色" hover_str="#fff" /></span>
+                        <span className="_gray"><HoverSpan str="灰色" hover_str="#9FA9B7" /></span>
+                        <span className="_dark"><HoverSpan str="黑色" hover_str="#394C66" /></span>
+                        <span className="_blue"><HoverSpan str="蓝色" hover_str="#4284ED" /></span>
+                        <span className="_green"><HoverSpan str="绿色" hover_str="#27ae60" /></span>
+                        <span className="_orange"><HoverSpan str="橙色" hover_str="#ffb216" /></span>
+                        <span className="_red"><HoverSpan str="红色" hover_str="#f5222d" /></span>
                     </div>
                 </div>
+                <CodeBox
+                    params={
+                        {
+                            type: 'html',
+                            content: `<span class="_white">白色</span>
+<span class="_gray">灰色</span>
+<span class="_dark">黑色</span>
+<span class="_blue">蓝色</span>
+<span class="_green">绿色</span>
+<span class="_orange">橙色</span>
+<span class="_red">红色</span>`
+                        }
+                    }
+                />
                 <p>颜色(5阶划分)，主要使用以下颜色和其扩展，分别代表【蓝色-主题】【绿色-成功】【橙色-警告】【红色-失败】【黑灰色-文字】</p>
                 <p>参考链接  <a className="_blue" href="https://material.io/guidelines/style/color.html#color-color-palette">Material Design Color Palette</a></p>
                 <div className="example-box ning-row flex-row-box">
                     <div className="col-2 flex-col-box">
-                        <p className="b-blue-1 p-sm _white tc">blue-1</p>
-                        <p className="b-blue-2 p-sm _white tc">blue-2</p>
-                        <p className="b-blue-3 p-sm _white tc">blue-3</p>
-                        <p className="b-blue-4 p-sm _white tc">blue-4</p>
-                        <p className="b-blue-5 p-sm _white tc">blue-5</p>
+                        <p className="b-blue-1 p-sm _white tc"><HoverSpan str="blue-1" hover_str="#C6DAFA" /></p>
+                        <p className="b-blue-2 p-sm _white tc"><HoverSpan str="blue-2" hover_str="#A1C2F6" /></p>
+                        <p className="b-blue-3 p-sm _white tc"><HoverSpan str="blue-3" hover_str="#7BA9F2" /></p>
+                        <p className="b-blue-4 p-sm _white tc"><HoverSpan str="blue-4" hover_str="#5E96F0" /></p>
+                        <p className="b-blue-5 p-sm _white tc"><HoverSpan str="blue-5" hover_str="#4284ED" /></p>
                     </div>
                     <div className="col-2 flex-col-box">
-                        <p className="b-green-1 p-sm _white tc">green-1</p>
-                        <p className="b-green-2 p-sm _white tc">green-2</p>
-                        <p className="b-green-3 p-sm _white tc">green-3</p>
-                        <p className="b-green-4 p-sm _white tc">green-4</p>
-                        <p className="b-green-5 p-sm _white tc">green-5</p>
+                        <p className="b-green-1 p-sm _white tc"><HoverSpan str="green-1" hover_str="#BEE7CF" /></p>
+                        <p className="b-green-2 p-sm _white tc"><HoverSpan str="green-2" hover_str="#93D7B0" /></p>
+                        <p className="b-green-3 p-sm _white tc"><HoverSpan str="green-3" hover_str="#68C690" /></p>
+                        <p className="b-green-4 p-sm _white tc"><HoverSpan str="green-4" hover_str="#47BA78" /></p>
+                        <p className="b-green-5 p-sm _white tc"><HoverSpan str="green-5" hover_str="#27ae60" /></p>
                     </div>
                     <div className="col-2 flex-col-box">
-                        <p className="b-orange-1 p-sm _white tc">orange-1</p>
-                        <p className="b-orange-2 p-sm _white tc">orange-2</p>
-                        <p className="b-orange-3 p-sm _white tc">orange-3</p>
-                        <p className="b-orange-4 p-sm _white tc">orange-4</p>
-                        <p className="b-orange-5 p-sm _white tc">orange-5</p>
+                        <p className="b-orange-1 p-sm _white tc"><HoverSpan str="orange-1" hover_str="#FFE8B9" /></p>
+                        <p className="b-orange-2 p-sm _white tc"><HoverSpan str="orange-2" hover_str="#FFD98B" /></p>
+                        <p className="b-orange-3 p-sm _white tc"><HoverSpan str="orange-3" hover_str="#FFC95C" /></p>
+                        <p className="b-orange-4 p-sm _white tc"><HoverSpan str="orange-4" hover_str="#FFBE39" /></p>
+                        <p className="b-orange-5 p-sm _white tc"><HoverSpan str="orange-5" hover_str="#FFB216" /></p>
                     </div>
                     <div className="col-2 flex-col-box">
-                        <p className="b-red-1 p-sm _white tc">red-1</p>
-                        <p className="b-red-2 p-sm _white tc">red-2</p>
-                        <p className="b-red-3 p-sm _white tc">red-3</p>
-                        <p className="b-red-4 p-sm _white tc">red-4</p>
-                        <p className="b-red-5 p-sm _white tc">red-5</p>
+                        <p className="b-red-1 p-sm _white tc"><HoverSpan str="red-1" hover_str="#FCBDC0" /></p>
+                        <p className="b-red-2 p-sm _white tc"><HoverSpan str="red-2" hover_str="#FA9196" /></p>
+                        <p className="b-red-3 p-sm _white tc"><HoverSpan str="red-3" hover_str="#F8646C" /></p>
+                        <p className="b-red-4 p-sm _white tc"><HoverSpan str="red-4" hover_str="#F7434D" /></p>
+                        <p className="b-red-5 p-sm _white tc"><HoverSpan str="red-5" hover_str="#F5222D" /></p>
                     </div>
                     <div className="col-2 flex-col-box">
-                        <p className="b-gray-3 p-sm _white tc">提示文字色</p>
-                        <p className="b-gray p-sm _white tc">禁用灰色</p>
-                        <p className="b-gray-2 p-sm _white tc">副文字色</p>
-                        <p className="b-gray-1 p-sm _white tc">主文字色</p>
-                        <p className="b-dark p-sm _white tc">背景黑色</p>
+                        <p className="b-border p-sm _white tc"><HoverSpan str="border" hover_str="#e2ecf4" /></p>
+                        <p className="b-light p-sm _white tc"><HoverSpan str="light" hover_str="#f5f5f5" /></p>
+                        <p className="b-gray p-sm _white tc"><HoverSpan str="gray" hover_str="#9FA9B7" /></p>
+                        <p className="b-dark p-sm _white tc"><HoverSpan str="dark" hover_str="#394C66" /></p>
                     </div>
                 </div>
                 <p>尺寸</p>
@@ -77,35 +120,35 @@ class ConText extends Component {
                     params={
                         {
                             type: 'html',
-                            content: `<span className="_xs">超小字体</span>
-                            <span className="_sm">小字体</span>
-                            <span className="_md">正常字体</span>
-                            <span className="_lg">大字体</span>
-                            <span className="_xl">超大字体</span>
-                            <span className="_normal">正常字体</span>
-                            <span className="_bold">加粗字体</span>`,
+                            content: `<span class="_xs">超小字体</span>
+<span class="_sm">小字体</span>
+<span class="_md">正常字体</span>
+<span class="_lg">大字体</span>
+<span class="_xl">超大字体</span>
+<span class="_normal">正常字体</span>
+<span class="_bold">加粗字体</span>`,
                         }
                     }
                 />
                 <p>文字对齐</p>
                 <div className="example-box">
-                    <p className="tl b_light">文字左对齐</p>
-                    <p className="tr b_light m-t-sm">文字右对齐</p>
-                    <p className="tc b_light m-t-sm">文字居中对齐</p>
-                    <p className="tlr b_light m-t-sm">文字左右对齐</p>
+                    <p className="tl p-sm _white b-blue-3">文字左对齐</p>
+                    <p className="tr p-sm _white b-blue-3 m-t-sm">文字右对齐</p>
+                    <p className="tc p-sm _white b-blue-3 m-t-sm">文字居中对齐</p>
+                    <p className="tlr p-sm _white b-blue-3 m-t-sm">文字左右对齐</p>
                 </div>
                 <CodeBox
                     params={
                         {
                             type: 'html',
-                            content: `<p className="tl">文字左对齐</p>
-                            <p className="tr">文字右对齐</p>
-                            <p className="tc">文字居中对齐</p>
-                            <p className="tlr">文字左右对齐</p>`,
+                            content: `<p class="tl">文字左对齐</p>
+<p class="tr">文字右对齐</p>
+<p class="tc">文字居中对齐</p>
+<p class="tlr">文字左右对齐</p>`,
                         }
                     }
                 />
-                <p>其他相关</p>
+                <p>文字省略</p>
                 <div className="example-box">
                     <p className="elis" style={{width: '500px'}}>单行省略单行省略单行省略单行省略单行省略单行省略单行省略单行省略单行省略单行省略
                     单行省略单行省略单行省略单行省略单行省略</p>
@@ -116,8 +159,8 @@ class ConText extends Component {
                     params={
                         {
                             type: 'html',
-                            content: `<p className="elis">...</p>
-                            <p className="elis-n">...</p>`,
+                            content: `<p class="elis">...</p>
+<p class="elis-2">...</p>`,
                         }
                     }
                 />

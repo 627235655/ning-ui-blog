@@ -3,7 +3,6 @@ class Tabs {
         // 初始化
         let ning_tabs = document.querySelectorAll('.ning-tabs');
         for (let obj of ning_tabs) {
-            console.log(obj)
             let navs = obj.firstChild.children,
                 body = obj.lastChild,
                 body_style = {

@@ -42,11 +42,11 @@ class ConLayout extends Component {
                 </div>
                 <p><code>className="con-box"</code> 用于section的样式</p>
                 <div className="example-box">
-                    <div className="con-box b-border">con-box</div>
+                    <div className="con-box b-blue-1">con-box</div>
                 </div>
                 <p><code>className="ning-container"</code> 页面主题的样式，一般一个页面只应用一次</p>
                 <div className="example-box">
-                    <div className="ning-container b-border">ning-container</div>
+                    <div className="ning-container b-blue-1">ning-container</div>
                 </div>
             </div>
         )

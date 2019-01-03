@@ -3,7 +3,7 @@ import React, {
 } from 'react';
 import ReactDOM from 'react-dom';
 import {
-	HashRouter,
+	BrowserRouter as Router,
 	Route,
 	Switch
 } from 'react-router-dom';
@@ -13,12 +13,12 @@ import Login from 'pages/login/login';
 class BasicRoute extends Component {
 	render() {
 		return (
-			<HashRouter>
+			<Router basename="/blog">
 		        <Switch>
 		            <Route path="/index" component={indexHtml}/>
 		            <Route path="/login" component={Login}/>
 		        </Switch>
-		    </HashRouter>
+		    </Router>
 		);
 	}
 }

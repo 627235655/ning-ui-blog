@@ -2,20 +2,10 @@ import React, {
     Component
 } from 'react';
 import ReactDOM from 'react-dom';
+import {
+    Link
+} from 'react-router-dom';
 import './Aside.scss';
-
-class NavItem extends Component {
-    render() {
-        let props = this.props;
-        return (
-            <p
-                className={"nav-item" + (props.which_active == props.item.id ? ' active' : '')}
-                href={'#' + props.item.id}
-                onClick={() => {props.checkActive(props.item.id)}}
-            >{props.item.text}</p>
-        )
-    }
-}
 
 class Aside extends Component {
     render() {
@@ -24,12 +14,16 @@ class Aside extends Component {
             <nav className="aside">
                 {
                     props.nav_list.map((v, i, a) => {
-                        return <NavItem
-                                key={i}
-                                item={v}
-                                which_active={props.which_active}
-                                checkActive={props.checkActive}
-                                />
+                        return (
+                                    <Link
+                                        className={"nav-item" + (props.pathname.indexOf(v.id) > -1 ? ' active' : '')}
+                                        to={v.id}
+                                        key={v.id}
+                                        replace
+                                    >
+                                        {v.text}
+                                    </Link>
+                                )
                     })
                 }
             </nav>

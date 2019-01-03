@@ -104,15 +104,15 @@ export default {
         renderMarkDown(value, render) {
             this.el_articleContent = document.getElementById("articleContent");
             this.el_articleContentResult = document.getElementById("articleContentResult");
-            //获取要转换的文字
-            var text = value;
-            //创建实例
-            var converter = new showdown.Converter();
-            //进行转换
-            var html = converter.makeHtml(text);
+            // //获取要转换的文字
+            // var text = value;
+            // //创建实例
+            // var converter = new showdown.Converter();
+            // //进行转换
+            // var html = converter.makeHtml(text);
             //展示到对应的地方
-            this.el_articleContentResult.innerHTML = html;
-            this.data.articleContentResult = html;
+            this.el_articleContentResult.innerHTML = render;
+            this.data.articleContentResult = render;
             this.data.articleContentLength = this.data.articleContent.replace(/#/g, "").replace(/\s+/g, "").length;
         },
         addArticle() {
@@ -130,7 +130,6 @@ export default {
                 notify.warning('请输入文章内容!');
                 return;
             }
-            console.log(data)
             if (data._id) {
                 data.updateDate = new Date();
                 axios.post('/api/updateArticle', data)
@@ -205,7 +204,6 @@ export default {
                data: formdata,
                headers: { 'Content-Type': 'multipart/form-data' },
            }).then((res) => {
-            console.log(res)
                // 第二步.将返回的url替换到文本原位置![...](0) -> ![...](url)
                /**
                * $vm 指为mavonEditor实例，可以通过如下两种方式获取
@@ -316,7 +314,8 @@ export default {
                 word-break: break-word;
             }
             img{
-                width: 80%;
+                max-height: 200px;
+                max-width: 80%;
                 margin: 0 10%;
             }
             ul {

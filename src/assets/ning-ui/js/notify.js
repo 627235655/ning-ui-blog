@@ -14,7 +14,9 @@ class Notify {
             themeStyles = {},
             notify = document.getElementById('notify'),
             fakeDiv = document.createElement('div'),
-            fakeSpan = document.createElement('span');
+            fakeSpan = document.createElement('span'),
+            icon = document.createElement('i'),
+            icon_class = 'icon-info _blue';
 
         let divStyles = {
             position: 'fixed',
@@ -31,15 +33,16 @@ class Notify {
 
         let spanStyles = {
             flex: 1,
-            display: 'inline-block',
+            display: 'inline-flex',
+            alignItems: 'center',
             maxWidth: '95%',
             padding: '8px 16px',
             marginTop: '8px',
-            border: '1px solid #e2ecf4',
+            border: '1px solid #4284ED',
             borderRadius: '2px',
-            background: '#fff',
+            background: 'rgba(66,132,237,.8)',
             boxShadow: '0 0 5px 1px rgba(0,0,0,.1)',
-            color: '#666',
+            color: '#fff',
             fontSize: '12px',
             overflow: 'hidden',
             textOverflow: 'ellipsis',
@@ -50,29 +53,33 @@ class Notify {
 
         if (params.theme === 'red') {
             themeStyles = {
-                color: '#fff',
                 background: 'rgba(245, 34, 45, 0.8)',
                 border: '1px solid #f5222d',
-            }
+            };
+            icon_class = 'icon-error _red';
         }
         if (params.theme === 'green') {
             themeStyles = {
-                color: '#fff',
                 background: 'rgba(39, 174, 96, 0.8)',
                 border: '1px solid #27ae60',
             }
+            icon_class = 'icon-success _green';
         }
         if (params.theme === 'orange') {
             themeStyles = {
-                color: '#fff',
                 background: 'rgba(255, 178, 22, 0.8)',
                 border: '1px solid #ffb216',
             }
+            icon_class = 'icon-warning _orange';
         }
+
 
         fakeDiv.id = 'notify';
         fakeSpan.className = 'notify-item';
-        fakeSpan.innerText = params.text;
+        icon.className = "ning-icon m-r-sm " + icon_class;
+        fakeSpan.appendChild(icon);
+        fakeSpan.appendChild(document.createTextNode(params.text));
+        // fakeSpan.innerText +=  params.text;
 
         self.assignStyles(fakeSpan.style, spanStyles);
         self.assignStyles(fakeSpan.style, themeStyles);
@@ -116,7 +123,7 @@ class Notify {
 
     info(text) {
         return this.init({
-            text: text,
+            text: '<i class="ning-icon icon-info m-r-sm"></i>' + text,
             theme: '',
         })
     }

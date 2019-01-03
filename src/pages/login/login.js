@@ -83,7 +83,7 @@ class Login extends Component {
         }
         if (res.status === 200) {
           notify.success(res.message);
-          window.location = '#/index/home';
+          window.location = '/blog/index/home';
         }
       })
       .catch(function(error) {

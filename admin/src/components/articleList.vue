@@ -93,7 +93,7 @@ export default {
             articleList: [],
             tagList: [],
             currentPage: 1,
-            pageSize: 5,
+            pageSize: 10,
             totalCount: 0,
             item: {},
             filter: {
@@ -185,4 +185,9 @@ export default {
     margin: 8px 0;
     border-radius: 2px;
 }
+.ning-border-table th,
+.ning-border-table td{
+    padding: 0 !important;
+}
+
 </style>

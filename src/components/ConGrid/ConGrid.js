@@ -43,8 +43,8 @@ class ConGrid extends Component {
                         {
                             type: 'html',
                             content: `<div className="ning-row">
-                                            <div className="col-n">col-n</div>
-                                        </div>`,
+    <div className="col-n">col-n</div>
+</div>`,
                         }
                     }
                 />
@@ -65,8 +65,8 @@ class ConGrid extends Component {
                         {
                             type: 'html',
                             content: `<div className="ning-row">
-                                            <div className="col-n col-offset-n">col-n</div>
-                                        </div>`,
+    <div className="col-n col-offset-n">col-n</div>
+</div>`,
                         }
                     }
                 />

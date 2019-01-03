@@ -29,7 +29,7 @@ class Modal {
 
     close(el_name) {
         let modal = document.getElementById(el_name);
-        modal.className =  modal.className.replace('active', '');
+        modal.className = modal.className.replace('active', '');
     }
 
     closeAll() {
@@ -40,9 +40,7 @@ class Modal {
         })
     }
 
-    renderThumbnail(params) {
-        console.log(params)
-    }
+    renderThumbnail(params) {}
 }
 
 let modal = new Modal();

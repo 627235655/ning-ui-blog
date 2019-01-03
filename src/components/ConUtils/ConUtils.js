@@ -23,7 +23,7 @@ class ConUtils extends Component {
                     params={
                         {
                             type: 'js',
-                            content: `<span className="ning-badge '' || 'blue' || 'green' || 'orange' || 'red' || 'gray'">徽标内容</span>`,
+                            content: `<span class="ning-badge '' || 'blue' || 'green' || 'orange' || 'red' || 'gray'">徽标内容</span>`,
                         }
                     }
                 />
@@ -40,7 +40,7 @@ class ConUtils extends Component {
                     params={
                         {
                             type: 'js',
-                            content: `<span className="ning-tag '' || 'blue' || 'green' || 'orange' || 'red' || 'gray'">标签内容</span>`,
+                            content: `<span class="ning-tag '' || 'blue' || 'green' || 'orange' || 'red' || 'gray'">标签内容</span>`,
                         }
                     }
                 />
@@ -52,7 +52,7 @@ class ConUtils extends Component {
                     params={
                         {
                             type: 'js',
-                            content: `<div className="ning-skeleton">...</div>`,
+                            content: `<div class="ning-skeleton">...</div>`,
                         }
                     }
                 />
@@ -68,7 +68,7 @@ class ConUtils extends Component {
                     params={
                         {
                             type: 'js',
-                            content: `<div className="ning-alert '' || 'blue' || 'green' || 'orange' || 'red'">提示信息</div>`,
+                            content: `<div class="ning-alert '' || 'blue' || 'green' || 'orange' || 'red'">提示信息</div>`,
                         }
                     }
                 />
@@ -84,10 +84,10 @@ class ConUtils extends Component {
                         {
                             type: 'js',
                             content: `notify.init({
-                                text: '...',
-                                theme: 'red' || 'orange' || 'green' || '',
-                                time: 5000,
-                            })`,
+    text: '...',
+    theme: 'red' || 'orange' || 'green' || '',
+    time: 5000,
+})`,
                         }
                     }
                 />
@@ -106,9 +106,9 @@ class ConUtils extends Component {
                     params={
                         {
                             type: 'html',
-                            content: `<p className="ning-prompt-trigger" data-prompt="{content: '...', location: 'left', theme: 'red'}">...</p>
-                            <p className="ning-prompt-trigger" data-prompt="{content: '...', location: 'right', theme: 'blue'}">...</p>
-                            <button className="ning-btn ning-prompt-trigger" data-prompt="{content: '...', location: 'center', theme: 'black'}">...</button>`,
+                            content: `<p class="ning-prompt-trigger" data-prompt="{content: '...', location: 'left', theme: 'red'}">...</p>
+<p class="ning-prompt-trigger" data-prompt="{content: '...', location: 'right', theme: 'blue'}">...</p>
+<button class="ning-btn ning-prompt-trigger" data-prompt="{content: '...', location: 'center', theme: 'black'}">...</button>`,
                         }
                     }
                 />
@@ -124,7 +124,7 @@ class ConUtils extends Component {
                         {
                             type: 'html',
                             content: `<divider></divider>
-                            <divider text="带说明的分割线"></divider>`,
+<divider text="带说明的分割线"></divider>`,
                         }
                     }
                 />
@@ -142,8 +142,8 @@ class ConUtils extends Component {
                         {
                             type: 'html',
                             content: `<dot></dot>
-                            <p className="_blue">加载中<dot></dot></p>
-                            <p className="_blue">加载中<dot className="_red"></dot></p>`,
+<p class="_blue">加载中<dot></dot></p>
+<p class="_blue">加载中<dot class="_red"></dot></p>`,
                         }
                     }
                 />

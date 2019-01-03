@@ -174,7 +174,7 @@ export default {
             chart.source(data, {
                 percent: {
                     formatter: function formatter(val) {
-                        val = (val.toFixed(4) * 100 + '').substr(0, 5) + '%';
+                        val = (val.toFixed(4) * 100 + '').substr(0, 4) + '%';
                         return val;
                     }
                 }
@@ -286,6 +286,7 @@ export default {
                 tickLine: null,
                 line: null,
                 label: {
+                    autoRotate: false,
                     offset: 12,
                     textStyle: {
                         fontSize: 12,
@@ -294,11 +295,11 @@ export default {
                     },
                     formatter: function formatter(val) {
                         if (val === '1') {
-                            return '十一月';
+                            return '2018-11';
                         } else if (val === '5') {
-                            return '十二月';
+                            return '2018-12';
                         } else if (val === '10') {
-                            return 'JUL';
+                            return '2019-01';
                         } else if (val === '15') {
                             return 'AUG';
                         } else if (val === '19') {
