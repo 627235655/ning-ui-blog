@@ -29,6 +29,9 @@ class Header extends Component {
                         <li className={this.props.nav_active_item.indexOf('article-list') > -1 ? 'active' : ''}>
                             <Link to="/index/article-list" replace><i className="ning-icon icon-article"></i>ArticleList</Link>
                         </li>
+                        <li className={this.props.nav_active_item.indexOf('time-progress') > -1 ? 'active' : ''}>
+                            <Link to='/time-progress-bar' replace><i className="ning-icon icon-time"></i>TimeProgress</Link>
+                        </li>
                         { this.props.user_name &&
                             <li>
                                 <a href="/admin.html" target="_blank"><i className="ning-icon icon-admin"></i>Admin</a>
@@ -39,7 +42,7 @@ class Header extends Component {
                                 this.props.user_name ?
                                 (
                                     <span className="flex-center-box">
-                                        <a href="#/index/profile">Hello，{this.props.user_name}</a>
+                                        <Link to="/profile">Hello，{this.props.user_name}</Link>
                                         <span className="flex-center-box" id="log_out_btn" onClick={() => this.props.logOut()}><i className="ning-icon icon-log-out"></i></span>
                                     </span>
                                 ) :

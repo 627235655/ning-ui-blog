@@ -1,0 +1,470 @@
+.demo-box{
+	padding: 24px 40px;
+	h4{
+		text-align: center;
+	}
+}
+.example-box {
+	// flex-wrap: wrap;
+    padding: $lg;
+    margin: $md 0;
+    border: 1px solid $b_c;
+    border-radius: $sm;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    &+.code-box {
+        margin-top: -$md;
+        border-top: none;
+    }
+}
+// demo-1
+.ning-form-item.material-design{
+	/* 默认placeholder颜色透明不可见 */
+	input,
+	select,
+	textarea{
+		position: relative;
+		&:placeholder-shown::placeholder {
+		    color: transparent;
+		}
+	}
+	.label-placeholder{
+		position: absolute;
+		z-index: 1;
+	    top: 20px;
+	    left: 20px;
+	    width: auto;
+	    min-width: 0;
+	    padding: 0 2px;
+	    background: #fff;
+	    font-size: 12px;
+	    font-weight: normal;
+	    color: $gray;
+	    pointer-events: none;
+	    transition: .25s;
+	}
+	input:not(:placeholder-shown) ~ .label-placeholder,
+	input:focus ~ .label-placeholder,
+	select:not(:placeholder-shown) ~ .label-placeholder,
+	select:focus ~ .label-placeholder,
+	textarea:not(:placeholder-shown) ~ .label-placeholder,
+	textarea:focus ~ .label-placeholder {
+	    transform: scale(0.8) translate(0, -20px);
+	    color: $blue-3;
+	}
+}
+// demo2
+.box-decoration-break{
+	width: 200px;
+	span{
+		padding: 4px;
+		background-image: linear-gradient(to right, $blue, $red 200px); // 200px 是保证 渐变色一致
+	    -webkit-box-decoration-break: clone;
+	    box-decoration-break: clone;
+	    color: #fff;
+	}
+	&:first-child{
+		border-radius: 5px;
+	}
+}
+// demo3
+.typing {
+    width: 38em;
+    line-height: 1.2;
+    white-space: nowrap;
+    animation: typing 19s steps(38, end), blink-caret .5s step-end infinite;
+    overflow: hidden;
+}
+/* 打印效果 */
+@keyframes typing {
+  from { width: 0; }
+  to { width: 38em; }// 与字数相同
+}
+/* 光标闪啊闪 */
+@keyframes blink-caret {
+  from, to { box-shadow: 4px 0 0 0 #fff, 5px 0 0 0 transparent; }
+  50% { box-shadow: 4px 0 0 0 #fff, 5px 0 0 0; }
+}
+.typing1 {
+    width: 14em;
+    line-height: 1.2;
+    white-space: nowrap;
+    animation: typing1 7s steps(14, end), blink-caret .5s step-end 14;
+    overflow: hidden;
+}
+/* 打印效果 */
+@keyframes typing1 {
+  from { width: 0; }
+  to { width: 14em; }// 与字数相同
+}
+.typing2 {
+    width: 14em;
+    line-height: 1.2;
+    white-space: nowrap;
+    animation: typing2 7s 7s steps(14, end), blink-caret .5s step-end 14;
+    animation-delay: 7s;
+    animation-fill-mode: backwards;
+    overflow: hidden;
+}
+@keyframes typing2 {
+  from { width: 0; }
+  to { width: 14em; }// 与字数相同
+}
+.typing3 {
+    width: 10em;
+    line-height: 1.2;
+    white-space: nowrap;
+    animation: typing3 5s 14s steps(10, end), blink-caret .5s step-end infinite;
+    animation-delay:14s;
+    animation-fill-mode: backwards;
+    overflow: hidden;
+}
+@keyframes typing3 {
+  from { width: 0; }
+  to { width: 10em; }// 与字数相同
+}
+// demo4
+.css-progress{
+	width: 200px;
+	height: 200px;
+	border: 1px solid;
+	overflow-y: scroll;
+	.progress-box{
+		position: relative;
+	   	&:before{
+			content: '';
+			position: absolute;
+			z-index: 1;
+			top: -4px;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background-image: linear-gradient(to right top, $blue-5 50%, transparent 50%);
+	    	background-size: calc(100% + 4px) calc(100% - 200px + 4px);
+	    	background-repeat: no-repeat;
+		}
+	}
+}
+
+// demo5
+.css-gradient-dashed-border{
+	.box-1 {
+	    width: 200px;
+	    height: 150px;
+	    border: 2px dashed #cd0000;
+	}
+	@supports (-webkit-mask: none) or (mask: none) {
+	  .box-1 {
+	    border: none;
+	    background: linear-gradient(to top right, $red, $blue) no-repeat;
+	    mask: linear-gradient(to right, #000 6px, transparent 6px) repeat-x,
+	          linear-gradient(to bottom, #000 6px, transparent 6px) repeat-y,
+	          linear-gradient(to right, #000 6px, transparent 6px) repeat-x 0 100%,
+	          linear-gradient(to bottom, #000 6px, transparent 6px) repeat-y 100% 0;
+	    mask-size: 8px 2px, 2px 8px, 8px 2px, 2px 8px;
+	  }
+	}
+
+	.box-2 {
+	    width: 200px;
+	    background: repeating-linear-gradient(135deg, transparent, transparent 3px, #000 3px, #000 8px);
+	    animation: shine 1s infinite linear;
+	    overflow: hidden;
+	}
+	.content {
+	    height: 128px;
+	    margin: 1px; padding: 10px;
+	    background-color: #fff;
+	}
+	@keyframes shine {
+	    0% { background-position: -1px -1px;}
+	    100% { background-position: -12px -12px;}
+	}
+	.box-3 {
+	    display: inline-block;
+	    padding: 10px;
+	    position: relative;
+	}
+	.box-3::before {
+	    content: '';
+	    position: absolute;
+	    left: 0; top: 0; right: 0; bottom: 0;
+	    border: 2px solid #cd0000;
+	    animation: borderAround 1.5s infinite linear;    
+	}
+	@keyframes borderAround {
+	    0%, 100% { clip: rect(0 148px 2px 0); }
+	    25% { clip: rect(0 148px 116px 146px); }
+	    50% { clip: rect(114px 148px 116px 0); }
+	    75% { clip: rect(0 2px 116px 0); }
+	}
+}
+
+.css-secret-inherit{
+	position: relative;
+	display: inline-block;
+	padding: $md;
+	margin-left: $md;
+	background: $blue-3;
+	border: 1px solid $blue-5;
+	border-radius: $xxs;
+	color: #fff;
+	&:after{
+		content: '';
+		position: absolute;
+		top: 20px;
+		left: -6px;
+		padding: 5px;
+		border: inherit;
+		border-top: 0;
+		border-right: 0;
+		background: inherit;
+		transform: rotate(45deg);
+	}
+}
+.css-secret-border{
+	background: url('../../assets/images/lunar.jpg') center / cover;
+	color: #fff;
+	.opacity-border{
+		width: 200px;
+		height: 100px;
+		margin-top: $md;
+		border: 20px solid rgba(255,255,255,.1);
+		border-radius: 4px;
+		background: $blue-5;
+		background-clip: padding-box;
+	}
+	.box-shadow-border{
+		width: 160px;
+		height: 60px;
+		margin-top: 36px;
+		box-shadow: 0 0 0 5px $blue, 0 0 0 10px $yellow, 0 0 0 15px $red, 0 0 0 20px $blue-3;
+		border-radius: 4px;
+	}
+	.outline-border{
+		width: 160px;
+		height: 60px;
+		margin-top: 36px;
+		outline: 10px solid $blue;
+		border: 10px solid $blue-3;
+		border-radius: 4px;
+	}
+}
+.css-secret-auto-bg{
+	.bg-box{
+		width: 150px;
+		height: 100px;
+		margin-top: $md;
+		padding: $md;
+		border: 1px solid $blue-3;
+		border-radius: $xs;
+		background: url('../../assets/images/wechat.png') no-repeat bottom right;
+		background-size:  50px 50px;
+		&._traditional{
+			background-position: bottom right;
+		}
+		&._pos_num{
+			background-position: bottom 16px right 16px;
+		}
+		&._origin{
+			background-origin: content-box;
+		}
+		&._calc{
+			background-position: calc(100% - 16px) calc(100% - 16px);
+		}
+	}
+}
+.css-secret-inset-radius{
+	.outradius-box{
+		width: 200px;
+		height: 100px;
+		margin-top: $md;
+		border: 20px solid $blue-5;
+		border-radius: 10px;
+		background-clip: padding-box;
+	}
+	.insetradius-box{
+		width: 160px;
+		height: 60px;
+		margin-top: 36px;
+		margin-right: 20px;
+		outline: 20px solid $blue-5;
+		border-radius: 10px;
+		box-shadow: 0 0 0 10px $blue-5;
+	}
+}
+.css-secret-bg-list{
+	.bg-row-box{
+		width: 200px;
+		height: 100px;
+		margin-top: $md;
+		background: linear-gradient(to top, $blue 50%, $blue-3 50%);
+		background-size: 100% 20px;
+	}
+	.bg-col-box{
+		width: 200px;
+		height: 100px;
+		margin-top: $md;
+		background: linear-gradient(to right, $blue 50%, $blue-3 50%);
+		background-size: 20px 100%;
+	}
+	.bg-lean-box{
+		width: 200px;
+		height: 100px;
+		margin-top: $md;
+		background: linear-gradient(45deg, $blue 25%, $blue-3 0, $blue-3 50%, $blue 0, $blue 75%, $blue-3 0);
+		background-size: 20px 20px;
+	}
+	.bg-lean-box-2{
+		width: 200px;
+		height: 100px;
+		margin-top: $md;
+		background: repeating-linear-gradient(60deg, $blue 0, $blue 10px, $blue-3 0, $blue-3 20px);
+	}
+}
+.css-column-list{
+	column-count: 4;
+	li{
+		padding: $md;
+		margin-bottom: $md;
+		border: 1px solid $blue-3;
+		border-radius: $xs;
+		background: $light;
+		page-break-inside: avoid;
+		list-style: none;
+	}
+}
+.css-secret-bg-list-2{
+	.bg-grids-box-1{
+		width: 210px;
+		height: 210px;
+		margin-top: $md;
+		background-image: linear-gradient(90deg, $blue-3 50%, transparent 0),
+                  linear-gradient($blue-3 50%, transparent 0);
+		background-size: 20px 20px;
+	}
+	.bg-grids-box-2{
+		width: 200px;
+		height: 200px;
+		margin-top: $md;
+		background: $blue-3;
+		background-image: linear-gradient(white 1px, transparent 0), linear-gradient(90deg, white 1px, transparent 0);
+		background-size: 20px 20px;
+	}
+	.bg-grids-box-3{
+		width: 202px;
+		height: 202px;
+		margin-top: $md;
+		background: white;
+		background-image: linear-gradient($blue-3 2px, transparent 0), linear-gradient(90deg, $blue-3 2px, transparent 0),
+		linear-gradient($blue-3 1px, transparent 0), linear-gradient(90deg, $blue-3 1px, transparent 0);
+		background-size: 40px 40px, 40px 40px, 20px 20px, 20px 20px;
+	}
+	.bg-bodian-box-1{
+		width: 200px;
+		height: 200px;
+		margin-top: $md;
+		background: $blue-3;
+		background-image: radial-gradient(white 4px, transparent 0);
+		background-size: 20px 20px;
+	}
+	.bg-bodian-box-2{
+		width: 200px;
+		height: 200px;
+		margin-top: $md;
+		background: $blue-3;
+		background-image: radial-gradient(white 4px, transparent 0),radial-gradient(white 4px, transparent 0);
+		background-size: 20px 20px;
+		background-position: 5px 5px, 15px 15px;
+	}
+	.bg-chessboard-box-1{
+		width: 200px;
+		height: 200px;
+		margin-top: $md;
+		background: #fff;
+		background-image: linear-gradient(45deg, $blue-3 25%, transparent 0, transparent 75%, $blue-3 0), linear-gradient(45deg, $blue-3 25%, transparent 0, transparent 75%, $blue-3 0);
+		background-size: 20px 20px;
+		background-position: 0 0, 10px 10px, 10px 10px, 20px 20px;
+	}
+	.bg-chessboard-box-2{
+		width: 200px;
+		height: 200px;
+		margin-top: $md;
+		background: #fff;
+		background-image: linear-gradient(45deg, $blue-1 25%, transparent 0),linear-gradient(45deg, transparent 75%, $gray 0), linear-gradient(45deg, $gray 25%, transparent 0),linear-gradient(45deg, transparent 75%, $blue-1 0);
+		background-size: 20px 20px;
+		background-position: 0 0, 10px 10px, 10px 10px, 20px 20px;
+	}
+	.bg-paseudorandom-box{
+		width: 200px;
+		height: 200px;
+		margin-top: $md;
+		background: $blue-1;
+		background-image:
+	    linear-gradient(90deg, $green-3 11px, transparent 0),
+	    linear-gradient(90deg, $blue-3 23px, transparent 0),
+	    linear-gradient(90deg, $green-1 41px, transparent 0);
+		background-size: 41px 100%, 61px 100%, 83px 100%;
+	}
+	.border-mail-box{
+		width: 200px;
+		height: 200px;
+		margin-top: $md;
+		padding: 1em;
+		border: 16px solid transparent;
+		border-image: 16 repeating-linear-gradient(-45deg,
+		                   $red-3 0, $red-3 1em,
+		                   transparent 0, transparent 2em,
+		                   $blue-3 0, $blue-3 3em,
+		                   transparent 0, transparent 4em);
+	}
+	@keyframes ants { to { background-position: 100% } }
+	.border-ants-box{
+		width: 200px;
+		height: 200px;
+		margin-top: $md;
+		padding: 1em;
+		border: 1px solid transparent;
+		background:
+        linear-gradient(white, white) padding-box,
+        repeating-linear-gradient(-45deg,
+          black 0, black 25%, white 0, white 50%
+        ) 0 / .6em .6em;
+		animation: ants 12s linear infinite;
+	}
+	.bevel-box-1{
+		width: 200px;
+		margin-top: $md;
+		padding: $md;
+		border-radius: $xxs;
+		background: $blue-3 no-repeat;
+		background-image: linear-gradient(45deg, $blue-5 50%, #fff 0);
+		background-size: 20px 20px;
+		background-position: top right;
+		color: #fff;
+	}
+	.bevel-box-2{
+		position: relative;
+		width: 200px;
+		margin-top: $md;
+		padding: $lg;
+		border-radius: $xs;
+		background: $blue-3 no-repeat;
+		background-image: linear-gradient(30deg, $blue-3 50%, #fff 0);
+		background-size: 35px 20px;
+		background-position: top right;
+		color: #fff;
+		&:after{
+			content: '';
+			position: absolute;
+			top: 0;
+			right: 0;
+			width: 20px;
+			height: 35px;
+		    background-image: linear-gradient(60deg, $blue-5 50%, #fff 0);
+		    transform: translate(-8px, -8px) rotate(-30deg);
+    		border-radius: $xs;
+    		box-shadow: -.2em .2em .3em -.1em rgba(0,0,0,.15);
+		}
+	}
+}

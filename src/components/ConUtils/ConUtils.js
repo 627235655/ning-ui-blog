@@ -114,17 +114,15 @@ class ConUtils extends Component {
                 />
                 <p>分割线(可以带提示文字)</p>
                 <div className="example-box flex-col-box">
-                    <div dangerouslySetInnerHTML={{ __html: `<divider></divider>`}} />
-                    <div dangerouslySetInnerHTML={{ __html: `<divider text="带说明的分割线"></divider>`}} />
-                    {/*<divider></divider>
-                    <divider text="带说明的分割线"></divider>*/}
+                    <hr/>
+                    <hr text="我是萌萌哒的分割线~"/>
                 </div>
                 <CodeBox
                     params={
                         {
                             type: 'html',
-                            content: `<divider></divider>
-<divider text="带说明的分割线"></divider>`,
+                            content: `<hr/>
+<hr text="我是萌萌哒的分割线~"/>`,
                         }
                     }
                 />

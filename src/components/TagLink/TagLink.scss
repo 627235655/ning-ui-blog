@@ -1,0 +1,15 @@
+.tag-link{
+	padding: 2px 8px;
+	margin-right: 4px;
+	border-radius: 10px;
+	border: 1px dashed $b_c;
+	font-size: 12px;
+	color: $gray;
+	transition: 1s;
+	&:hover{
+		border-color: $blue-3;
+		background: #fff;
+		color: $blue-5;
+		cursor: pointer;
+	}
+}

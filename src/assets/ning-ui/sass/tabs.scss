@@ -1,0 +1,79 @@
+.ning-tabs{
+    overflow: hidden;
+    .ning-tabs_nav {
+        display: flex;
+        border-bottom: 1px solid $light;
+        overflow-x: auto;
+        li {
+            position: relative;
+            display: inline-block;
+            line-height: 36px;
+            padding: 0 16px;
+            border-top-right-radius: 4px;
+            border-top-left-radius: 4px;
+            background: $light;
+            font-size: 14px;
+            cursor: pointer;
+            overflow: hidden;
+            transition: .25s;
+            &:not(:last-child){
+                margin-right: 8px;
+            }
+            &:hover{
+                color: $blue;
+            }
+            &.active{
+                color: #fff;
+                font-weight: bold;
+                background: $blue;
+            }
+            &.disabled{
+                color: #fff;
+                background: $gray;
+                cursor: not-allowed;
+            }
+        }
+        &.text{
+            li {
+                background: #fff;
+                &:after{
+                    content: '';
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 2px;
+                    border-radius: 2px;
+                    background: $blue;
+                    transform: scaleX(0);
+                    transform-origin: 50% 50%;
+                    transition: .25s;
+                }
+                &.active{
+                    color: $blue;
+                    &:after{
+                        transform: scaleX(1);
+                    }
+                }
+                &.disabled{
+                    color: $gray;
+                }
+            }
+        }
+    }
+    .ning-tabs_body{
+        font-size: 0;
+        white-space: nowrap;
+        transition: all .25s;
+        transform: translate3d(0px, 0px, 0px);
+        li{
+            display: inline-block;
+            width: 100%;
+            padding: 16px;
+            font-size: 14px;
+            white-space: normal;
+            vertical-align: top;
+            transition: all .25s;
+        }
+    }
+}

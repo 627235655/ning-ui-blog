@@ -57,7 +57,7 @@ module.exports = {
   // 它支持webPack-dev-server的所有选项
   devServer: {
     compress: true,
-      port: 8889,
+      port: 2222,
       host: getIP(),
       historyApiFallback: true, //不跳转
       inline: true, //实时刷新

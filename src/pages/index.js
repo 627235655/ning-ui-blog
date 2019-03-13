@@ -14,6 +14,7 @@ import Home from 'pages/home/home';
 import NingUI from 'pages/ning-ui/ning-ui';
 import ArticleList from 'pages/article-list/article-list'
 import ArticleDetail from 'pages/article-detail/article-detail'
+import Demos from 'pages/demos/demos'
 
 // ning-ui-utils
 import Util from 'assets/js/util'
@@ -45,6 +46,7 @@ class IndexHtml extends Component {
 	            	<Route path="/index/ning-ui" component={NingUI}/>
 	            	<Route path="/index/article-list" component={ArticleList}/>
 	            	<Route path="/index/article-detail/:id" component={ArticleDetail}/>
+                    <Route path="/index/demos" component={Demos}/>
 				</div>
 	            <Footer/>
         		<button className={ this.state.show_return_top ? 'return-top active' : 'return-top'} onClick={() => this.returnTop()}>返回顶部</button>

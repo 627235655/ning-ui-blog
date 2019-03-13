@@ -74,7 +74,7 @@ export default {
           is_add: true,
           el_tag_name: null,
           currentPage: 1,
-          pageSize: 5,
+          pageSize: 10,
           totalCount: 0,
         }
     },

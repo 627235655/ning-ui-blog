@@ -4,10 +4,14 @@ import React, {
 import ReactDOM from 'react-dom';
 import './article-list.scss';
 import axios from 'axios';
+import util from 'assets/js/util';
 import paginator from 'assets/ning-ui/js/paginator';
 import ArticleItem from 'components/ArticleItem/ArticleItem'
 
 const URL_PARAMS_GAP = '&';
+const summary_config = {
+    css: '属性解析、UI 组件、奇技淫巧、CSS 动画',
+}
 
 class ArticleList extends Component {
     constructor(props) {
@@ -70,10 +74,142 @@ class ArticleList extends Component {
         this.initPage(nextProps)
     }
 
-    render() {
-        let summary_config = {
-            css: '包含 css，css3',
+    setFilterType(type) {
+        this.state.filterType = type,
+        this.setState({
+            filter: this.state.filter,
+        })
+        this.props.history.replace(`/index/article-list`)
+    }
+
+    setTagList = (tag) => {
+        let articleTags = this.state.filter.articleTags,
+            index;
+        if (!tag) { // 全选
+            articleTags = [];
+            this.props.history.replace(`/index/article-list`)
+        } else {
+            index = articleTags.indexOf(tag);
+            if (index > -1) {
+                articleTags.splice(index, 1);
+            } else {
+                articleTags.push(tag)
+            }
+            if (articleTags.length === 0) {
+                this.props.history.replace(`/index/article-list`)
+            } else {
+                this.props.history.replace(`/index/article-list?tagName=${articleTags.join(URL_PARAMS_GAP)}`)
+            }
         }
+    }
+
+    setDateList = (date) => {
+        let createDates = this.state.filter.createDates,
+            index;
+        if (!date) { // 全选
+            createDates = [];
+            this.props.history.replace(`/index/article-list`)
+        } else {
+            index = createDates.indexOf(date);
+            if (index > -1) {
+                createDates.splice(index, 1);
+            } else {
+                createDates.push(date)
+            }
+            if (createDates.length === 0) {
+                this.props.history.replace(`/index/article-list`)
+            } else {
+                this.props.history.replace(`/index/article-list?createDates=${createDates.join(URL_PARAMS_GAP)}`)
+            }
+        }
+    }
+
+    getArticleList = (currentPage) => {
+        let self = this;
+        currentPage && self.setState({
+            currentPage,
+        })
+        let data = {
+            currentPage: self.state.currentPage,
+            pageSize: self.state.pageSize,
+            filter: Object.assign({}, self.state.filter),
+        }
+        if (data.filter.createDates.length > 0) {
+            let new_arr = []
+            data.filter.createDates.map((v, i) => {
+                new_arr.push(util.getMonthFirstDay(new Date(v + '-01')).getTime())
+            })
+            new_arr = new_arr.sort();
+            let startDate = new Date(new_arr[0]);
+            let endDate = util.getMonthLastDay(new Date(new_arr.pop()));
+            data.filter.createDates = [startDate.Format(), endDate.Format()]
+        }
+        axios.get('/api/getArticleList', {
+                params: data
+            })
+            .then(function(response) {
+                let res = response.data;
+                if (res.status === 200) {
+                    if (self.state.currentPage > 1 && res.data.list.length === 0) {
+                        self.state.currentPage--;
+                        self.setState({
+                            currentPage: self.state.currentPage
+                        })
+                        self.getArticleList(self.state.currentPage);
+                    }
+                    self.setState({
+                        articleList: res.data.list,
+                        totalCount: res.data.totalCount,
+                        all_total: (self.state.filter.articleTags.length === 0 && self.state.filter.createDates.length === 0)  ? res.data.totalCount : self.state.all_total,
+                    })
+                    let params = {
+                        element: document.querySelector('#article_list_paginator'),
+                        current_page: self.state.currentPage,
+                        total_count: self.state.totalCount,
+                        page_size: self.state.pageSize,
+                        cb: self.getArticleList,
+                    }
+                    paginator.init(params)
+                }
+            })
+            .catch(function(error) {
+                console.log(error);
+            });
+    }
+
+    getDateList = () => {
+        let self = this;
+        axios.get('/api/getDateList')
+            .then(function(response) {
+                let res = response.data;
+                if (res.status === 200) {
+                    self.setState({
+                        dateList: res.data.list,
+                    })
+                }
+            })
+            .catch(function(error) {
+                console.log(error);
+            });
+    }
+
+    getTagList() {
+        let self = this;
+        axios.get('/api/getTagList')
+            .then(function(response) {
+                let res = response.data;
+                if (res.status === 200) {
+                    self.setState({
+                        tagList: res.data.list,
+                    })
+                }
+            })
+            .catch(function(error) {
+                console.log(error);
+            });
+    }
+
+    render() {
         let el_tag_list = this.state.tagList.map((v, i, a) =>{
             return (
                 <span key={i} className={"tag-item " + (this.state.filter.articleTags.includes(v.tagName) ? 'active' : '')} onClick={() => this.setTagList(v.tagName)}>
@@ -153,151 +289,6 @@ class ArticleList extends Component {
         )
     }
 
-    setFilterType(type) {
-        this.state.filterType = type,
-        this.setState({
-            filter: this.state.filter,
-        })
-    }
-
-    setTagList = (tag) => {
-        let articleTags = this.state.filter.articleTags,
-            index;
-        if (!tag) { // 全选
-            articleTags = [];
-            this.props.history.replace(`/index/article-list`)
-        } else {
-            index = articleTags.indexOf(tag);
-            if (index > -1) {
-                articleTags.splice(index, 1);
-            } else {
-                articleTags.push(tag)
-            }
-            if (articleTags.length === 0) {
-                this.props.history.replace(`/index/article-list`)
-            } else {
-                this.props.history.replace(`/index/article-list?tagName=${articleTags.join(URL_PARAMS_GAP)}`)
-            }
-        }
-    }
-
-    setDateList = (date) => {
-        let createDates = this.state.filter.createDates,
-            index;
-        if (!date) { // 全选
-            createDates = [];
-            this.props.history.replace(`/index/article-list`)
-        } else {
-            index = createDates.indexOf(date);
-            if (index > -1) {
-                createDates.splice(index, 1);
-            } else {
-                createDates.push(date)
-            }
-            if (createDates.length === 0) {
-                this.props.history.replace(`/index/article-list`)
-            } else {
-                this.props.history.replace(`/index/article-list?createDates=${createDates.join(URL_PARAMS_GAP)}`)
-            }
-        }
-    }
-
-    getMonthFirstDay = (date) => {
-        let y = date.getFullYear();
-        let m = date.getMonth();
-        return new Date(y, m, 1)
-    }
-
-    getMonthLastDay = (date) => {
-        let y = date.getFullYear();
-        let m = date.getMonth() + 1;
-        return new Date(y, m, 0)
-    }
-
-    getArticleList = (currentPage) => {
-        let self = this;
-        currentPage && self.setState({
-            currentPage,
-        })
-        let data = {
-            currentPage: self.state.currentPage,
-            pageSize: self.state.pageSize,
-            filter: Object.assign({}, self.state.filter),
-        }
-        if (data.filter.createDates.length > 0) {
-            let new_arr = []
-            data.filter.createDates.map((v, i) => {
-                new_arr.push(this.getMonthFirstDay(new Date(v + '-01')).getTime())
-            })
-            new_arr = new_arr.sort();
-            let startDate = new Date(new_arr[0]);
-            let endDate = this.getMonthLastDay(new Date(new_arr.pop()));
-            data.filter.createDates = [startDate.Format(), endDate.Format()]
-        }
-        axios.get('/api/getArticleList', {
-                params: data
-            })
-            .then(function(response) {
-                let res = response.data;
-                if (res.status === 200) {
-                    if (self.state.currentPage > 1 && res.data.list.length === 0) {
-                        self.state.currentPage--;
-                        self.setState({
-                            currentPage: self.state.currentPage
-                        })
-                        self.getArticleList(self.state.currentPage);
-                    }
-                    self.setState({
-                        articleList: res.data.list,
-                        totalCount: res.data.totalCount,
-                        all_total: self.state.filter.articleTags.length === 0 ? res.data.totalCount : self.state.all_total,
-                    })
-                    let params = {
-                        element: document.querySelector('#article_list_paginator'),
-                        current_page: self.state.currentPage,
-                        total_count: self.state.totalCount,
-                        page_size: self.state.pageSize,
-                        cb: self.getArticleList,
-                    }
-                    paginator.init(params)
-                }
-            })
-            .catch(function(error) {
-                console.log(error);
-            });
-    }
-
-    getDateList = () => {
-        let self = this;
-        axios.get('/api/getDateList')
-            .then(function(response) {
-                let res = response.data;
-                if (res.status === 200) {
-                    self.setState({
-                        dateList: res.data.list,
-                    })
-                }
-            })
-            .catch(function(error) {
-                console.log(error);
-            });
-    }
-
-    getTagList() {
-        let self = this;
-        axios.get('/api/getTagList')
-            .then(function(response) {
-                let res = response.data;
-                if (res.status === 200) {
-                    self.setState({
-                        tagList: res.data.list,
-                    })
-                }
-            })
-            .catch(function(error) {
-                console.log(error);
-            });
-    }
 }
 
 export default ArticleList;

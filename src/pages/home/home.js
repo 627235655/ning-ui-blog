@@ -52,35 +52,58 @@ class Home extends Component {
 			<div id="home">
 				<div className="ning-container p-md flex-col-box">
 	            	<section className="con-box header">
+		            	<div>
+		            		<Link to="/profile" className="ning-line-btn _fillet _fill">about me</Link>
+		            	</div>
 	            	</section>
-	            	<section className="con-box flex-row-box">
-	            		<div className="ning-ui-item flex-allcenter-box">
-	            			<div className="img"></div>
+	            	<section className="con-box flex-center-box">
+	            		<div className="ning-ui-item">
+	            			<div className="ning-ui-item-wrap">
+	            				<p>自然交互</p>
+		            			<p>面向设计</p>
+	            			</div>
 	            			<div className="title">基于 Atnd</div>
 	            		</div>
-	            		<div className="ning-ui-item flex-allcenter-box">
-	            			<div className="img"></div>
+	            		<div className="ning-ui-item">
+	            			<div className="ning-ui-item-wrap">
+		            			<p>基本构架</p>
+		            			<p>灵活配置</p>
+	            			</div>
 	            			<div className="title">半封装</div>
 	            		</div>
-	            		<div className="ning-ui-item flex-allcenter-box">
-	            			<p className="_lg _bold">Ning-UI</p>
-	            			<p className="_light m-t-md m-b-md">绝大多数操作都只需要访问本地文件和资源，而且与每个提交都是所有文件的完整副本，因此速度非常快绝大多数操作都只需要访问本地文件和资源，而且与每个提交都是所有文件的完整副本，因此速度非常快</p>
-	            			<a className="ning-btn" href="#/index/ning-ui">了解更多</a>
+	            		<div className="ning-ui-item">
+	            			<div className="ning-ui-item-wrap">
+	            				<i className="ning-icon icon-ning"></i>
+	            			</div>
+	            			<Link className="title" to="/index/ning-ui/mind">ning-ui</Link>
 	            		</div>
-	            		<div className="ning-ui-item flex-allcenter-box">
-	            			<div className="img"></div>
+	            		<div className="ning-ui-item">
+	            			<div className="ning-ui-item-wrap">
+	            				<p>不拘于框架</p>
+		            			<p>拥抱原生</p>
+	            			</div>
 	            			<div className="title">原生 Js 组件</div>
 	            		</div>
-	            		<div className="ning-ui-item flex-allcenter-box">
-	            			<div className="img"></div>
+	            		<div className="ning-ui-item">
+	            			<div className="ning-ui-item-wrap">
+	            				<p>自定义</p>
+		            			<p>少网络请求</p>
+	            			</div>
 	            			<div className="title">单标签 Icon</div>
 	            		</div>
 	            	</section>
 	            	<section className="con-box ning-row">
 	            		<div className="col-6 flex-col-box p-l-lg p-r-lg p-b-lg">
 	            			<div>
-	            				<p className="_lg _bold m-b-md">绝大多数</p>
-	            				<p>绝大多数操作都只需要访问本地文件和资源，而且与每个提交都是所有文件的完整副本，因此速度非常快绝大多数操作都只需要访问本地文件和资源，而且与每个提交都是所有文件的完整副本，因此速度非常快</p>
+	            				<p className="_lg _bold m-b-md">技术博客</p>
+	            				<p>
+	            					搭建博客，构思久已<br/>
+	            					却停滞于行动，此次趁着受人之托，得以窥见其中一二<br/>
+	            					<br/>
+	            					享受生命中每一个脚步<br/>
+	            					<a href="/index/home">前台博客系统</a>基于 <a href="https://github.com/reactjs/reactjs.org">react</a>，<a href="/admin.html">后台管理系统</a>基于 <a href="https://github.com/vuejs/vue">react</a>，UI 基于自造框架 <a href="/index/ning-ui/mind">ning-ui</a><br/>
+	            					知行合一，如是而已
+            					</p>
 	            			</div>
 	            			<img className="blog-chart" src={blog_chart} alt="" />
 	            		</div>

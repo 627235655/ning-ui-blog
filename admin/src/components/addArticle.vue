@@ -291,37 +291,72 @@ export default {
             font-size: 12px;
         }
         #articleContentResult {
-            padding-bottom: 8px;
-            word-break: break-all;
-            h3 {
-                line-height: 32px;
+            padding-bottom: 16px;
+        word-break: break-all;
+        h2 {
+            font-size: 24px;
+            line-height: 48px;
+        }
+        h3 {
+            font-size: 20px;
+            line-height: 40px;
+            & + h4{
+                margin-top: 16px;
             }
-            h4 {
-                line-height: 28px;
+        }
+        h4 {
+            font-size: 16px;
+            line-height: 32px;
+        }
+        li{
+            margin-top: 16px;
+        }
+        blockquote {
+            padding: 16px;
+            background: linear-gradient(to right, rgba(236, 242, 252, .5), rgba(236, 242, 252, 0.2));
+            margin: 16px 0;
+            border-left: 4px solid $blue_3;
+            border-radius: 2px;
+            p{
+                margin: 0;
             }
-            blockquote {
-                padding: 8px;
-                background: linear-gradient(to right, rgba(236, 242, 252, .5), rgba(236, 242, 252, 0.2));
-                margin: 8px 0;
-                border-left: 2px solid $blue_3;
-                border-radius: 2px;
-                code {
-                    background: $b_c;
-                }
+            code {
+                background: $b_c;
             }
-            p {
-                line-height: 22px;
-                word-break: break-word;
+        }
+        p {
+            margin-top: 16px;
+            line-height: 22px;
+            word-break: break-word;
+            & + p,
+            & + li,
+            & + ul,
+            & + pre,
+            & + h3,
+            & + h4{
+                margin-top: 16px;
             }
-            img{
-                max-height: 200px;
-                max-width: 80%;
-                margin: 0 10%;
+        }
+        img{
+            max-width: 80%;
+            max-height: 400px;
+            margin: 16px 10%;
+        }
+        ul {
+            list-style: inside;
+            text-indent: 2em;
+            & + h3,
+            & + h4{
+                margin-top: 16px;
             }
-            ul {
-                list-style: inside;
-                text-indent: 2em;
+        }
+        pre{
+            margin: 16px 0;
+            & + h3,
+            & + h4{
+                margin-top: 16px;
             }
+        }
         }
         .count {
             position: absolute;

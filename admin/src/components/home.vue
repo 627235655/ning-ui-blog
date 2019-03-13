@@ -13,7 +13,7 @@
                 <!-- 文章数, 标签数，总字数 -->
                 <div id="tags_chart"></div>
             </div>
-            <div class="col-6 border p-sm">
+            <div class="col-12 border p-sm">
                 <h3 class="p-b-md flex-center-box"><i class="ning-icon icon-date m-r-sm"></i>时间活跃度</h3>
                 <!-- 文章数, 标签数，总字数 -->
                 <div id="date_chart"></div>
@@ -300,12 +300,12 @@ export default {
                             return '2018-12';
                         } else if (val === '10') {
                             return '2019-01';
-                        } else if (val === '15') {
-                            return 'AUG';
-                        } else if (val === '19') {
-                            return 'SEP';
-                        } else if (val === '24') {
-                            return 'OCT';
+                        } else if (val === '14') {
+                            return '2019-02';
+                        } else if (val === '18') {
+                            return '2019-03';
+                        } else if (val === '22') {
+                            return '2019-04';
                         }
                         return '';
                     }

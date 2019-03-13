@@ -1,0 +1,49 @@
+.icon-box{
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height: 200px;
+    padding: 8px;
+    padding-top: 16px;
+    margin-right: 16px;
+    margin-bottom: 16px;
+    border-radius: $xs;
+    background: $light;
+    .ning-icon{
+        transform: scale(3);
+        &:hover{
+        	color: $blue-5;
+        }
+    }
+    span{
+        margin-top: 16px;
+        font-size: 12px;
+        word-break: break-word;
+        text-align: center;
+    }
+}
+.triangle-border{
+	width: 0;
+	height: 0;
+	border: 16px solid;
+	border-color: currentColor transparent transparent transparent;
+}
+.triangle-background{
+	width: 16px;
+	height: 16px;
+	background-image: linear-gradient(45deg, currentColor 50%, transparent 50%);
+}
+.circle{
+	width: 16px;
+	height: 16px;
+	background: currentColor;
+	border-radius: 50%;
+}
+.ellipse{
+	width: 32px;
+	height: 16px;
+	background: currentColor;
+	border-radius: 50%;
+}

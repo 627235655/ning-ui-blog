@@ -109,6 +109,7 @@ class ConButton extends Component {
                         <button className="ning-btn _cover m-l-md">背景滑动</button>
                         <button className="ning-btn _visional m-l-md">虚影按钮</button>
                         <button className="ning-line-btn _fill m-l-md">背景填充</button>
+                        <button className="ning-line-btn _fillet m-l-md">圆角</button>
                     </div>
                 </div>
                 <CodeBox
@@ -118,7 +119,8 @@ class ConButton extends Component {
                             content: `<button class="ning-btn _shadow">阴影3D</button>
 <button class="ning-btn _cover">背景滑动</button>
 <button class="ning-btn _visional">虚影按钮</button>
-<button class="ning-line-btn _fill">背景填充</button>`,
+<button class="ning-line-btn _fill">背景填充</button>
+<button class="ning-line-btn _fillet">圆角</button>`,
                         }
                     }
                 />

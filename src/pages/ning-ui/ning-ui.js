@@ -41,12 +41,14 @@ const nav_list = [{
 }, {
     text: '图标',
     id: 'icon',
-}, ]
+},, {
+    text: '模态框',
+    id: 'modal',
+} ]
 
 class NingUI extends Component {
     constructor(props) {
         super(props);
-        console.log(props)
         this.state = {
             nav_list,
         }

@@ -13,22 +13,6 @@ class ConUtils extends Component {
                 <hr/>
                 <p>单元素</p>
                 <div className="example-box flex-box" id="test">
-                    <div className="icon-box">
-                        <i className="triangle-border"></i>
-                        <span>透明边框法</span>
-                    </div>
-                    <div className="icon-box">
-                        <i className="triangle-background"></i>
-                        <span>背景渐变法</span>
-                    </div>
-                    <div className="icon-box">
-                        <i className="circle"></i>
-                        <span>点、圆</span>
-                    </div>
-                    <div className="icon-box">
-                        <i className="ellipse"></i>
-                        <span>椭圆</span>
-                    </div>
                 	<div className="icon-box">
                     	<i className="ning-icon icon-plus"></i>
                     	<span>icon-plus</span>
@@ -184,6 +168,18 @@ class ConUtils extends Component {
                     <div className="icon-box">
                         <i className="ning-icon icon-comment"></i>
                         <span>icon-comment</span>
+                    </div>
+                    <div className="icon-box">
+                        <i className="ning-icon icon-weibo"></i>
+                        <span>icon-weibo</span>
+                    </div>
+                    <div className="icon-box">
+                        <i className="ning-icon icon-qq"></i>
+                        <span>icon-qq</span>
+                    </div>
+                    <div className="icon-box">
+                        <i className="ning-icon icon-wechat"></i>
+                        <span>icon-wechat</span>
                     </div>
                 </div>
                 <CodeBox

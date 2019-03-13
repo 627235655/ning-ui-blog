@@ -1,0 +1,51 @@
+#ning_ui{
+	.ning-row{
+		div{
+			line-height: 40px;
+			margin-bottom: 16px;
+			border-right: 1px solid #fff;
+			background: $blue-3;
+			color: #fff;
+			text-align: center;
+		}
+	}
+	.container {
+	    flex: 1;
+	    max-width: calc(100% - 160px);
+	    .con-item {
+	        display: none;
+	        padding: 50px;
+	        &.active {
+	            display: block;
+	            animation: fadeIn ease 1s;
+	        }
+	        .example-box {
+	            padding: $lg;
+			    margin: $md 0;
+			    border: 1px solid $b_c;
+			    border-radius: $sm;
+			    border-bottom-right-radius: 0;
+    			border-bottom-left-radius: 0;
+	            .layout-item-1 {
+	                width: 100px;
+	                height: 50px;
+	                background: $blue-1;
+	            }
+	            .layout-item-2 {
+	                width: 150px;
+	                height: 100px;
+	                background: $blue-2;
+	            }
+	            .layout-item-3 {
+	                width: 50px;
+	                height: 75px;
+	                background: $blue-3;
+	            }
+	            &+.code-box {
+	                margin-top: -20px;
+	                border-top: none;
+	            }
+	        }
+	    }
+	}
+}

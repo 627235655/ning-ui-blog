@@ -1,0 +1,60 @@
+.ning-modal-wrap{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    z-index: -1;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: $xl 0;
+    background: rgba(0,0,0,.75);
+    opacity: 0;
+    overflow: scroll;
+    // transform: scale(0) translateY(-100%);
+    transition: all ease-in .25s;
+    &.active{
+        z-index: 999;
+        opacity: 1;
+        // transform: scale(1) translateY(0);
+    }
+    .ning-modal {
+        min-width: 200px;
+        padding: $md;
+        border-radius: $xs;
+        background-color: #fff;
+    }
+
+
+    .ning-modal-header {
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: $sm;
+        border-bottom: 1px dashed $b_c;
+        font-size: $md;
+        font-weight: bold;
+        .ning-modal-close-btn{
+            transform: scale(.7) rotate(45deg);
+            opacity: .5;
+            cursor: pointer;
+            transition: .5s;
+            &:hover{
+                opacity: .8;
+                transform: scale(1) rotate(135deg);
+            }
+            &:focus{
+                outline: none;
+            }
+        }
+    }
+    .ning-modal-content {
+        padding: $md;
+    }
+    .ning-modal-footer {
+        display: flex;
+        justify-content: center;
+    }
+}

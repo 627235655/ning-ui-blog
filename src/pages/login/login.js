@@ -20,33 +20,37 @@ class Login extends Component {
     return (
       <div id="login">
         <div className="content">
-          <div className="content-header">
-            <a href="#/index/home" className="flex-center-box m-r-md flex-end"><i className="ning-icon icon-return m-r-sm"></i>返回首页</a>
-          </div>
-          <div className="content-login flex-allcenter-box">
-            <div className="login-box">
-              <p className="_md">The&nbsp;&nbsp;Website&nbsp;&nbsp;<span className="_white">For</span></p>
-              <h1><span className="_blue">n</span><span className="b-span">顾盼神飞</span></h1>
-              <div id="login_form">
-                <div className="form-item">
-                  <input onChange={(e) => this.getUserName(e.target.value)} type="text" placeholder="userName"/>
-                  <i className="ning-icon icon-person"></i>
-                </div>
-                <div className="form-item">
-                  <input onChange={(e) => this.getPassword(e.target.value)} type="password" placeholder="password"/>
-                  <i className="ning-icon icon-password"></i>
-                </div>
-                <button onClick={() => this.signIn()} className="ning-line-btn _fill">Sign&nbsp;&nbsp;In</button>
-              </div>
+          <div className="left">
+            <p className="tc">少年听雨<br/>歌楼上，红烛昏罗帐。<br/>壮年听雨<br/>客舟中，江阔云低、<br/>断雁叫西风。<br/>
+                而今听雨<br/>僧庐下，鬓已星星也。<br/>悲欢离合总无情。一任阶前、点滴到天明。
+            </p>
+            <div className="flex-center-box">
+              <a href="/blog/index/home" className="ning-line-btn _fillet _fill m-r-lg">My&nbsp;&nbsp;Blog</a>
+              <a href="/blog/profile" className="ning-line-btn _fillet _fill">About&nbsp;&nbsp;Me</a>
+            </div>
+            <div className="content-footer">
+            <p>Copyright© 20018 - 2018 n顾盼神飞</p>
+              <p>
+                <a href="#">weibo</a>
+                <a href="#" className="center-tag">github</a>
+                <a href="#">weixin</a>
+              </p>
             </div>
           </div>
-          <div className="content-footer">
-          <p>Copyright© 20018 - 2018 n顾盼神飞</p>
-            <p>
-              <a href="#">weibo</a>
-              <a href="#" className="center-tag">github</a>
-              <a href="#">weixin</a>
-            </p>
+          <div className="login-box">
+            <div id="login_form">
+              <div className="form-item">
+                <input onChange={(e) => this.getUserName(e.target.value)} type="text" placeholder="userName"/>
+                <label className="label-placeholder">UserName</label>
+                <i className="ning-icon icon-person"></i>
+              </div>
+              <div className="form-item">
+                <input onChange={(e) => this.getPassword(e.target.value)} type="password" placeholder="password"/>
+                <label className="label-placeholder">PassWord</label>
+                <i className="ning-icon icon-password"></i>
+              </div>
+              <button onClick={() => this.signIn()} className="ning-line-btn _fillet _cover">Sign&nbsp;&nbsp;In</button>
+            </div>
           </div>
         </div>
      	</div>

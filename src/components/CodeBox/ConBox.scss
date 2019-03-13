@@ -5,10 +5,10 @@
         max-height: 0;
         padding: 0 $md;
         opacity: .8;
-        overflow: hidden;
-        transition: max-height ease-out .5s;
+        overflow-y: scroll;
+        transition: max-height ease .5s;
         &.active{
-            max-height: 100%;
+            max-height: 400px;
         }
     }
     code{

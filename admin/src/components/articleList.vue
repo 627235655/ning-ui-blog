@@ -2,17 +2,26 @@
     <div id="article_list">
         <h2 class="page-title">文章列表</h2>
         <divider></divider>
-        <div class="ning-row  border p-md">
-            <div class="col-12 ning-from m-b-md">
+        <div class="border p-md">
+            <div class="ning-row ning-from m-b-md">
                 <div class="ning-form-item">
                     <label>文章标签</label>
                     <div class="checkbox-wrap">
                         <span v-for="item in tagList">
-                    <input type="checkbox" :value="item.tagName" v-model="filter.articleTags" :id="item._id" @change="getArticleList(currentPage)" />
-                    <span class="virtual-checkbox"></span>
-                        <label :for="item._id">{{ item.tagName }}</label>
+                            <input type="checkbox" :value="item.tagName" v-model="filter.articleTags" :id="item._id" @change="getArticleList(currentPage)" />
+                            <span class="virtual-checkbox"></span>
+                            <label :for="item._id">{{ item.tagName }}</label>
                         </span>
                     </div>
+                </div>
+                <div class="ning-form-item col-6">
+                    <label>时间筛选</label>
+                    <input type="date" name="startDate" v-model="startDate">
+                    <span class="m-r-sm m-l-sm">-</span>
+                    <input type="date" name="endDate" v-model="endDate">
+                </div>
+                <div class="ning-form-item col-6 flex-end">
+                    <button class="ning-btn" @click="getArticleList(currentPage)">搜索</button>
                 </div>
             </div>
             <div class="col-12">
@@ -96,8 +105,11 @@ export default {
             pageSize: 10,
             totalCount: 0,
             item: {},
+            startDate: null,
+            endDate: null,
             filter: {
                 articleTags: [],
+                createDates: [],
             }
         }
     },
@@ -108,14 +120,14 @@ export default {
     methods: {
         getArticleList(currentPage) {
             let self = this;
-            console.log(self.filter)
             self.currentPage = currentPage;
+            self.startDate && self.filter.createDates.push(self.startDate)
+            self.endDate && self.filter.createDates.push(self.endDate)
             let data = {
                 currentPage: self.currentPage,
                 pageSize: self.pageSize,
                 filter: self.filter,
             }
-            console.log(data)
             axios.get('/api/getArticleList', { params: data })
                 .then(function(response) {
                     let res = response.data;

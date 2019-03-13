@@ -17,6 +17,7 @@
     "webpack-dev-server": "^3.1.9"
   },
   "devDependencies": {
+    "@antv/g2": "^3.4.9",
     "@babel/core": "^7.1.0",
     "ali-oss": "^6.0.1",
     "autoprefixer": "^9.1.5",
@@ -49,6 +50,7 @@
     "sass-resources-loader": "^2.0.0",
     "session-file-store": "^1.2.0",
     "style-loader": "^0.23.0",
+    "swiper": "^4.4.6",
     "url-loader": "^1.1.1",
     "webpack-merge": "^4.1.4"
   }

@@ -23,7 +23,7 @@ class Catalogue {
 		h_list.length > 0 && h_list.forEach((v, i) => {
 			if (v.nodeName === 'H3') {
 				let obj = {
-					innerText: v.childNodes[1].nodeValue,
+					innerText: v.childNodes[1].nodeValue || v.childNodes[1].innerText,
 					id: v.childNodes[0].id,
 					childNodes: [],
 				}
@@ -31,7 +31,7 @@ class Catalogue {
 			}
 			if (v.nodeName === 'H4') {
 				let obj = {
-					innerText: v.childNodes[1].nodeValue,
+					innerText: v.childNodes[1].nodeValue || v.childNodes[1].innerText,
 					id: v.childNodes[0].id,
 					childNodes: [],
 				}
@@ -57,42 +57,42 @@ class DetialTool extends Component {
 		}
 	}
 
-	componentDidMount() {
-		let detail_tool = document.querySelector('.detail-tool'),
-			top = util.getElOffset(detail_tool).top,
-			left = util.getElOffset(detail_tool).left;
-    	this.setState({
-    		detail_tool,
-    		top,
-            left,
-    	}, () => {
-			window.addEventListener('scroll', this.handleScroll, false)
-    	});
-	}
+	// componentDidMount() {
+	// 	let detail_tool = document.querySelector('.detail-tool'),
+	// 		top = util.getElOffset(detail_tool).top,
+	// 		left = util.getElOffset(detail_tool).left;
+ //    	this.setState({
+ //    		detail_tool,
+ //    		top,
+ //            left,
+ //    	}, () => {
+	// 		window.addEventListener('scroll', this.handleScroll, false)
+ //    	});
+	// }
 
-	handleScroll = () => {
-		let detail_tool = this.state.detail_tool,
-			top = this.state.top,
-			left = this.state.left,
-			doc = document.body.scrollTop ? document.body : document.documentElement,
-        	show_model = (doc.scrollTop - top) > 0;
-        if (show_model) {
-        	let style = {
-        		position: 'fixed',
-        		left: left,
-        	}
-        	Object.assign(detail_tool.style, style);
-        } else {
-        	let style = {
-        		position: 'absolute',
-        		left: '0',
-        	}
-        	Object.assign(detail_tool.style, style);
-        }
-	}
+	// handleScroll = () => {
+	// 	let detail_tool = this.state.detail_tool,
+	// 		top = this.state.top,
+	// 		left = this.state.left,
+	// 		doc = document.body.scrollTop ? document.body : document.documentElement,
+ //        	show_model = (doc.scrollTop - top) > 0;
+ //        if (show_model) {
+ //        	let style = {
+ //        		position: 'fixed',
+ //        		left: left,
+ //        	}
+ //        	Object.assign(detail_tool.style, style);
+ //        } else {
+ //        	let style = {
+ //        		position: 'absolute',
+ //        		left: '0',
+ //        	}
+ //        	Object.assign(detail_tool.style, style);
+ //        }
+	// }
 
 	componentWillUnmount() {
-		window.onscroll = '';
+		// window.onscroll = '';
 	}
 
 	render() {
@@ -153,12 +153,12 @@ class ArticleDetail extends Component {
 					<DetialTool />
 					<div className="article-detail-wrap">
 		                <div className="article_preview-header" style={{backgroundImage: `url(${data.thumbnailUrl})`}}>
-		                    <h2 className="article_preview-title">{ data.articleName }</h2>
-		                	<p className="article_preview-summary flex-center-box">{ data.articleSummary }</p>
+		                    <h2><span className="article_preview-title">{ data.articleName }</span></h2>
+		                	<p className="article_preview-summary flex-center-box"><span className="tl">{ data.articleSummary }</span></p>
 		                	<p className="article_preview-header_footer">
 			                	{ data.articleTags.length > 0 &&
 				                    <span className="article_preview-tags flex-center-box">
-				                        <i className="ning-icon icon-tag m-r-xs"></i>标签：
+				                        <i className="ning-icon icon-tag m-r-xs"></i>:  
 				                        {
 				                        	data.articleTags.map((v, i, a) => {
 				                        		return `【${v}】`
@@ -166,11 +166,11 @@ class ArticleDetail extends Component {
 				                    	}
 				                    </span>
 				                }
-	                			<span className="m-l-md flex-center-box"><i className="ning-icon icon-reading m-r-xs"></i>阅读数： { data.readCount || '-' }</span>
-	                			<span className="m-l-md flex-center-box"><i className="ning-icon icon-heart m-r-xs"></i>点赞： { data.likeCount || '-' }</span>
-		                		<span className="m-l-md flex-center-box"><i className="ning-icon icon-count m-r-xs"></i>字数：{ data.articleContentLength || '-' }</span>
-	                			<span className="m-l-md flex-center-box"><i className="ning-icon icon-time m-r-xs"></i>阅读时长：{ Math.ceil(data.articleContentLength / 400) } min</span>
-		                		<span className="m-l-md flex-center-box"><i className="ning-icon icon-date m-r-xs"></i>日期：{ new Date(data.createDate).Format().substr(0,10).replace('-', '年 ').replace('-', '月 ') + '日' } </span>
+	                			<span className="m-l-md flex-center-box"><i className="ning-icon icon-reading m-r-xs"></i>:   { data.readCount || '-' }</span>
+	                			<span className="m-l-md flex-center-box"><i className="ning-icon icon-heart m-r-xs"></i>:   { data.likeCount || '-' }</span>
+		                		<span className="m-l-md flex-center-box"><i className="ning-icon icon-count m-r-xs"></i>:  { data.articleContentLength || '-' }</span>
+	                			<span className="m-l-md flex-center-box"><i className="ning-icon icon-time m-r-xs"></i>:  { Math.ceil(data.articleContentLength / 400) } min</span>
+		                		<span className="m-l-md flex-center-box"><i className="ning-icon icon-date m-r-xs"></i>:  { new Date(data.createDate).Format().substr(0,10).replace('-', '年 ').replace('-', '月 ') + '日' } </span>
 	                		</p>
 		                </div>
 		                <div className="m-b-lg" id="articleContentResult" dangerouslySetInnerHTML={{ __html: marked(data.articleContentResult) }} />
@@ -233,7 +233,6 @@ class ArticleDetail extends Component {
             currentPage: 1,
             pageSize: 4,
         }
-        console.log(data)
         axios.get('/api/getArticleList', {
                 params: data
             })

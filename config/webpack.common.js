@@ -48,8 +48,8 @@ module.exports = {
             }, {
                 loader: 'sass-resources-loader',
                 options: {
-                    sourceMap: true,
-                    resources: ['./src/assets/sass/common.scss', '.node_modules/highlight.js/styles/ocean.css'],
+                    sourceMap: true,//'./src/assets/sass/common.scss',
+                    resources: ['./src/assets/ning-ui/sass/variable.scss', '.node_modules/highlight.js/styles/ocean.css'],
                 }
             }]
         }, {

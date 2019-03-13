@@ -17,7 +17,7 @@ module.exports = webpackMerge(common, {
     devServer: {
         contentBase: root('src'),
         compress: true,
-        port: 8888,
+        port: 1111,
         host: getIP(),
         historyApiFallback: true, //不跳转
         inline: true, //实时刷新

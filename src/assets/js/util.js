@@ -25,6 +25,18 @@ class Util {
         };
     }
 
+    getMonthFirstDay = (date) => {
+        let y = date.getFullYear();
+        let m = date.getMonth();
+        return new Date(y, m, 1)
+    }
+
+    getMonthLastDay = (date) => {
+        let y = date.getFullYear();
+        let m = date.getMonth() + 1;
+        return new Date(y, m, 0)
+    }
+
     firstUpperCase(str) {
         return str.toLowerCase().replace(/( |^)[a-z]/g, (L) => L.toUpperCase());
     }
