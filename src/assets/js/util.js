@@ -1,3 +1,6 @@
+import axios from 'axios';
+import notify from 'assets/ning-ui/js/notify'
+
 class Util {
 
     init() {
@@ -117,6 +120,50 @@ class Util {
             left: l,
         }
     }
+
+    /**
+     * 去除 html 字符串的 html 标签， 可选择保留部分 标签
+     * params tags = ['p', 'em'] 等等
+     */
+    formatHtmlStr(str = null, tags = []) {
+        let tags_str = '';
+        if (!str) {
+            console.log('请传入参数-需要格式化的html字符串~');
+            return
+        } else {
+            if (tags.length === 0) { // 即全部替换
+                return str.replace(/<\/?[^>]*>/g, '')
+            } else {
+                tags.map((v, i) => {
+                    tags_str += `${v}|\\/${v}${i === tags.length - 1 ? '' : '|'}`
+                })
+                let reg = new RegExp(`<(?!(${tags_str})).*?>`, 'g');
+                return str.replace(reg, '')
+            }
+        }
+    }
+
+    axiosFn = (url,type, data, cb, btn) => {
+        btn && (btn.disabled = true);
+        axios({
+            method: type,
+            url: url,
+            data: (type === 'post' || type === 'POST') && data,
+            params: (type === 'get' || type === 'GET') && data,
+        }).then(function(res) {
+            btn && (btn.disabled = false);
+            if (res.data.status === 200) {
+                cb && cb(res.data);
+            } else {
+                notify.warning(res.data.message ? res.data.message : "网络或服务异常")
+            }
+        }).catch(function(error) {
+            btn && (btn.disabled = false);
+            notify.error('网络或服务异常:' + error);
+        });
+    };
+
+
 }
 let util = new Util();
 util.init();

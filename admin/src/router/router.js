@@ -7,6 +7,7 @@ import about from "../components/about.vue";
 import addArticle from "../components/addArticle.vue";
 import articleList from "../components/articleList.vue";
 import tagPage from "../components/tagPage.vue";
+import commentList from "../components/commentList.vue";
 
 
 // 要告诉 vue 使用 vueRouter
@@ -32,6 +33,10 @@ const routes = [
     {
         path: "/tagPage",
         component: tagPage
+    },
+    {
+        path: "/commentList",
+        component: commentList
     },
      // 重定向
     {

@@ -74,6 +74,7 @@ class CommentApp extends Component {
 				<div className="comment-app">
 					{this.state.show_comment_input === true &&
 						<CommentInput
+							articleName={this.props.articleName}
 							articleId={this.props.articleId}
 							parentId={this.props.articleId}
 							getCommentList={this.getCommentList}
@@ -84,6 +85,7 @@ class CommentApp extends Component {
 						<h4 className="tc"><span className="">{ this.state.commentTotalCount + ' 条评论'}</span></h4>
 					}
 					<CommentList
+						articleName={this.props.articleName}
 						articleId={this.props.articleId}
 						comments={this.state.comments}
 						show_comment_input={this.state.show_comment_input}
@@ -100,6 +102,7 @@ class CommentInput extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
+			articleName: '',
 	      	articleId: '',
 	      	parentId: '',
 	      	userName: '',
@@ -157,6 +160,7 @@ class CommentInput extends Component {
 			return;
 		}
 		data.createDate = new Date();
+		data.articleName = self.props.articleName;
 		data.articleId = self.props.articleId;
 		data.parentId = self.props.parentId;
 		data.toUserName = self.props.comment && self.props.comment.userName;
@@ -166,6 +170,7 @@ class CommentInput extends Component {
                 if (res.status === 200) {
                     notify.success(res.message)
                     self.setState({
+                    	articleName: '',
 				      	articleId: '',
 				      	parentId: '',
 				      	userName: '',
@@ -255,6 +260,7 @@ class CommentList extends Component {
 		      				key={i}
 		      				comment={comment}
 		      				parentId={comment._id}
+		      				articleName={this.props.articleName}
 		      				articleId={this.props.articleId}
 		      				show_comment_input={this.props.show_comment_input}
 		      				handleShowCommentInput={this.props.handleShowCommentInput}
@@ -295,6 +301,7 @@ class Comment extends Component {
       			</div>
 	        	{this.props.show_comment_input === comment._id &&
 					<CommentInput
+						articleName={this.props.articleName}
 						articleId={this.props.articleId}
 						parentId={this.props.parentId}
 						comment={comment}
@@ -308,6 +315,7 @@ class Comment extends Component {
 			        			<Comment
 			        				key={i}
 			        				comment={v}
+			        				articleName={this.props.articleName}
 			        				articleId={this.props.articleId}
 									parentId={comment._id}
 			      					show_comment_input={this.props.show_comment_input}

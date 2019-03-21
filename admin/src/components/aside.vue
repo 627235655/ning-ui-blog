@@ -5,6 +5,7 @@
         <router-link class="aside-nav-item" to="/addArticle"><i class="ning-icon icon-add m-r-sm"></i>新增文章</router-link>
         <router-link class="aside-nav-item" to="/articleList"><i class="ning-icon icon-article m-r-sm"></i>文章列表</router-link>
         <router-link class="aside-nav-item" to="/tagPage"><i class="ning-icon icon-tag m-r-sm"></i>标签页</router-link>
+        <router-link class="aside-nav-item" to="/commentList"><i class="ning-icon icon-comment m-r-sm"></i>评论管理</router-link>
         <router-link class="aside-nav-item" to="/about"><i class="ning-icon icon-about m-r-sm"></i>关于</router-link>
     </aside>
 </template>

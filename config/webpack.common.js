@@ -78,6 +78,7 @@ module.exports = {
             components: path.join(__dirname, '../src/components'),
             pages: path.join(__dirname, '../src/pages'),
             router: path.join(__dirname, '../src/router'),
+            server: path.join(__dirname, '../src/server'),
         }
     }
 };

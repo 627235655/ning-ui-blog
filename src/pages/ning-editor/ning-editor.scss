@@ -1,0 +1,68 @@
+.ning-editor-wrap{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding-top: 100px;
+	.ning-editor{
+	}
+	.ning-editor-menu{
+		display: flex;
+		flex-wrap: wrap;
+		border: 1px solid #e2ecf4;
+		border-radius: 2px;
+		border-bottom-left-radius: 0;
+		border-bottom-right-radius: 0;
+		padding: 8px;
+		.ning-editor-menu-item{
+			position: relative;
+			border: 1px solid #e2ecf4;
+			border-radius: 2px;
+			padding: 4px;
+			margin: 0 4px 4px 0;
+		}
+		.ning-icon{
+			font-size: 0;
+		}
+	}
+	.ning-editor-content{
+		height: auto;
+		min-height: 200px;
+		border: 1px solid #e2ecf4;
+		border-radius: 2px;
+		border-top-left-radius: 0;
+		border-top-right-radius: 0;
+		border-top: none;
+		padding: 8px;
+		&:focus{
+			outline: none;
+		}
+	}
+	.ning-editor-h-list{
+		display: none;
+		position: absolute;
+		top: 100%;
+		left: 0;
+		border: 1px solid #e2ecf4;
+		width: 80px;
+		background: #fff;
+		box-shadow: 0 2px 5px rgba(0, 0, 0,.25);
+		transition: .25s;
+		li{
+			text-align: center;
+			line-height: 32px;
+			&:first-child{
+				font-size: 12px;
+				color: #999;
+			}
+			&:not(:last-child){
+				border-bottom: 1px dashed #e2ecf4;
+			}
+			&:not(:first-child){
+				cursor: pointer;
+			}
+			&:not(:first-child):hover{
+				color: #0081fe;
+			}
+		}
+	}
+}

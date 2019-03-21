@@ -392,9 +392,8 @@ api.post('/api/removeArticle', function(req, res) {
     })
 });
 
-
 var defaultOptions = {
-    pageSize: 1000,
+    pageSize: 10,
 }
 
 // 获取评论列表
@@ -496,6 +495,19 @@ api.post('/api/setCommentLikeCount', function(req, res) {
         })
     })
 });
+
+// 删除评论
+api.post('/api/removeComment', function(req, res) {
+    var DB = db.CommentList;
+    DB.remove({ _id: req.body._id }, function(err, docs) {
+        if (err) {
+            res.json({ status: 500, message: '操作失败' })
+            return
+        }
+        res.json({ status: 200, message: '操作成功' })
+    })
+});
+
 
 
 // 图片上传

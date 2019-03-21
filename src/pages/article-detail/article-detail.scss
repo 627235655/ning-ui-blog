@@ -10,6 +10,7 @@
         align-items: center;
         width: 200px;
         .detail-tool-item{
+            position: relative;
             display: inline-flex;
             justify-content: center;
             align-items: center;
@@ -30,6 +31,15 @@
                 &:hover{
                     color: $blue-5;
                 }
+            }
+            .ning-badge{
+                position: absolute;
+                top: 0;
+                left: 75%;
+                line-height: 10px;
+                font-size: 10px;
+                background: #f5f5f5;
+                color: $blue-3;
             }
         }
     }

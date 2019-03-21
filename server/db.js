@@ -45,6 +45,7 @@ var CommentListSchema = new mongoose.Schema({
 	id: String,
 	parentId: String,
 	articleId: String,
+	articleName: String,
 	userName: String,
 	toUserName: String,
 	email: String,

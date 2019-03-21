@@ -7,9 +7,11 @@ import {
 } from 'react-router-dom';
 import './article-detail.scss';
 import util from 'assets/js/util';
+import server from 'server/server';
 import axios from 'axios';
 import marked from 'marked'
 import hljs from 'highlight.js'
+import notify from 'assets/ning-ui/js/notify'
 import CommentApp from 'components/CommentApp/CommentApp'
 import CopyRight from 'components/CopyRight/CopyRight'
 import TagLink from 'components/TagLink/TagLink'
@@ -47,76 +49,6 @@ class Catalogue {
 }
 let catalogue = new Catalogue();
 
-class DetialTool extends Component {
-	constructor(props) {
-		super(props)
-		this.state = {
-			detail_tool: null,
-			top: null,
-            left: null,
-		}
-	}
-
-	// componentDidMount() {
-	// 	let detail_tool = document.querySelector('.detail-tool'),
-	// 		top = util.getElOffset(detail_tool).top,
-	// 		left = util.getElOffset(detail_tool).left;
- //    	this.setState({
- //    		detail_tool,
- //    		top,
- //            left,
- //    	}, () => {
-	// 		window.addEventListener('scroll', this.handleScroll, false)
- //    	});
-	// }
-
-	// handleScroll = () => {
-	// 	let detail_tool = this.state.detail_tool,
-	// 		top = this.state.top,
-	// 		left = this.state.left,
-	// 		doc = document.body.scrollTop ? document.body : document.documentElement,
- //        	show_model = (doc.scrollTop - top) > 0;
- //        if (show_model) {
- //        	let style = {
- //        		position: 'fixed',
- //        		left: left,
- //        	}
- //        	Object.assign(detail_tool.style, style);
- //        } else {
- //        	let style = {
- //        		position: 'absolute',
- //        		left: '0',
- //        	}
- //        	Object.assign(detail_tool.style, style);
- //        }
-	// }
-
-	componentWillUnmount() {
-		// window.onscroll = '';
-	}
-
-	render() {
-		return(
-				<div className="detail-tool">
-					<div className="detail-tool-item ning-prompt-trigger" data-prompt="{content: '喜欢就点个赞吧~', theme: 'blue'}">
-						<i className="ning-icon icon-heart"></i>
-					</div>
-					<div className="detail-tool-item ning-prompt-trigger" data-prompt="{content: '点击我，交流探讨下呢~', theme: 'blue'}">
-						<a href="#comment_app">
-							<i className="ning-icon icon-comment"></i>
-						</a>
-					</div>
-					<div className="detail-tool-item ning-prompt-trigger" data-prompt="{content: '分享到微博吧~', theme: 'green'}">
-						<i className="ning-icon icon-weibo"></i>
-					</div>
-					<div className="detail-tool-item ning-prompt-trigger" data-prompt="{content: '分享到微信吧~', theme: 'green'}">
-						<i className="ning-icon icon-wechat"></i>
-					</div>
-				</div>
-			)
-	}
-}
-
 class ArticleDetail extends Component {
 	constructor(props) {
 		super(props)
@@ -150,7 +82,22 @@ class ArticleDetail extends Component {
 		} else {
 			return (
 				<div id="article_detail" className="ning-container p-md">
-					<DetialTool />
+					<div className="detail-tool">
+						<div className="detail-tool-item" onClick={() => this.addAtricleLikeCount()}>
+							<i className="ning-icon icon-heart"></i>
+							{ data.likeCount && <span className="ning-badge">{data.likeCount}</span> }
+						</div>
+						<a className="detail-tool-item"  href="#comment_app">
+							<i className="ning-icon icon-comment"></i>
+							<span className="ning-badge">22</span>
+						</a>
+						<a className="detail-tool-item"  href="https://weibo.com/5382177688/profile?topnav=1&wvr=6" target="_blank">
+							<i className="ning-icon icon-weibo"></i>
+						</a>
+						<div className="detail-tool-item">
+							<i className="ning-icon icon-wechat"></i>
+						</div>
+					</div>
 					<div className="article-detail-wrap">
 		                <div className="article_preview-header" style={{backgroundImage: `url(${data.thumbnailUrl})`}}>
 		                    <h2><span className="article_preview-title">{ data.articleName }</span></h2>
@@ -158,7 +105,7 @@ class ArticleDetail extends Component {
 		                	<p className="article_preview-header_footer">
 			                	{ data.articleTags.length > 0 &&
 				                    <span className="article_preview-tags flex-center-box">
-				                        <i className="ning-icon icon-tag m-r-xs"></i>:  
+				                        <i className="ning-icon icon-tag m-r-xs"></i>:
 				                        {
 				                        	data.articleTags.map((v, i, a) => {
 				                        		return `【${v}】`
@@ -187,7 +134,7 @@ class ArticleDetail extends Component {
 	                	<ul className="blog-list ning-row">
 	                		{ el_article_list }
 	                	</ul>
-		                <CommentApp articleId={data._id} />
+		                <CommentApp articleId={data._id} articleName={data.articleName} />
 					</div>
 	            </div>
 			)
@@ -196,58 +143,64 @@ class ArticleDetail extends Component {
 	}
 
 	componentDidMount() {
-		this.getArticleDetail();
-		this.getArticleList();
-
-
+		this.getArticleDetail(true);
+		this.getRecommendArticleList();
 	}
 
-	getArticleDetail = () => {
-		let self = this;
+	addAtricleReadCount() {
 		let data = {
-			_id: this.state._id,
-		}
-		axios.get('/api/getArticleDetail', {
-				params: data
-			})
-			.then(function(response) {
-				let res = response.data;
-				if (res.status === 200) {
-					self.setState({
-						articleDetail: res.data,
-					}, () => {
-						self.setState({
-							catalogue_list: catalogue.init('#articleContentResult'),
-						})
-					})
-				}
-			})
-			.catch(function(error) {
-				console.log(error);
-			});
+				_id: this.state._id,
+				readCount: this.state.articleDetail.readCount ? ++this.state.articleDetail.readCount : 1,
+			},
+			cb = () => {
+				console.log('感谢阅读，thx~')
+			}
+        util.axiosFn(server.updateArticle, 'post', data, cb)
 	}
 
-	getArticleList = () => {
-        let self = this;
-        let data = {
-            currentPage: 1,
-            pageSize: 4,
-        }
-        axios.get('/api/getArticleList', {
-                params: data
-            })
-            .then(function(response) {
-                let res = response.data;
-                if (res.status === 200) {
-                    self.setState({
-                        articleList: res.data.list,
-                        totalCount: res.data.totalCount
-                    })
-                }
-            })
-            .catch(function(error) {
-                console.log(error);
-            });
+	addAtricleLikeCount() {
+		let data = {
+				_id: this.state._id,
+				likeCount: this.state.articleDetail.likeCount ? ++this.state.articleDetail.likeCount : 1,
+			},
+			cb = () => {
+				notify.info('感谢点赞~您的鼓励是我前进动力~')
+				this.getArticleDetail()
+			}
+        util.axiosFn(server.updateArticle, 'post', data, cb)
+	}
+
+	getArticleDetail = (is_add_read_count) => {
+		let self = this,
+			data = {
+				_id: this.state._id,
+			},
+			cb = res => {
+				self.setState({
+					articleDetail: res.data,
+				}, () => {
+					self.setState({
+						catalogue_list: catalogue.init('#articleContentResult'),
+					})
+					is_add_read_count && self.addAtricleReadCount();
+				})
+			}
+        util.axiosFn(server.getArticleDetail, 'get', data, cb)
+	}
+
+	getRecommendArticleList = () => {
+        let self = this,
+        	data = {
+	            currentPage: 1,
+	            pageSize: 4,
+	        },
+	        cb = res => {
+	        	self.setState({
+                    articleList: res.data.list,
+                    totalCount: res.data.totalCount
+                })
+	        }
+        util.axiosFn(server.getArticleList, 'get', data, cb)
     }
 }
 
