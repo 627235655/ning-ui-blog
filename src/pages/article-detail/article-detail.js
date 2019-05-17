@@ -83,13 +83,13 @@ class ArticleDetail extends Component {
 			return (
 				<div id="article_detail" className="ning-container p-md">
 					<div className="detail-tool">
-						<div className="detail-tool-item" onClick={() => this.addAtricleLikeCount()}>
+						<div className="detail-tool-item" onClick={(e) => this.addAtricleLikeCount(e)}>
 							<i className="ning-icon icon-heart"></i>
-							{ data.likeCount && <span className="ning-badge">{data.likeCount}</span> }
+							{ data.likeCount ? <span className="ning-badge">{data.likeCount}</span> : null }
 						</div>
 						<a className="detail-tool-item"  href="#comment_app">
 							<i className="ning-icon icon-comment"></i>
-							<span className="ning-badge">22</span>
+							{ data.commentCount ? <span className="ning-badge">{data.commentCount}</span> : null }
 						</a>
 						<a className="detail-tool-item"  href="https://weibo.com/5382177688/profile?topnav=1&wvr=6" target="_blank">
 							<i className="ning-icon icon-weibo"></i>
@@ -105,7 +105,7 @@ class ArticleDetail extends Component {
 		                	<p className="article_preview-header_footer">
 			                	{ data.articleTags.length > 0 &&
 				                    <span className="article_preview-tags flex-center-box">
-				                        <i className="ning-icon icon-tag m-r-xs"></i>:
+				                        <i data-prompt="{content: '标签', theme: 'blue'}" className="ning-prompt-trigger ning-icon icon-tag m-r-xs"></i>:
 				                        {
 				                        	data.articleTags.map((v, i, a) => {
 				                        		return `【${v}】`
@@ -113,11 +113,11 @@ class ArticleDetail extends Component {
 				                    	}
 				                    </span>
 				                }
-	                			<span className="m-l-md flex-center-box"><i className="ning-icon icon-reading m-r-xs"></i>:   { data.readCount || '-' }</span>
-	                			<span className="m-l-md flex-center-box"><i className="ning-icon icon-heart m-r-xs"></i>:   { data.likeCount || '-' }</span>
-		                		<span className="m-l-md flex-center-box"><i className="ning-icon icon-count m-r-xs"></i>:  { data.articleContentLength || '-' }</span>
-	                			<span className="m-l-md flex-center-box"><i className="ning-icon icon-time m-r-xs"></i>:  { Math.ceil(data.articleContentLength / 400) } min</span>
-		                		<span className="m-l-md flex-center-box"><i className="ning-icon icon-date m-r-xs"></i>:  { new Date(data.createDate).Format().substr(0,10).replace('-', '年 ').replace('-', '月 ') + '日' } </span>
+	                			<span className="m-l-md flex-center-box"><i data-prompt="{content: '阅读量', theme: 'blue'}" className="ning-prompt-trigger ning-icon icon-reading m-r-xs"></i>:   { data.readCount || '-' }</span>
+	                			<span className="m-l-md flex-center-box"><i data-prompt="{content: '点赞数，thx~', theme: 'blue'}" className="ning-prompt-trigger ning-icon icon-heart m-r-xs"></i>:   { data.likeCount || '-' }</span>
+		                		<span className="m-l-md flex-center-box"><i data-prompt="{content: '总字数', theme: 'blue'}" className="ning-prompt-trigger ning-icon icon-count m-r-xs"></i>:  { data.articleContentLength || '-' }</span>
+	                			<span className="m-l-md flex-center-box"><i data-prompt="{content: '阅读时长', theme: 'blue'}" className="ning-prompt-trigger ning-icon icon-time m-r-xs"></i>:  { Math.ceil(data.articleContentLength / 400) } min</span>
+		                		<span className="m-l-md flex-center-box"><i data-prompt="{content: '发布日期', theme: 'blue'}" className="ning-prompt-trigger ning-icon icon-date m-r-xs"></i>:  { new Date(data.createDate).Format().substr(0,10).replace('-', '年 ').replace('-', '月 ') + '日' } </span>
 	                		</p>
 		                </div>
 		                <div className="m-b-lg" id="articleContentResult" dangerouslySetInnerHTML={{ __html: marked(data.articleContentResult) }} />
@@ -130,11 +130,14 @@ class ArticleDetail extends Component {
 		                <CopyRight
 		                	createDate={new Date(data.createDate).Format()}
 		                />
-	                	<h4 className="tc m-t-md m-b-md"><span>相关文章</span></h4>
+	                	<h4 className="tc m-t-lg m-b-md"><span className="ning-prompt-trigger" data-prompt="{content: '相关文章', theme: 'blue'}">他山之石，可以攻玉</span></h4>
 	                	<ul className="blog-list ning-row">
 	                		{ el_article_list }
 	                	</ul>
-		                <CommentApp articleId={data._id} articleName={data.articleName} />
+		                <CommentApp
+		                	articleId={data._id}
+		                	articleName={data.articleName}
+	                	/>
 					</div>
 	            </div>
 			)
@@ -158,7 +161,11 @@ class ArticleDetail extends Component {
         util.axiosFn(server.updateArticle, 'post', data, cb)
 	}
 
-	addAtricleLikeCount() {
+	addAtricleLikeCount(e) {
+		util.fnTextPopup({
+			pageX: e.pageX,
+			pageY: e.pageY,
+		})
 		let data = {
 				_id: this.state._id,
 				likeCount: this.state.articleDetail.likeCount ? ++this.state.articleDetail.likeCount : 1,
@@ -197,7 +204,6 @@ class ArticleDetail extends Component {
 	        cb = res => {
 	        	self.setState({
                     articleList: res.data.list,
-                    totalCount: res.data.totalCount
                 })
 	        }
         util.axiosFn(server.getArticleList, 'get', data, cb)

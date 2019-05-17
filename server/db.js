@@ -32,6 +32,7 @@ var ArticleListSchema = new mongoose.Schema({
 	thumbnailUrl: String,
 	likeCount: Number,
 	readCount: Number,
+	commentCount: Number,
 	createDate: Date,
 	updateDate: Date,
 })

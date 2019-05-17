@@ -1,7 +1,7 @@
 const path = require('path')
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin") //打包css的插件
-const Version = new Date().getTime();
+const Version = Date.now()
 
 module.exports = {
     entry: './src/index.js',
@@ -48,8 +48,8 @@ module.exports = {
             }, {
                 loader: 'sass-resources-loader',
                 options: {
-                    sourceMap: true,//'./src/assets/sass/common.scss',
-                    resources: ['./src/assets/ning-ui/sass/variable.scss', '.node_modules/highlight.js/styles/ocean.css'],
+                    sourceMap: true,
+                    resources: ['./src/assets/ning-ui/sass/variable.scss'],
                 }
             }]
         }, {

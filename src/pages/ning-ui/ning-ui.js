@@ -41,7 +41,11 @@ const nav_list = [{
 }, {
     text: '图标',
     id: 'icon',
-},, {
+}
+, {
+    text: '动画',
+    id: 'animation',
+}, {
     text: '模态框',
     id: 'modal',
 } ]

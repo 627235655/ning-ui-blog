@@ -108,7 +108,9 @@
 		border-bottom: 16px solid currentColor;
 		border-left: 24px solid transparent;
 		transform: rotate(35deg);
+		overflow: visible;
 		&:before{
+			content: '';
 		    position: absolute;
 			top: 0px;
 			left: -24px;
@@ -116,9 +118,9 @@
 			border-bottom: 16px solid currentColor;
 			border-left: 24px solid transparent;
 			transform: rotate(74deg);
-			content: '';
 		}
 		&:after{
+			content: '';
 			position: absolute;
 			top: 0;
 			left: -24px;
@@ -126,7 +128,6 @@
 			border-bottom: 16px solid currentColor;
 			border-left: 24px solid transparent;
 			transform: rotate(-70deg);
-			content: '';
 		}
 	}
 	&.icon-search{

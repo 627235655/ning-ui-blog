@@ -34,7 +34,7 @@ export default {
         min-width: 80px;
         width: 80px;
         .aside-nav-item{
-            padding: 0 24px;
+            padding: 0 20px;
             font-size: 0;
         }
         &+.page-container{

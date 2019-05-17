@@ -26,18 +26,18 @@ var { client, ali_oss } = require('./alioss') // 这里不方便暴露自己的�
 // module.exports = { client, ali_oss };
 
 
-var identityKey = 'skey';
+// var identityKey = 'skey';
 
-api.use(session({
-    name: identityKey,
-    secret: 'zongyuan.ning', // 用来对session id相关的cookie进行签名
-    store: new FileStore(), // 本地存储session（文本文件，也可以选择其他store，比如redis的）
-    saveUninitialized: false, // 是否自动保存未初始化的会话，建议false
-    resave: false, // 是否每次都重新保存会话，建议false
-    cookie: {
-        maxAge: 1000 * 3600 * 24 * 7 // 有效期，单位是毫秒
-    }
-}));
+// api.use(session({
+//     name: identityKey,
+//     secret: 'zongyuan.ning', // 用来对session id相关的cookie进行签名
+//     store: new FileStore(), // 本地存储session（文本文件，也可以选择其他store，比如redis的）
+//     saveUninitialized: false, // 是否自动保存未初始化的会话，建议false
+//     resave: false, // 是否每次都重新保存会话，建议false
+//     cookie: {
+//         maxAge: 1000 * 3600 * 24 * 7 // 有效期，单位是毫秒
+//     }
+// }));
 
 
 // 登录接口
@@ -286,7 +286,7 @@ api.get('/api/getArticleList', function(req, res) {
             else if (filter.articleTags.length === 0 && filter.createDates.length > 0) {
                 delete filter.articleTags;
                 let arr = filter.createDates;
-                filter = {"$and":[{"createDate":{"$gt": arr[0]}},{"createDate":{"$lt": arr[1]}}]}
+                filter = { "$and": [{ "createDate": { "$gt": arr[0] } }, { "createDate": { "$lt": arr[1] } }] }
             }
         }
     }
@@ -431,7 +431,7 @@ api.get('/api/getCommentList', function(req, res) {
                 console.log('出错' + err);
                 return
             }
-            if (docs.length > 0 ) {
+            if (docs.length > 0) {
                 let all_comments = [];
                 let new_docs = [];
                 let totalCount = 0;
@@ -472,7 +472,22 @@ api.post('/api/addComment', function(req, res) {
             return
         }
         if (result) {
-            res.json({ status: 200, message: '操作成功' })
+            // res.json({ status: 200, message: '操作成功' })
+            // 同时把该文章的 commentCount + 1
+            var DB2 = db.ArticleList;
+            DB2.find({ _id: req.body.articleId }, function(err, docs) {
+                if (err) {
+                    return
+                }
+                docs[0].commentCount = docs[0].commentCount ? ++docs[0].commentCount : 1
+                DB2(docs[0]).save(function(err) {
+                    if (err) {
+                        res.json({ status: 500, message: '操作失败' })
+                        return
+                    }
+                    res.json({ status: 200, message: '操作成功' })
+                })
+            })
         }
     });
 });
@@ -556,20 +571,20 @@ api.all('/api/uploadFile', upload.single('file'), function(req, res, next) {
 })
 
 Date.prototype.Format = function(param) {
-            let fmt = param || "yyyy-MM-dd hh:mm:ss";
-            let o = {
-                "M+": this.getMonth() + 1, //月份
-                "d+": this.getDate(), //日
-                "h+": this.getHours(), //小时
-                "m+": this.getMinutes(), //分
-                "s+": this.getSeconds(), //秒
-                "q+": Math.floor((this.getMonth() + 3) / 3), //季度
-                "S": this.getMilliseconds() //毫秒
-            };
-            if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
-            for (let k in o)
-                if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-            return fmt;
-        };
+    let fmt = param || "yyyy-MM-dd hh:mm:ss";
+    let o = {
+        "M+": this.getMonth() + 1, //月份
+        "d+": this.getDate(), //日
+        "h+": this.getHours(), //小时
+        "m+": this.getMinutes(), //分
+        "s+": this.getSeconds(), //秒
+        "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+        "S": this.getMilliseconds() //毫秒
+    };
+    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+    for (let k in o)
+        if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+    return fmt;
+};
 
 module.exports = api

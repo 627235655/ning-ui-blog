@@ -19,8 +19,12 @@
             &:not(:last-child){
                 margin-right: 8px;
             }
+            &:hover{
+                color: $blue;
+            }
             &.active{
                 color: #fff;
+                font-weight: bold;
                 background: $blue;
             }
             &.disabled{

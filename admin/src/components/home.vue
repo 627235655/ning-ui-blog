@@ -1,8 +1,98 @@
 <template>
     <div id="home">
         <h2 class="page-title">主页</h2>
-        <divider></divider>
+        <hr/>
         <div class="ning-row border p-md">
+            <div class="col-12 overview">
+                <div class="overview-item">
+                    <h2 class="m-b-md flex-row-box flex-center-box">{{this.overviewData.dateTotal}} 天<span class="tips">{{this.overviewData.dateRange}}</span></h2>
+                    <p>创作时长</p>
+                    <p class="tips">走的每一步，都值得被铭记</p>
+                </div>
+                <div class="overview-item">
+                    <h2 class="m-b-md">{{this.overviewData.articleTotal}} 篇</h2>
+                    <p>文章</p>
+                    <p class="tips">笔落惊风雨，下笔如有神</p>
+                </div>
+                <div class="overview-item">
+                    <h2 class="m-b-md flex-row-box">
+                        <span>{{this.overviewData.wordCountTotal}}</span>
+                        <span>|</span>
+                        <span>{{this.overviewData.maxWordCount}}</span>
+                    </h2>
+                    <p class="flex-row-box">
+                        <span>总字数</span>
+                        <span>|</span>
+                        <a :href="this.overviewData.maxWordCountUrl">单篇最多字数</a>
+                    </p>
+                    <p class="tips">不积跬步，无以至千里</p>
+                </div>
+                <div class="overview-item">
+                    <h2 class="m-b-md flex-row-box">
+                        <span>{{this.totalChartData.tag_total}}</span>
+                        <span>|</span>
+                        <span>{{this.overviewData.maxTag}}</span>
+                    </h2>
+                    <p class="flex-row-box">
+                        <span>标签</span>
+                        <span>|</span>
+                        <span>最常使用标签</span>
+                    </p>
+                    <p class="tips">术业有专攻，如是而已</p>
+                </div>
+                <div class="overview-item">
+                    <h2 class="m-b-md flex-row-box">
+                        <span>{{this.overviewData.readCountTotal}}</span>
+                        <span>|</span>
+                        <span>{{this.overviewData.maxReadCount}}</span>
+                    </h2>
+                    <p class="flex-row-box">
+                        <span>阅读量</span>
+                        <span>|</span>
+                        <span><a :href="this.overviewData.maxReadCountUrl">单篇最高阅读</a></span>
+                    </p>
+                    <p class="tips">coder love sharing!</p>
+                </div>
+                <div class="overview-item">
+                    <h2 class="m-b-md flex-row-box">
+                        <span>{{this.overviewData.likeCountTotal}}</span>
+                        <span>|</span>
+                        <span>{{this.overviewData.maxLikeCount}}</span>
+                    </h2>
+                    <p class="flex-row-box">
+                        <span>点赞数</span>
+                        <span>|</span>
+                        <span><a :href="this.overviewData.maxLikeCountUrl">单篇最高点赞</a></span>
+                    </p>
+                    <p class="tips">高山流水，幸甚至哉</p>
+                </div>
+                <div class="overview-item">
+                    <h2 class="m-b-md flex-row-box">
+                        <span>{{this.overviewData.commentCountTotal}}</span>
+                        <span>|</span>
+                        <span>{{this.overviewData.maxCommentCount}}</span>
+                    </h2>
+                    <p class="flex-row-box">
+                        <span>评论</span>
+                        <span>|</span>
+                        <span><a :href="this.overviewData.maxCommentCountUrl">单篇最高评论</a></span>
+                    </p>
+                    <p class="tips">坐而论道，不亦乐乎</p>
+                </div>
+                <div class="overview-item">
+                    <h2 class="m-b-md flex-row-box">
+                        <span>{{this.overviewData.articleTotal}}</span>
+                        <span>|</span>
+                        <span>{{this.overviewData.maxActiveDayArticleTotal}}</span>
+                    </h2>
+                    <p class="flex-row-box">
+                        <span>活跃天数</span>
+                        <span>|</span>
+                        <span>最活跃日期</span>
+                    </p>
+                    <p class="tips">古之成大事者，不惟有超世之才，亦必有坚忍不拔之志</p>
+                </div>
+            </div>
             <div class="col-6 border p-sm m-b-md">
                 <h3 class="p-b-md flex-center-box"><i class="ning-icon icon-count m-r-sm"></i>总数统计</h3>
                 <!-- 文章数, 标签数，总字数 -->
@@ -26,6 +116,7 @@ import axios from 'axios';
 import showdown from 'showdown';
 import notify from '../assets/ning-ui/js/notify'
 import modal from '../assets/ning-ui/js/modal'
+import util from '../assets/ning-ui/js/utils'
 import G2 from '@antv/g2';
 
 let initDateChartData = function(length) {
@@ -61,6 +152,29 @@ export default {
             },
             tagsChartData: [],
             dateChartData: [],
+            overviewData:{
+                dateTotal: null,
+                dateRange: null,
+                articleTotal: null,
+                wordCountTotal: null,
+                maxWordCount: null,
+                maxWordCountUrl: null,
+                tagTotal: null,
+                maxTag: null,
+                maxTagTotal: null,
+                readCountTotal: null,
+                maxReadCount: null,
+                maxReadCountUrl: null,
+                likeCountTotal: null,
+                maxLikeCount: null,
+                maxLikeCountUrl: null,
+                commentCountTotal: null,
+                maxCommentCount: null,
+                maxCommentCountUrl: null,
+                activeDayTotal: null,
+                maxActiveDay: null,
+                maxActiveDayArticleTotal: null,
+            }
         }
     },
     mounted: function() {
@@ -77,64 +191,108 @@ export default {
 
     },
     methods: {
-        getTagList() {
-            let self = this;
-            return new Promise((resolve, reject) => {
-                axios.get('/api/getTagList')
-                    .then(function(response) {
-                        let res = response.data;
-                        if (res.status === 200) {
-                            resolve(true)
-                            self.tagList = res.data.list;
-                            self.totalChartData.tag_total = res.data.totalCount;
-                            self.tagList.map(function(v, i) {
-                                let obj = {
-                                    item: v.tagName,
-                                    count: 0,
-                                    percent: 0
-                                }
-                                self.tagsChartData.push(obj);
-                            })
-                        }
-                    })
-                    .catch(function(error) {
-                        reject(false)
-                        console.log(error);
-                    });
+        setOverView(totalArticleList) {
+            // console.log(totalArticleList)
+            let wordCountTotal = 0,
+                maxWordCount = 0,
+                maxWordCountUrl,
+                maxTag,
+                maxTagTotal = 0,
+                maxTagList = [],
+                readCountTotal = 0,
+                maxReadCount = 0,
+                maxReadCountUrl,
+                likeCountTotal = 0,
+                maxLikeCount = 0,
+                maxLikeCountUrl,
+                commentCountTotal = 0,
+                maxCommentCount = 0,
+                maxCommentCountUrl
+
+
+            this.overviewData.articleTotal = totalArticleList.length
+            this.overviewData.dateTotal = ((new Date(totalArticleList.pop().createDate).getTime() - new Date(totalArticleList[0].createDate).getTime()) / (3600 * 24 * 1000)).toFixed(0)
+            this.overviewData.dateRange = new Date(totalArticleList[0].createDate).Format('yy-MM-dd') + '~' + new Date(totalArticleList.pop().createDate).Format('yy-MM-dd')
+            totalArticleList.forEach((v, i) => {
+                let len = util.formatHtmlStr(v.articleContentResult).length
+                if (len > maxWordCount) {
+                    maxWordCount = len
+                    maxWordCountUrl = v._id
+                }
+                if (v.readCount > maxReadCount) {
+                    maxReadCount = v.readCount
+                    maxReadCountUrl = v._id
+                }
+                if (v.likeCount > maxLikeCount) {
+                    maxLikeCount = v.likeCount
+                    maxLikeCountUrl = v._id
+                }
+                if (v.commentCount > maxCommentCount) {
+                    maxCommentCount = v.commentCount
+                    maxCommentCountUrl = v._id
+                }
+                wordCountTotal += len
+                readCountTotal += v.readCount
+                likeCountTotal += v.likeCount
+                commentCountTotal += v.commentCount
             })
+            this.overviewData.wordCountTotal = wordCountTotal
+            this.overviewData.maxWordCount = maxWordCount
+            this.overviewData.maxWordCountUrl = `#/addArticle?_id=${maxWordCountUrl}&view_type=detail`
+            this.overviewData.readCountTotal = readCountTotal
+            this.overviewData.maxReadCount = maxReadCount
+            this.overviewData.maxReadCountUrl = maxReadCountUrl
+            this.overviewData.likeCountTotal = likeCountTotal
+            this.overviewData.maxLikeCount = maxLikeCount
+            this.overviewData.maxLikeCountUrl = maxLikeCountUrl
+            this.overviewData.commentCountTotal = commentCountTotal
+            this.overviewData.maxCommentCount = maxCommentCount
+            this.overviewData.maxCommentCountUrl = maxCommentCountUrl
+
+        },
+        getTagList() {
+            let self = this,
+                data = {},
+                url = '/api/getTagList',
+                cb = res => {
+                    self.tagList = res.data.list;
+                    self.totalChartData.tag_total = res.data.totalCount;
+                    self.tagList.map(function(v, i) {
+                        let obj = {
+                            item: v.tagName,
+                            count: 0,
+                            percent: 0
+                        }
+                        self.tagsChartData.push(obj);
+                    })
+                }
+            return util.axiosFn(url, data, 'get', cb);
         },
         getArticleList() {
-            let self = this;
-            return new Promise((resolve, reject) => {
-                axios.get('/api/getArticleList')
-                    .then(function(response) {
-                        let res = response.data;
-                        if (res.status === 200) {
-                            resolve(true)
-                            self.articleList = res.data.list;
-                            let len = self.articleList.length;;
-                            self.totalChartData.article_total = res.data.totalCount;
-                            self.articleList.map(function(v, i) {
-                                self.totalChartData.count_total += v.articleContentLength;
-                                self.tagsChartData.forEach(function(item, j) {
-                                    if (v.articleTags.includes(item.item)) {
-                                        item.count++;
-                                    }
-                                })
-                                let createDate = new Date(v.createDate);
-                                self.dateChartData.forEach(function(v, i) {
-                                    if (v.date === createDate.Format('yyyy-MM-dd')) {
-                                        v.articles++
-                                    }
-                                })
-                            })
-                        }
+            let self = this,
+                data = {},
+                url = '/api/getArticleList',
+                cb = res => {
+                    self.articleList = res.data.list;
+                    let len = self.articleList.length;;
+                    self.totalChartData.article_total = res.data.totalCount;
+                    self.articleList.map(function(v, i) {
+                        self.totalChartData.count_total += v.articleContentLength;
+                        self.tagsChartData.forEach(function(item, j) {
+                            if (v.articleTags.includes(item.item)) {
+                                item.count++;
+                            }
+                        })
+                        let createDate = new Date(v.createDate);
+                        self.dateChartData.forEach(function(v, i) {
+                            if (v.date === createDate.Format('yyyy-MM-dd')) {
+                                v.articles++
+                            }
+                        })
                     })
-                    .catch(function(error) {
-                        reject(false)
-                        console.log(error);
-                    });
-            })
+                    self.setOverView(res.data.list)
+                }
+            return util.axiosFn(url, data, 'get', cb);
         },
         renderTotalChart() {
             let self = this;
@@ -166,15 +324,24 @@ export default {
                 v.percent = v.count / article_total_count;
             });
             let data = self.tagsChartData;
+            // 求最常用标签
+            let max_use_tag_count = 0;
+            data.forEach((v, i) => {
+                if (v.count > max_use_tag_count) {
+                    max_use_tag_count = v.count;
+                    this.overviewData.maxTag = v.item;
+                }
+            })
             var chart = new G2.Chart({
                 container: 'tags_chart',
                 forceFit: true,
                 height: 300,
+                padding: [20, 20, 110, 20],
             });
             chart.source(data, {
                 percent: {
                     formatter: function formatter(val) {
-                        val = (val.toFixed(4) * 100 + '').substr(0, 4) + '%';
+                        val = (val.toFixed(2) * 100 + '').substr(0, 4) + '%';
                         return val;
                     }
                 }
@@ -263,6 +430,14 @@ export default {
                 }
             });
             let data = self.dateChartData;
+            // 求最活跃天数
+            let max_one_day_article_num = 0;
+            data.forEach((v, i) => {
+                if (v.articles > max_one_day_article_num) {
+                    max_one_day_article_num = v.articles;
+                    this.overviewData.maxActiveDayArticleTotal = v.date;
+                }
+            })
             var chart = new G2.Chart({
                 container: 'date_chart',
                 forceFit: true,
@@ -306,6 +481,8 @@ export default {
                             return '2019-03';
                         } else if (val === '22') {
                             return '2019-04';
+                        } else if (val === '27') {
+                            return '2019-05';
                         }
                         return '';
                     }
@@ -329,5 +506,23 @@ export default {
 canvas {
     width: 100% !important;
     transition: .25s;
+}
+.overview{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: $md;
+    .overview-item{
+        width: 22%;
+        padding: $md;
+        margin-bottom: $md;
+        border: 1px solid $b_c;
+        border-radius: $xs;
+    }
+    .tips{
+        font-size: 12px;
+        font-weight: normal;
+        color: $gray;
+    }
 }
 </style>

@@ -163,7 +163,30 @@ class Util {
         });
     };
 
+    // 获取随机颜色
+    getRandomRGB = (opacity = 1) => {
+        return 'rgba('+(Math.random() * 255)+','+(Math.random() * 255)+','+(Math.random() * 255)+',' + opacity+')';
+    }
 
+    // 气泡
+   fnTextPopup = (point) => {
+        let self = this,
+            x = point.pageX,
+            y = point.pageY
+        // 主逻辑
+        let eleText = document.createElement('i');
+        eleText.className = 'text-popup ning-icon icon-heart';
+        document.body.appendChild(eleText);
+        // 生成颜色
+        eleText.style.color = self.getRandomRGB(Math.random());
+        // 位置
+        eleText.style.left = (x - eleText.clientWidth / 2) + 'px';
+        eleText.style.top = (y - eleText.clientHeight) + 'px';
+        // 动画结束后删除自己
+        eleText.addEventListener('animationend', function() {
+            eleText.parentNode.removeChild(eleText);
+        });
+    }
 }
 let util = new Util();
 util.init();

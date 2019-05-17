@@ -1,7 +1,7 @@
 <template>
     <div id="add_article">
         <h2 class="page-title">新增文章</h2>
-        <divider></divider>
+        <hr/>
         <div class="ning-row">
             <div class="ning-form col-6 border" :class="{active: collapsed}">
                 <div class="ning-form-item">
@@ -12,9 +12,9 @@
                     <label for="articleTags">文章标签</label>
                     <div class="checkbox-wrap">
                         <span v-for="item in tagList">
-                    <input type="checkbox" :value="item.tagName" v-model="data.articleTags" :id="item._id" />
-                    <span class="virtual-checkbox"></span>
-                        <label :for="item._id">{{ item.tagName }}</label>
+                            <input type="checkbox" :value="item.tagName" v-model="data.articleTags" :id="item._id" />
+                            <span class="virtual-checkbox"></span>
+                            <label :for="item._id">{{ item.tagName }}</label>
                         </span>
                     </div>
                 </div>
@@ -28,10 +28,6 @@
                     <label for="article_summary">文章简介</label>
                     <textarea class="flex-1" id="article_summary" v-model="data.articleSummary"></textarea>
                 </div>
-                <!-- <div class="ning-form-item">
-                    <label for="article_name">文章内容</label>
-                    <input class="flex-1" type="text" placeholder="请在下方 markdown 编辑器中输入" disabled>
-                </div> -->
                 <div class="flex-1 ning-row">
                         <mavon-editor
                             v-model="data.articleContent"
@@ -68,6 +64,8 @@
 import axios from 'axios';
 import showdown from 'showdown';
 import notify from '../assets/ning-ui/js/notify'
+import util from '../assets/ning-ui/js/utils'
+import api from '../server/server'
 
 const ThumbnailUrl = 'https://zongyuan.oss-cn-shenzhen.aliyuncs.com/ning-ui-blog/1543218076685.png'
 
@@ -104,20 +102,17 @@ export default {
         renderMarkDown(value, render) {
             this.el_articleContent = document.getElementById("articleContent");
             this.el_articleContentResult = document.getElementById("articleContentResult");
-            // //获取要转换的文字
-            // var text = value;
-            // //创建实例
-            // var converter = new showdown.Converter();
-            // //进行转换
-            // var html = converter.makeHtml(text);
             //展示到对应的地方
             this.el_articleContentResult.innerHTML = render;
             this.data.articleContentResult = render;
-            this.data.articleContentLength = this.data.articleContent.replace(/#/g, "").replace(/\s+/g, "").length;
+            if (!this.data.articleContentResult) {
+                return
+            }
+            this.data.articleContentLength = util.formatHtmlStr(this.data.articleContentResult).length;
         },
         addArticle() {
-            let self = this;
-            let data = self.data;
+            let self = this,
+                data = self.data;
             if (!data.articleName) {
                 notify.warning('请输入文章标题!');
                 return;
@@ -132,65 +127,42 @@ export default {
             }
             if (data._id) {
                 data.updateDate = new Date();
-                axios.post('/api/updateArticle', data)
-                    .then(function(response) {
-                        let res = response.data;
-                        if (res.status === 200) {
-                            notify.success(res.message)
-                            self.$router.push({ path: '/articleList' })
-                        } else {
-                            notify.warning(res.message)
-                        }
-                    })
-                    .catch(function(error) {
-                        console.log(error);
-                    });
+                let url = api.updateArticle,
+                    cb = res => {
+                        notify.success(res.message)
+                        self.$router.push({ path: '/articleList' })
+                    };
+                util.axiosFn(url, data, 'post', cb);
             } else {
                 data.createDate = new Date();
                 data.updateDate = new Date();
-                axios.post('/api/addArticle', data)
-                    .then(function(response) {
-                        let res = response.data;
-                        if (res.status === 200) {
-                            notify.success(res.message)
-                            self.$router.push({ path: '/articleList' })
-                        } else {
-                            notify.warning(res.message)
-                        }
-                    })
-                    .catch(function(error) {
-                        console.log(error);
-                    });
+                let url = api.addArticle,
+                    cb = res => {
+                        notify.success(res.message)
+                        self.$router.push({ path: '/articleList' })
+                    };
+                util.axiosFn(url, data, 'post', cb);
             }
         },
         getTagList() {
-            let self = this;
-            axios.get('/api/getTagList')
-                .then(function(response) {
-                    let res = response.data;
-                    if (res.status === 200) {
-                        self.tagList = res.data.list;
-                    }
-                })
-                .catch(function(error) {
-                    console.log(error);
-                });
+            let self = this,
+                url = api.getTagList,
+                data = {},
+                cb = res => {
+                    self.tagList = res.data.list;
+                }
+            util.axiosFn(url, data, 'get', cb);
         },
         getArticleDetail(_id) {
-            let self = this;
-            let data = {
-                _id: _id,
-            }
-            axios.get('/api/getArticleDetail', { params: data })
-                .then(function(response) {
-                    let res = response.data;
-                    if (res.status === 200) {
-                        self.data = res.data;
-                    }
-                })
-                .catch(function(error) {
-                    console.log(error);
-                });
+            let self = this,
+                url = api.getArticleDetail,
+                data = {
+                    _id: _id,
+                },
+                cb = res => {
+                    self.data = res.data;
+                }
+            util.axiosFn(url, data, 'get', cb);
         },
         // 绑定@imgAdd event
         $imgAdd(pos, $file){
@@ -248,6 +220,8 @@ export default {
         transition: ease-in .25s;
         &.active {
             width: 130px;
+            height: 100vh;
+            overflow: hidden;
             .ning-form-item {
                 opacity: .25;
                 label {

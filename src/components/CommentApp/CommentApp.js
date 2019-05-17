@@ -196,7 +196,7 @@ class CommentInput extends Component {
 	render() {
 		return(
 				<div>
-				<h4 className="tc" id="comment_app"><span className="">留下你宝贵的评论吧</span></h4>
+				<h4 className="tc" id="comment_app"><span className="ning-prompt-trigger" data-prompt="{content: '留下你宝贵的评论吧', theme: 'blue'}">坐而论道，山高水长</span></h4>
 				<div className="comment-input ning-row">
 			        <div className='ning-form-item col-4'>
 			          	<label>用户名：</label>

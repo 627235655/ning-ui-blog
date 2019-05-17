@@ -1,7 +1,9 @@
 @import "../ning-ui/sass/ning-ui.scss";
+@import "../../../node_modules/highlight.js/styles/ocean.css";
 
 #app{
     min-height: 100vh;
+    background: #fff;
 }
 .common-container{
 	min-height: calc(100vh - 140px);
@@ -53,6 +55,30 @@
     &:after{
         margin-left: 16px;
         background: linear-gradient(to right, $blue-3, transparent);
+    }
+}
+
+.text-popup {
+    position: absolute!important;
+    z-index: 99;
+    color: red;
+    user-select: none;
+    white-space: nowrap;
+    transform: scale(1.5);
+    animation: textPopup ease 1s;
+}
+
+
+@keyframes textPopup {
+    0%,
+    100% {
+        opacity: 0;
+    }
+    25% {
+        opacity: 1;
+    }
+    100% {
+        transform: scale(2) translateY(-50px);
     }
 }
 

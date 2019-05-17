@@ -3,8 +3,11 @@ import React, {
 } from 'react';
 import ReactDOM from 'react-dom';
 import {
-	BrowserRouter as Router,
+	BrowserRouter
+	as
+	Router,
 	Route,
+	Redirect,
 	Switch
 } from 'react-router-dom';
 import indexHtml from 'pages/index';
@@ -24,6 +27,7 @@ class BasicRoute extends Component {
 		            <Route path="/profile" component={Profile}/>
 		            <Route path="/time-progress-bar" component={TimeProgressBar}/>
 		            <Route path="/ning-editor" component={NingEditor}/>
+		            <Redirect path="/" exact={true} to="/index/home" />
 		        </Switch>
 		    </Router>
 		);

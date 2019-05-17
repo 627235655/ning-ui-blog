@@ -10,79 +10,45 @@ var FileStore = require('session-file-store')(session);
 var app = express();
 
 var resolve = file => path.resolve(__dirname, file);
+
 app.use(compression());
+
 app.use('/', express.static(resolve('./dist')));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-var identityKey = 'skey';
+var identityKey = 'nzy';
 
 app.use(session({
     name: identityKey,
-    secret: 'chyingp',  // 用来对session id相关的cookie进行签名
-    store: new FileStore(),  // 本地存储session（文本文件，也可以选择其他store，比如redis的）
-    saveUninitialized: false,  // 是否自动保存未初始化的会话，建议false
-    resave: false,  // 是否每次都重新保存会话，建议false
+    secret: 'ngpsf',  // 用来对 session id 相关的 cookie 进行签名
+    store: new FileStore(),  // 本地存储 session（文本文件，也可以选择其他 store，比如 redis 的）
+    saveUninitialized: false,  // 是否自动保存未初始化的会话，建议 false
+    resave: false,  // 是否每次都重新保存会话，建议 false
     cookie: {
-        maxAge: 15 * 60 * 1000  // 有效期，单位是毫秒, 这里设置的是15分钟
+        maxAge: 5 * 60 * 1000  // 有效期，单位是毫秒, 这里设置的是 24 小时
     }
 }));
 
 app.use(api)
 
 // catch 404 and forward to error handler
-// app.use(function(req, res, next) {
-//     //判断是主动导向404页面，还是传来的前端路由。
-// 　　 //如果是前端路由则如下处理
-
-//     fs.readFile(__dirname + '/public/dist/index.html', function(err, data){
-//         if(err){
-//             console.log(err);
-//             res.send('后台错误');
-//         } else {
-//             res.writeHead(200, {
-//                 'Content-type': 'text/html',
-//                 'Connection':'keep-alive'
-//             });
-//             res.end(data);
-//         }
-//     })
-// });
-
-// // 后台管理页
-// app.get('/admin', function(req, res) {
-//     var sess = req.session;
-//     var loginUser = sess.loginUser;
-//     var isLogined = !!loginUser;
-//     // if (isLogined){
-//     //     console.log('已登录')
-//     //     var html = fs.readFileSync(resolve('./' + 'admin.html'), 'utf-8');
-//     // }else{
-//     //     console.log('未登录')
-//     //     var html = fs.readFileSync(resolve('./' + 'login.html'), 'utf-8');
-//     // }
-//     var html = fs.readFileSync(resolve('./dist/' + 'admin.html'), 'utf-8');
-// 	res.send(html)
-// });
-
-// // 博客首页
-// app.get('/index', function(req, res) {
-//     var html = fs.readFileSync(resolve('./dist/' + 'index.html'), 'utf-8');
-//     res.send(html)
-//     // fs.readFile(__dirname + '/dist/index.html', function(err, data){
-//     //     if(err){
-//     //         console.log(err);
-//     //         res.send('后台错误');
-//     //     } else {
-//     //         res.writeHead(200, {
-//     //             'Content-type': 'text/html',
-//     //             'Connection':'keep-alive'
-//     //         });
-//     //         res.end(data);
-//     //     }
-//     // })
-// });
+app.use(function(req, res, next) {
+　　 // 如果是前端路由则如下处理
+    fs.readFile(__dirname + '/dist/index.html', function(err, data){
+        if(err){
+            console.log(err);
+            res.send('后台错误');
+        } else {
+            res.writeHead(200, {
+                'Content-type': 'text/html',
+                'Connection':'keep-alive'
+            });
+            res.end(data);
+        }
+    })
+});
 
 app.listen(process.env.PORT || 9999, function() {
     console.log("应用实例，访问地址为 localhost:9999")

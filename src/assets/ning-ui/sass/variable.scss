@@ -49,3 +49,35 @@ $yellow: #fadb14; // 黄色
 $purple: #a091ff; // 紫色
 
 $b_c: #e2ecf4; // 边框色
+
+@mixin flex_allcenter{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+@mixin shadow{
+	box-shadow: 0 2px 16px 0 rgba(223, 225, 230, 0.5);
+}
+
+@mixin radius($radius) {
+    -webkit-border-radius: $radius;
+     -moz-border-radius: $radius;
+      -ms-border-radius: $radius;
+          border-radius: $radius;
+}
+
+@mixin elis-1 () {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@mixin elis ($line_num) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: $line_num;
+    /* autoprefixer: off */
+    -webkit-box-orient:vertical;
+}

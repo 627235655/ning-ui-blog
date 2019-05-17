@@ -30,7 +30,7 @@
             }
         },
         mounted: function() {
-            this.isSignIn();
+            this.isSignIn()
         },
         methods: {
             isSignIn() {
@@ -41,9 +41,8 @@
                         if (res.status === 200) {
                             notify.success(res.message);
                             self.user_name = res.data;
-                            location.href = '#/home'
                         } else {
-                            location.href = '/index.html#/index/home'
+                            location.href = '/blog/login'
                         }
                     })
                     .catch(function(error) {

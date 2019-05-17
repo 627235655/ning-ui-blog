@@ -24,6 +24,57 @@ class Demos extends Component {
 		return (
             <div>
                 <div className="ning-container demo-box">
+                    <h4 id="all-center-box">水平垂直居中的实现</h4>
+                    <div className="example-box flex-row-box">
+                        <div className="all-center-box all-center-box-1">
+                            适合文字,t-a-c,lh=h
+                        </div>
+                        <div className="all-center-box all-center-box-2">
+                            <div>table + table-cell</div>
+                        </div>
+                        <div className="all-center-box all-center-box-3">
+                            <div>flex</div>
+                        </div>
+                        <div className="all-center-box all-center-box-7">
+                            <div>flex + margin: auto;</div>
+                        </div>
+                        <div className="all-center-box">
+                            <div className="all-center-box-4">
+                                绝对定位 + margin: auto;
+                            </div>
+                        </div>
+                        <div className="all-center-box">
+                            <div className="all-center-box-5">
+                                绝对定位 + margin: -50%;
+                            </div>
+                        </div>
+                        <div className="all-center-box">
+                            <div className="all-center-box-6">
+                                绝对定位 + transform;
+                            </div>
+                        </div>
+                        <div className="all-center-box all-center-box-8">
+                            <div>
+                                inline-block + 伪元素;
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="ning-container demo-box">
+                    <h4 id="head-light">头像 hover 高光</h4>
+                    <div className="example-box">
+                        <div className="head-light"></div>
+                    </div>
+                    <CodeBox
+                        params={
+                            {
+                                type: 'css',
+                                content: ``,
+                        }
+                    }
+                    />
+                </div>
+                <div className="ning-container demo-box">
                     <h4 id="palceholder-shown">:placeholder-shown 伪类实现 Material Design 占位符交互效果</h4>
                     <div className="example-box">
                         <div className="ning-form-item material-design">
@@ -237,18 +288,15 @@ class Demos extends Component {
                     />
                 </div>
                 <div className="ning-container demo-box">
-                    <h4 id="underscore">underscore-防抖和节流</h4>
+                    <h4 id="underscore">防抖和节流</h4>
                     <div className="example-box">
                         <div className="flex-center-box">
                             请连续向输入框填写内容
                             <button className="ning-btn m-l-md" onClick={() => this.clear()}>重置</button>
                         </div>
                         <div className="ning-form-item">
-                            <input type="text" className="flex-1" id="underscore_input" />
+                            <input type="text" className="flex-1" onChange={this.handleChange} />
                         </div>
-                        <p><span>不做  限制：</span><span id="normal_res"></span></p>
-                        <p><span>debounce：</span><span id="debounce_res"></span></p>
-                        <p><span>throttle：</span><span id="throttle_res"></span></p>
                     </div>
                 </div>
                 <div className="ning-container demo-box">
@@ -428,6 +476,11 @@ class Demos extends Component {
 		)
 	}
 
+    handleChange = () => {
+        console.log(1)
+        this.debounce(() => {console.log('防抖。。。')}, 1000)
+    }
+
     /**
      * 空闲控制 返回函数连续调用时，空闲时间必须大于或等于 wait，func 才会执行
      *
@@ -437,40 +490,50 @@ class Demos extends Component {
      * @return {function}             返回客户调用函数
      */
     debounce = (func, wait, immediate) => {
-        let self = this;
-      var timeout, args, context, timestamp, result;
-
-      var later = function() {
-        // 据上一次触发时间间隔
-        var last = self.now() - timestamp;
-
-        // 上次被包装函数被调用时间间隔last小于设定时间间隔wait
-        if (last < wait && last > 0) {
-          timeout = setTimeout(later, wait - last);
-        } else {
-          timeout = null;
-          // 如果设定为immediate===true，因为开始边界已经调用过了此处无需调用
-          if (!immediate) {
-            result = func.apply(context, args);
-            if (!timeout) context = args = null;
-          }
+        var timeout = null;
+        return function(event) {
+            if (timeout) {
+                clearTimeout(timeout);
+                event.persist && event.persist()   //保留对事件的引用
+                timeout = setTimeout(() => {
+                    func.call(this, arguments)
+                }, wait)
+            }
         }
-      };
+      //   let self = this;
+      //   var timeout, args, context, timestamp, result;
 
-      return function() {
-        context = this;
-        args = arguments;
-        timestamp = self.now();
-        var callNow = immediate && !timeout;
-        // 如果延时不存在，重新设定延时
-        if (!timeout) timeout = setTimeout(later, wait);
-        if (callNow) {
-          result = func.apply(context, args);
-          context = args = null;
-        }
+      //   var later = function() {
+      //   // 据上一次触发时间间隔
+      //   var last = self.now() - timestamp;
 
-        return result;
-      };
+      //   // 上次被包装函数被调用时间间隔last小于设定时间间隔wait
+      //   if (last < wait && last > 0) {
+      //     timeout = setTimeout(later, wait - last);
+      //   } else {
+      //     timeout = null;
+      //     // 如果设定为immediate===true，因为开始边界已经调用过了此处无需调用
+      //     if (!immediate) {
+      //       result = func.apply(context, args);
+      //       if (!timeout) context = args = null;
+      //     }
+      //   }
+      // };
+
+      // return function() {
+      //   context = this;
+      //   args = arguments;
+      //   timestamp = self.now();
+      //   var callNow = immediate && !timeout;
+      //   // 如果延时不存在，重新设定延时
+      //   if (!timeout) timeout = setTimeout(later, wait);
+      //   if (callNow) {
+      //     result = func.apply(context, args);
+      //     context = args = null;
+      //   }
+
+      //   return result;
+      // };
     }
 
     /**
@@ -525,32 +588,11 @@ class Demos extends Component {
         return new Date().getTime();
     }
 
-    changeInput = () => {
-        let self = this;
-        let underscore_input = document.getElementById('underscore_input');
-        underscore_input.addEventListener('input', (e) => {
-            self.showRes(e.target.value, 'normal_res');
-            self.debounce(self.showRes, 1000)(e.target.value, 'debounce_res')
-            self.throttle(this.showRes, 1000)(e.target.value, 'throttle_res')
-        })
-    }
-
-    showRes = (value, res_dom) => {
-        let doms = document.createElement('span');
-        doms.className = 'ning-tag m-r-sm';
-        doms.innerText = value;
-        document.getElementById(res_dom).appendChild(doms)
-    }
-
     clear = () => {
-        document.getElementById('underscore_input').value = '';
-        document.getElementById('normal_res').innerHTML = '';
         document.getElementById('debounce_res').innerHTML = '';
-        document.getElementById('throttle_res').innerHTML = '';
     }
 
     componentDidMount() {
-        this.changeInput();
     }
 }
 

@@ -6,115 +6,135 @@
  */
 
 class Notify {
+    /**
+     * [初始化 notify]
+     * @param  object params
+     * params.text(string) [内部显示文字]
+     * params.theme(string) [提示主题]
+     * params.time(string) [提示消失延时]
+     * @return 生成一个全局提示 notify
+     */
     init(params) {
-        if (!params) {
+        if (!params || !params.text) {
             return;
         }
-        let self = this,
-            themeStyles = {},
-            notify = document.getElementById('notify'),
-            fakeDiv = document.createElement('div'),
-            fakeSpan = document.createElement('span'),
-            icon = document.createElement('i'),
-            icon_class = 'icon-info _blue';
 
-        let divStyles = {
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            width: '100%',
-            textAlign: 'center',
-            opacity: 0,
-            cursor: 'pointer',
-        };
-
-        let spanStyles = {
-            flex: 1,
-            display: 'inline-flex',
-            alignItems: 'center',
-            maxWidth: '95%',
-            padding: '8px 16px',
-            marginTop: '8px',
-            border: '1px solid #4284ED',
-            borderRadius: '2px',
-            background: 'rgba(66,132,237,.8)',
-            boxShadow: '0 0 5px 1px rgba(0,0,0,.1)',
-            color: '#fff',
-            fontSize: '12px',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-            whiteSpace: 'nowrap',
-            letterSpacing: '1px',
-            animation: 'dropDown .3s ease-in-out',
-        };
-
-        if (params.theme === 'red') {
-            themeStyles = {
-                background: 'rgba(245, 34, 45, 0.8)',
-                border: '1px solid #f5222d',
+        const el_notify_wrap_styles = {
+                position: 'fixed',
+                top: 0,
+                left: 0,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                width: '100%',
+                textAlign: 'center',
+                opacity: 0,
+                cursor: 'pointer',
+            },
+            el_notify_item_styles = {
+                flex: 1,
+                display: 'inline-flex',
+                alignItems: 'center',
+                maxWidth: '95%',
+                padding: '8px 16px',
+                marginTop: '8px',
+                borderRadius: '2px',
+                boxShadow: '0 0 5px 1px rgba(0,0,0,.1)',
+                color: '#fff',
+                fontSize: '12px',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap',
+                letterSpacing: '1px',
+                animation: 'dropDown .3s ease-in-out',
+            },
+            theme_str_config = ['blue', 'green', 'orange', 'red'],
+            theme_config = {
+                blue: {
+                    theme_styles: {
+                        background: 'rgba(66, 132, 237, .8)',
+                        border: '1px solid #4284ED',
+                    },
+                    icon_class: 'icon-info _blue',
+                },
+                red: {
+                    theme_styles: {
+                        background: 'rgba(245, 34, 45, 0.8)',
+                        border: '1px solid #f5222d',
+                    },
+                    icon_class: 'icon-error _red',
+                },
+                green: {
+                    theme_styles: {
+                        background: 'rgba(39, 174, 96, 0.8)',
+                        border: '1px solid #27ae60',
+                    },
+                    icon_class: 'icon-success _green',
+                },
+                orange: {
+                    theme_styles: {
+                        background: 'rgba(255, 178, 22, 0.8)',
+                        border: '1px solid #ffb216',
+                    },
+                    icon_class: 'icon-warning _orange',
+                },
             };
-            icon_class = 'icon-error _red';
-        }
-        if (params.theme === 'green') {
-            themeStyles = {
-                background: 'rgba(39, 174, 96, 0.8)',
-                border: '1px solid #27ae60',
-            }
-            icon_class = 'icon-success _green';
-        }
-        if (params.theme === 'orange') {
-            themeStyles = {
-                background: 'rgba(255, 178, 22, 0.8)',
-                border: '1px solid #ffb216',
-            }
-            icon_class = 'icon-warning _orange';
-        }
 
+        let self = this,
+            el_notify = document.getElementById('notify'),
+            el_notify_wrap = document.createElement('div'),
+            el_notify_item = document.createElement('span'),
+            icon = document.createElement('i');
 
-        fakeDiv.id = 'notify';
-        fakeSpan.className = 'notify-item';
+        params.theme = theme_str_config.includes(params.theme) ? params.theme : 'blue';
+        params.time = params.time || 3000;
+
+        let { theme_styles, icon_class } = theme_config[params.theme]
+
+        el_notify_wrap.id = 'notify';
         icon.className = "ning-icon m-r-sm " + icon_class;
-        fakeSpan.appendChild(icon);
-        fakeSpan.appendChild(document.createTextNode(params.text));
-        // fakeSpan.innerText +=  params.text;
+        el_notify_item.className ='notify-item';
+        el_notify_item.appendChild(icon);
+        el_notify_item.appendChild(document.createTextNode(params.text));
 
-        self.assignStyles(fakeSpan.style, spanStyles);
-        self.assignStyles(fakeSpan.style, themeStyles);
-        self.assignStyles(fakeDiv.style, divStyles);
+        self.assignStyles(el_notify_item.style, el_notify_item_styles);
+        self.assignStyles(el_notify_item.style, theme_styles);
+        self.assignStyles(el_notify_wrap.style, el_notify_wrap_styles);
 
-        if (notify === null) {
-            notify = fakeDiv;
-            fakeDiv.appendChild(fakeSpan)
-            document.body.appendChild(fakeDiv);
+        // 不存在 则新建
+        if (!el_notify) {
+            el_notify = el_notify_wrap;
+            el_notify_wrap.appendChild(el_notify_item)
+            document.body.appendChild(el_notify_wrap);
         } else {
-            notify.appendChild(fakeSpan);
+            // 存在 则在 notify 列表中继续增加 item
+            el_notify.appendChild(el_notify_item);
         }
 
+        // 弹出 notify
         setTimeout(function() {
-            self.assignStyles(fakeDiv.style, {
+            self.assignStyles(el_notify_wrap.style, {
                 opacity: 1,
                 zIndex: 999999,
                 left: 0
             });
         }, 0);
 
+        // 收起 notify
         setTimeout(function() {
-            self.assignStyles(fakeSpan.style, {
+            self.assignStyles(el_notify_item.style, {
                 animation: 'fadeUp .25s linear',
             });
-        }, Number(params.time) || 3000);
+        }, params.time);
 
+        // 删除 dom
         setTimeout(function() {
-            let notifyItems = document.querySelectorAll('.notify-item');
-            notify.removeChild(fakeSpan);
-            notifyItems = document.querySelectorAll('.notify-item');
-            if (notifyItems.length === 0) {
-                document.body.removeChild(notify);
+            let noty_item_list = document.querySelectorAll('.notify-item');
+            el_notify.removeChild(el_notify_item);
+            if (noty_item_list.length === 0) {
+                document.body.removeChild(el_notify);
             }
-        }, (Number(params.time) + 250) || 3250);
+        }, params.time + 250);
     }
 
     assignStyles(target, options) {
@@ -123,28 +143,28 @@ class Notify {
 
     info(text) {
         return this.init({
-            text: '<i class="ning-icon icon-info m-r-sm"></i>' + text,
-            theme: '',
+            text,
+            theme: 'blue',
         })
     }
 
     success(text) {
         return this.init({
-            text: text,
+            text,
             theme: 'green',
         })
     }
 
     warning(text) {
         return this.init({
-            text: text,
+            text,
             theme: 'orange',
         })
     }
 
     danger(text) {
         return this.init({
-            text: text,
+            text,
             theme: 'red',
         })
     }

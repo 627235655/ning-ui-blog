@@ -16,6 +16,8 @@ import ConTabs from '../ConTabs/ConTabs';
 import ConMind from '../ConMind/ConMind';
 import ConIcon from '../ConIcon/ConIcon';
 import ConModal from '../ConModal/ConModal';
+import ConAnimation from '../ConAnimation/ConAnimation';
+
 
 const component_config = {
     mind: ConMind,
@@ -29,6 +31,7 @@ const component_config = {
     icon: ConIcon,
     table: ConTable,
     modal: ConModal,
+    animation: ConAnimation,
 }
 
 class Container extends Component {

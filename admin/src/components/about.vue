@@ -1,7 +1,7 @@
 <template>
     <div id="about">
        <h2 class="page-title">关于</h2>
-       <divider></divider>
+       <hr/>
        <div class="ning-row">
           <div class="col-12 border p-md">
             <p>博客后台管理系统<code>v-1.0.0</code></p>
@@ -16,9 +16,6 @@
 
 <script>
 import axios from 'axios';
-import showdown from 'showdown';
-import notify from '../assets/ning-ui/js/notify'
-import modal from '../assets/ning-ui/js/modal'
 
 export default {
     name:'about',

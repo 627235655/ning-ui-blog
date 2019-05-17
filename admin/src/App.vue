@@ -9,13 +9,32 @@
         </div>
         <Footer></Footer>
         <button :class="{active: show_return_top}" class="return-top" @click="returnTop(10)">返回顶部</button>
+        <!-- 全局组件 imgview-->
+        <div class="ning-imgview-wrap" id="ning_imgview_wrap">
+            <div class="ning-imgview">
+                <img class="ning-imgview-img" src="" alt=""/>
+            </div>
+        </div>
+        <!-- 全局组件 loading-->
+        <div class="global-loading" id="global_loading">
+            <div class="anim-loading-1-wrap">
+                <ul class="anim-loading-1">
+                    <li class="anim-loading-1-item"></li>
+                    <li class="anim-loading-1-item"></li>
+                    <li class="anim-loading-1-item"></li>
+                    <li class="anim-loading-1-item"></li>
+                    <li class="anim-loading-1-item"></li>
+                    <li class="anim-loading-1-item"></li>
+                </ul>
+            </div>
+        </div>
     </div>
 </template>
 <script>
 import Footer from './components/footer.vue';
 import Header from './components/header.vue';
 import Aside from './components/aside.vue';
-
+import common from './assets/ning-ui/js/ning-ui'
 
 export default {
     name: 'app',
@@ -30,6 +49,8 @@ export default {
         }
     },
     mounted: function() {
+        common.init()
+
         let self = this;
         Math.easeout = function(A, B, rate, callback) {
             if (A == B || typeof A != 'number') {
@@ -75,6 +96,7 @@ export default {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    background: #fff;
 }
 
 .fade-in {

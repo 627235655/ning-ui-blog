@@ -1,7 +1,7 @@
 <template>
     <div id="article_list">
         <h2 class="page-title">文章列表</h2>
-        <divider></divider>
+        <hr/>
         <div class="border p-md">
             <div class="ning-row ning-from m-b-md">
                 <div class="ning-form-item">
@@ -68,18 +68,16 @@
             </div>
         </div>
         <!-- 删除 -->
-        <div class="ning-modal" tabindex="-1" id="remove_modal">
-            <div class="ning-modal-dialog" style="width: 300px;">
-                <div class="ning-modal-hd">
-                    <span class="modal-title">删除</span>
-                    <a href="javascript: void(0)" class="ning-modal-close-btn cancle-modal-btn" data-modal-close>&times;</a>
+        <div class="ning-modal-wrap" tabindex="-1" id="remove_modal">
+            <div class="ning-modal" style="width: 300px;">
+                <div class="ning-modal-header">
+                    <span>删除</span>
+                    <i class="ning-modal-close-btn ning-icon icon-plus"></i>
                 </div>
-                <div class="ning-modal-bd m-t-md">
-                    <p class="p-b-md b-b tc">请确认是否删除此条数据?</p>
-                    <div class="flex-allcenter-box m-t-md">
-                        <button class="ning-btn m-r-md confrim-btn" @click="removeArticle">确定</button>
-                        <button class="ning-btn _white cancle-modal-btn">关闭</button>
-                    </div>
+                <div class="ning-modal-content">请确认是否删除此条数据?</div>
+                <div class="ning-modal-footer">
+                    <button class="ning-btn m-r-md _white ning-modal-close-btn">关闭</button>
+                    <button class="ning-btn confrim-btn" @click="removeArticle">确定</button>
                 </div>
             </div>
         </div>
@@ -91,9 +89,7 @@ import showdown from 'showdown';
 import notify from '../assets/ning-ui/js/notify'
 import modal from '../assets/ning-ui/js/modal'
 import paginator from '../assets/ning-ui/js/paginator'
-
-
-
+import util from '../assets/ning-ui/js/utils'
 
 export default {
     name: 'article_list',

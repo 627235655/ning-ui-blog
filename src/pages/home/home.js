@@ -7,14 +7,93 @@ import {
     Link
 } from 'react-router-dom';
 import axios from 'axios';
+import util from 'assets/js/util';
+import server from 'server/server';
 import TagLink from 'components/TagLink/TagLink'
 import blog_chart from 'assets/images/blog-chart.png'
+import ning_ui from 'assets/images/ning-ui.png'
+import blog_article_list from 'assets/images/blog-article-list.png'
+import blog_admin from 'assets/images/blog-admin.png'
+import antd_admin from 'assets/images/antd-admin.png'
+import blog_hexo from 'assets/images/blog-hexo.png'
+import online_resume from 'assets/images/online-resume.png'
 
 class Home extends Component {
 	constructor(props) {
         super(props)
         this.state = {
             articleList: [],
+            work_list: [{
+            	name: 'ning-ui',
+            	name_url: '/blog/index/ning-ui/mind',
+            	desc_list: [{
+            		desc: 'Ant Design 的设计理念',
+            	},{
+            		desc: '原生 Js 和 Css，不拘泥于框架',
+            	},{
+            		desc: '单标签 Icon，轻便易用',
+            	}],
+            	github_url: 'https://github.com/627235655/ning-ui-blog/tree/master/src/assets/ning-ui',
+            	img_adress: ning_ui,
+            },{
+            	name: 'antd-admin',
+            	desc_list: [{
+            		desc: '基于 Antd，后台管理系统',
+            	},{
+            		desc: '解耦项目，颗粒度的页面配置及控制',
+            	},{
+            		desc: '多 Tab 子页面，提升效率',
+            	}],
+            	github_url: 'https://github.com/627235655/antd-admin-framework',
+            	img_adress: antd_admin,
+            },{
+            	name: 'my-blog',
+            	name_url: '/blog/index/article-list',
+            	desc_list: [{
+            		desc: '自由设计，随心所欲',
+            	},{
+            		desc: 'React + Node + MongoDB',
+            	},{
+            		desc: '记录前端路上的点滴',
+            	}],
+            	github_url: 'https://github.com/627235655/ning-ui-blog',
+            	img_adress: blog_article_list,
+            },{
+            	name: 'blog-admin',
+            	name_url: '/blog/index/article-list',
+            	desc_list: [{
+            		desc: '集成 MarkDown 编辑器',
+            	},{
+            		desc: 'Vue + MongoDB + ning-ui',
+            	},{
+            		desc: '博客相关，数据可视化',
+            	}],
+            	github_url: 'https://github.com/627235655/ning-ui-blog/admin',
+            	img_adress: blog_admin,
+            },{
+            	name: 'online-resume',
+            	name_url: '/blog/profile',
+            	desc_list: [{
+            		desc: '欲将心事付瑶琴',
+            	},{
+            		desc: 'G2 + Swiper + Canvas',
+            	},{
+            		desc: '知音少，弦断有谁听',
+            	}],
+            	img_adress: online_resume,
+            },{
+            	name: 'hexo-blog',
+            	name_url: 'https://627235655.github.io/#',
+            	desc_list: [{
+            		desc: '静态资源博客',
+            	},{
+            		desc: 'hexo + github',
+            	},{
+            		desc: '样式自定义，已弃用',
+            	}],
+            	github_url: 'https://github.com/627235655/627235655.github.io',
+            	img_adress: blog_hexo,
+            }]
         }
     }
 
@@ -24,9 +103,9 @@ class Home extends Component {
                 <li key={i} className="blog-list-item">
 					<span className="flex-1 content-wrap flex-col-box">
 						<Link to={`/index/article-detail/${v._id}`}>
-							<span className="title elis" style={{"WebkitBoxOrient": "vertical"}}>{v.articleName}</span>
+							<span className="title" style={{"WebkitBoxOrient": "vertical"}}>{v.articleName}</span>
 						</Link>
-						<span className="summary elis" style={{"WebkitBoxOrient": "vertical"}}>
+						<span className="summary" style={{"WebkitBoxOrient": "vertical"}}>
 							{v.articleSummary}
 						</span>
 						<span className="flex-row-box">
@@ -48,15 +127,41 @@ class Home extends Component {
 				</li>
             )
         })
+
+        let work_list_dom = this.state.work_list.map((v, i) => {
+			return 	<li key={i}>
+            			<img className="ning-imgview-trigger" src={v.img_adress} alt={v.name}/>
+            			<div>
+            				<h2>{v.name_url ? <a target="_blank" href={v.name_url}>{v.name}</a> : v.name}</h2>
+            				{
+            					v.desc_list.map((v2, i2) => {
+            						return <p key={i2}>{v2.desc}</p>
+            					})
+            				}
+            			</div>
+            			{
+            				v.github_url
+            				&&
+            				<a target="_blank" href={v.github_url} className="github-badge">Fork me on GitHub</a>
+            			}
+            		</li>
+		})
 		return (
 			<div id="home">
-				<div className="ning-container p-md flex-col-box">
-	            	<section className="con-box header">
-		            	<div>
-		            		<Link to="/profile" className="ning-line-btn _fillet _fill">about me</Link>
+				<div className="ning-container flex-col-box">
+					{/*个人介绍*/}
+	            	<section className="overview">
+		            	<div className="profile-wrap">
+		            		<div className="head"></div>
+		            		<h1>n顾盼神飞</h1>
+		            		<p>享受生命中每一个脚步</p>
+		            		<Link to="/profile" className="ning-line-btn _fillet _fill blue">关于我</Link>
 		            	</div>
+		            	<ul className="work-list">
+		            		{work_list_dom}
+		            	</ul>
 	            	</section>
-	            	<section className="con-box flex-center-box">
+	            	<section className="flex-center-box ning-ui-list">
 	            		<div className="ning-ui-item">
 	            			<div className="ning-ui-item-wrap">
 	            				<p>自然交互</p>
@@ -92,9 +197,9 @@ class Home extends Component {
 	            			<div className="title">单标签 Icon</div>
 	            		</div>
 	            	</section>
-	            	<section className="con-box ning-row">
-	            		<div className="col-6 flex-col-box p-l-lg p-r-lg p-b-lg">
-	            			<div>
+	            	<section className="flex-row-box">
+	            		<div className="blog-desc-wrap">
+	            			<div className="blog-desc">
 	            				<p className="_lg _bold m-b-md">技术博客</p>
 	            				<p>
 	            					搭建博客，构思久已<br/>
@@ -107,11 +212,11 @@ class Home extends Component {
 	            			</div>
 	            			<img className="blog-chart" src={blog_chart} alt="" />
 	            		</div>
-	            		<div className="col-6 flex-row-box p-l-lg">
-	            			<div className="blog-list flex-col-box">
+	            		<div className="col-6 blog-list">
+	            			<div className="flex-col-box">
 	            				<ul>
 	            					<li className="flex-row-box flex-center-box">
-	            						<span className="_bold flex-center-box"><i className="ning-icon icon-article m-r-sm"></i>My Blogs</span>
+	            						<span className="_bold flex-center-box"><i className="ning-icon icon-article m-r-sm"></i>Blogs</span>
 	            						<Link to="/index/article-list" className="flex-center-box"><i className="ning-icon icon-more m-r-sm"></i></Link>
             						</li>
             						{ el_article_list }
@@ -125,34 +230,23 @@ class Home extends Component {
 	}
 
 	getArticleList = () => {
-        let self = this;
-        let data = {
-            currentPage: 1,
-            pageSize: 4,
-        }
-        console.log(data)
-        axios.get('/api/getArticleList', {
-                params: data
-            })
-            .then(function(response) {
-                let res = response.data;
-                if (res.status === 200) {
-                    self.setState({
-                        articleList: res.data.list,
-                        totalCount: res.data.totalCount
-                    })
-                }
-            })
-            .catch(function(error) {
-                console.log(error);
-            });
+        let self = this,
+        	data = {
+	            currentPage: 1,
+	            pageSize: 4,
+	        },
+	        cb = (res) => {
+	        	self.setState({
+                    articleList: res.data.list,
+                    totalCount: res.data.totalCount
+                })
+	        }
+        util.axiosFn(server.getArticleList, 'get', data, cb)
     }
 
     componentDidMount() {
-        this.getArticleList(this.state.currentPage);
+        this.getArticleList();
     }
-
-
 }
 
 export default Home;

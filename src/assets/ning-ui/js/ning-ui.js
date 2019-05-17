@@ -2,12 +2,14 @@ import prompt from './prompt.js'
 import modal from './modal.js'
 import tabs from './tabs.js'
 import notify from './notify.js'
+import imgview from './imgview.js'
 
 class Common {
 	init() {
 		prompt.init();
 		modal.init();
 		tabs.init();
+        imgview.init();
 		this.bindEvents();
 
 		String.prototype.firstUpperCase = function(){
