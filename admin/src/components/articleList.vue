@@ -4,14 +4,14 @@
         <hr/>
         <div class="border p-md">
             <div class="ning-row ning-from m-b-md">
-                <div class="ning-form-item">
+                <div class="ning-form-item col-12">
                     <label>文章标签</label>
-                    <div class="checkbox-wrap">
-                        <span v-for="item in tagList">
+                    <div class="flex-1 flex-box">
+                        <label v-for="item in tagList" htmlFor="item._id" class="checkbox-label">
                             <input type="checkbox" :value="item.tagName" v-model="filter.articleTags" :id="item._id" @change="getArticleList(currentPage)" />
                             <span class="virtual-checkbox"></span>
-                            <label :for="item._id">{{ item.tagName }}</label>
-                        </span>
+                            {{ item.tagName }}
+                        </label>
                     </div>
                 </div>
                 <div class="ning-form-item col-6">

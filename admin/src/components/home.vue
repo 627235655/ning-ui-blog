@@ -192,7 +192,6 @@ export default {
     },
     methods: {
         setOverView(totalArticleList) {
-            // console.log(totalArticleList)
             let wordCountTotal = 0,
                 maxWordCount = 0,
                 maxWordCountUrl,
@@ -207,8 +206,7 @@ export default {
                 maxLikeCountUrl,
                 commentCountTotal = 0,
                 maxCommentCount = 0,
-                maxCommentCountUrl
-
+                maxCommentCountUrl;
 
             this.overviewData.articleTotal = totalArticleList.length
             this.overviewData.dateTotal = ((new Date(totalArticleList.pop().createDate).getTime() - new Date(totalArticleList[0].createDate).getTime()) / (3600 * 24 * 1000)).toFixed(0)

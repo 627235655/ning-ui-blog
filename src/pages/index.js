@@ -17,11 +17,13 @@ import ArticleDetail from 'pages/article-detail/article-detail'
 import Demos from 'pages/demos/demos'
 import PseudoDemos from 'pages/demos-pseudo/demos-pseudo'
 
-// ning-ui-utils
-import Util from 'assets/js/util'
 import Aside from 'components/Aside/Aside';
 import Container from 'components/Container/Container';
 import ning_ui from 'assets/ning-ui/js/ning-ui'
+
+import util from 'assets/ning-ui/js/utils.js';
+import server from 'server/server.js'
+
 
 
 class IndexHtml extends Component {
@@ -29,7 +31,7 @@ class IndexHtml extends Component {
 		super(props)
 		this.state = {
 			nav_active_item: this.props.location.pathname,
-            user_name: null,
+            user_name: window.user_name,
             show_return_top: false,
 		}
 	}
@@ -64,9 +66,7 @@ class IndexHtml extends Component {
 
 	componentDidMount() {
 		let self = this;
-        // ning-ui-utils-init
         ning_ui.init();
-        self.isSignIn();
 		Math.easeout = function(A, B, rate, callback) {
             if (A == B || typeof A != 'number') {
                 return;
@@ -107,37 +107,17 @@ class IndexHtml extends Component {
         });
     }
 
-    isSignIn = () => {
-        let self = this;
-        axios.get('/api/isSignIn')
-            .then(function(response) {
-                let res = response.data;
-                if (res.status === 200) {
-                    self.setState({
-                        user_name: res.data,
-                    })
-                }
-            })
-            .catch(function(error) {
-                console.log(error);
-            });
-    }
-
     logOut = () => {
-    	let self = this;
-        axios.post('/api/logOut')
-            .then(function(response) {
-                let res = response.data;
-                if (res.status === 200) {
-                	notify.success(res.message);
-                    self.setState({
-                        user_name: null,
-                    })
-                }
-            })
-            .catch(function(error) {
-                console.log(error);
-            });
+        let self = this,
+            cb = res => {
+                notify.success(res.message);
+                self.setState({
+                    user_name: null,
+                }, () => {
+                    window.user_name = undefined;
+                })
+            }
+    	util.axiosFn(server.logOut, {}, 'post', cb);
     }
 }
 

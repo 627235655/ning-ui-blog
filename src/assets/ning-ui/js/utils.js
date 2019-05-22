@@ -1,3 +1,10 @@
+/**
+ * 
+ * @authors Your Name (you@example.org)
+ * @date    2019-05-21 16:35:40
+ * @version $Id$
+ */
+
 import axios from 'axios';
 import notify from './notify'
 
@@ -61,13 +68,15 @@ class Util {
         return JSON.parse(JSON.stringify(source));
     };
 
-    axiosFn = (url, data, type, cb, btn) => {
+    axiosFn = (url, data, type, cb, btn, errcb) => {
         return new Promise((resolve, reject) => {
             // 全局 loading active
             let globalLoading = document.querySelector('#global_loading')
-            if (globalLoading)  globalLoading.className = 'global-loading active'
+            if (globalLoading) globalLoading.className = 'global-loading active'
             // 按钮禁用
             btn && (btn.disabled = true);
+            // 区分环境-设置全局请求头
+            location.hostname.indexOf('ximalaya.com') === -1 && (axios.defaults.headers.common['isolation'] = 'dev');
             // axios 主体
             axios({
                 method: type,
@@ -79,10 +88,14 @@ class Util {
                 if (res.data.status === 200) {
                     cb && cb(res.data);
                 } else {
-                    notify.warning(res.data.message)
+                    if (errcb) {
+                        errcb()
+                    } else {
+                        notify.warning(res.data.message)
+                    }
                 }
                 // 全局 loading inactive
-                if (globalLoading && globalLoading.className.indexOf('error') === -1){
+                if (globalLoading && globalLoading.className.indexOf('error') === -1) {
                     globalLoading.className = 'global-loading inactive'
                 }
                 // 按钮开放
@@ -108,13 +121,13 @@ class Util {
         let hour = itemdate.getHours() < 10 ? "0" + itemdate.getHours() : itemdate.getHours();
         let minute = itemdate.getMinutes() < 10 ? "0" + itemdate.getMinutes() : itemdate.getMinutes();
         let second = itemdate.getSeconds() < 10 ? "0" + itemdate.getSeconds() : itemdate.getSeconds();
-        if(time === "minute"){
+        if (time === "minute") {
             return year + connect + month + connect + date + " " + hour + ":" + minute;
-        } else if(time === "hour"){
+        } else if (time === "hour") {
             return year + connect + month + connect + date + " " + hour;
         }
         return year + connect + month + connect + date + (time ? " " + hour + ":" + minute + ":" + second : "");
-};
+    };
 
     /**
      * 时间转时间戳

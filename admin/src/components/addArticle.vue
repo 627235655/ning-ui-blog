@@ -10,19 +10,32 @@
                 </div>
                 <div class="ning-form-item">
                     <label for="articleTags">文章标签</label>
-                    <div class="checkbox-wrap">
-                        <span v-for="item in tagList">
+                    <div class="flex-1 flex-box">
+                        <label v-for="item in tagList" htmlFor="item._id" class="checkbox-label">
                             <input type="checkbox" :value="item.tagName" v-model="data.articleTags" :id="item._id" />
                             <span class="virtual-checkbox"></span>
-                            <label :for="item._id">{{ item.tagName }}</label>
-                        </span>
+                            {{ item.tagName }}
+                        </label>
                     </div>
                 </div>
                 <div class="ning-form-item">
-                    <label for="article_name">封面图</label>
+                    <label for="file_upload">封面图</label>
                     <label class="ning-btn file-upload" for="file_upload">选择文件</label>
                     <input type="file" name="file" id="file_upload" accept="image/*" @input="uploadFile($event)" />
                     <span class="_tips m-l-md">【默认图片见右侧预览区】</span>
+                </div>
+                <div class="ning-form-item">
+                    <label>仅自己可见</label>
+                    <label htmlFor="1" class="radio-label">
+                        <input id="1" type="radio" name="radio-private" v-model="data.isPrivate"  value="1"/>
+                        <span class="virtual-radio"></span>
+                        是
+                    </label>
+                    <label htmlFor="0" class="radio-label">
+                        <input id="0" type="radio" name="radio-private" v-model="data.isPrivate"  value="0" checked/>
+                        <span class="virtual-radio"></span>
+                        否
+                    </label>
                 </div>
                 <div class="ning-form-item">
                     <label for="article_summary">文章简介</label>
@@ -79,6 +92,7 @@ export default {
                 _id: null,
                 articleName: '',
                 articleTags: [],
+                isPrivate: 0,
                 articleSummary: '',
                 articleContent: '',
                 articleContentResult: '',
@@ -86,6 +100,9 @@ export default {
                 thumbnailUrl: ThumbnailUrl,
                 createDate: null,
                 updateDate: null,
+                likeCount: 0,
+                readCount: 0,
+                commentCount: 0
             },
             tagList: [],
             collapsed: false,

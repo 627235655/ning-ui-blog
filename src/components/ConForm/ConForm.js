@@ -79,18 +79,49 @@ class ConForm extends Component {
                     </div>
                     <div className="ning-form-item">
                         <label htmlFor="">单选框</label>
-                        <input type="radio" name="radio"  value="选项一" defaultChecked/><span className="virtual-radio"></span> 选项一
-                        <input type="radio" name="radio" value="选项二" /><span className="virtual-radio"></span> 选项二
-                        <input type="radio" name="radio1" disabled defaultChecked/><span className="virtual-radio"></span> 禁用选项一
-                        <input type="radio" name="radio1" disabled/><span className="virtual-radio"></span> 禁用选项二
-
+                        <label htmlFor="1" className="radio-label">
+                            <input id="1" type="radio" name="radio"  value="选项1" defaultChecked/>
+                            <span className="virtual-radio"></span>
+                            选项1
+                        </label>
+                        <label htmlFor="2" className="radio-label">
+                            <input id="2" type="radio" name="radio"  value="选项2"/>
+                            <span className="virtual-radio"></span>
+                            选项2
+                        </label>
+                        <label htmlFor="3" className="radio-label">
+                            <input id="3" type="radio" name="radio"  value="选项3" disabled defaultChecked/>
+                            <span className="virtual-radio"></span>
+                            选项3
+                        </label>
+                        <label htmlFor="4" className="radio-label">
+                            <input id="4" type="radio" name="radio"  value="选项4" disabled/>
+                            <span className="virtual-radio"></span>
+                            选项4
+                        </label>
                     </div>
                     <div className="ning-form-item">
                         <label htmlFor="">复选框</label>
-                        <input type="checkbox" defaultChecked/><span className="virtual-checkbox"></span> 选项一
-                        <input type="checkbox"/><span className="virtual-checkbox"></span> 选项二
-                        <input type="checkbox" disabled defaultChecked/><span className="virtual-checkbox"></span> 禁用选项一
-                        <input type="checkbox" disabled/><span className="virtual-checkbox"></span> 禁用选项二
+                        <label htmlFor="11" className="checkbox-label">
+                            <input id="11" type="checkbox" defaultChecked/>
+                            <span className="virtual-checkbox"></span>
+                            选项一
+                        </label>
+                        <label htmlFor="22" className="checkbox-label">
+                            <input id="22" type="checkbox"/>
+                            <span className="virtual-checkbox"></span>
+                            选项二
+                        </label>
+                        <label htmlFor="33" className="checkbox-label">
+                            <input id="33" type="checkbox" disabled defaultChecked/>
+                            <span className="virtual-checkbox"></span>
+                            禁用选项一
+                        </label>
+                        <label htmlFor="44" className="checkbox-label">
+                            <input id="44" type="checkbox" disabled/>
+                            <span className="virtual-checkbox"></span>
+                            禁用选项二
+                        </label>
                     </div>
                     <div className="ning-form-item">
                         <label htmlFor="">文件上传</label>

@@ -259,10 +259,12 @@ api.get('/api/getDateList', function(req, res) {
         return
     })
 })
+
 // 获取文章列表
 api.get('/api/getArticleList', function(req, res) {
     var DB = db.ArticleList;
     var options = req.query;
+    console.log(options)
     var is_search_all = JSON.stringify(options) == "{}";
     var filter = {};
     if (!is_search_all) {
@@ -290,6 +292,14 @@ api.get('/api/getArticleList', function(req, res) {
             }
         }
     }
+    // 是否尽自己可见
+    // var sess = req.session;
+    // var loginUser = sess.loginUser;
+    // var isLogined = !!loginUser;
+    // if (!isLogined) {
+    //     filter.isPrivate = 0.0;
+    // }
+    // console.log(filter)
     // 先查询总条数
     DB.find(filter, function(err, docs) {
         if (err) {
@@ -305,12 +315,14 @@ api.get('/api/getArticleList', function(req, res) {
             res.json({ status: 200, message: '操作成功', data: data })
             return
         }
+        // console.log(filter,currentPage,pageSize,sort)
         // 此部分为条件查询/分页查询
         DB.find(filter).sort(sort).skip((currentPage - 1) * pageSize).limit(pageSize).exec(function(err, docs) {
             if (err) {
                 console.log('出错' + err);
                 return
             }
+            // console.log(docs)
             var data = {
                 totalCount: totalCount,
                 list: docs
@@ -400,66 +412,62 @@ var defaultOptions = {
 api.get('/api/getCommentList', function(req, res) {
     var DB = db.CommentList;
     var options = req.query;
+    // 是否查询全部信息
     var is_search_all = JSON.stringify(options) == "{}";
-    var filter = {};
-    if (!is_search_all) {
-        var sort = options.sort || { _id: -1 };
-        var pageSize = Number(options.pageSize) || defaultOptions.pageSize;
-        var currentPage = Number(options.currentPage) || 1;
-        if (options.filter) {
-            filter = JSON.parse(options.filter);
-        }
-    }
-    // 先查询总条数
-    DB.find(filter, function(err, docs) {
-        if (err) {
-            console.log('出错' + err);
-            return
-        }
-        var totalCount = docs.length;
-        if (is_search_all) {
+    if (is_search_all) { // 全部查询
+        DB.find({}, function(err, docs) {
+            if (err) {
+                console.log('出错' + err);
+                return
+            }
+            var totalCount = docs.length;
             var data = {
                 totalCount: totalCount,
                 list: docs
             }
             res.json({ status: 200, message: '操作成功', data: data })
             return
+        })
+    } else { // 分页查询
+        var filter = {};
+        var sort = options.sort || { _id: -1 };
+        var pageSize = Number(options.pageSize) || defaultOptions.pageSize;
+        var currentPage = Number(options.currentPage) || 1;
+        if (options.filter) {
+            filter = JSON.parse(options.filter);
         }
-        // 此部分为条件查询/分页查询
         DB.find(filter).sort(sort).skip((currentPage - 1) * pageSize).limit(pageSize).exec(function(err, docs) {
             if (err) {
                 console.log('出错' + err);
                 return
             }
-            if (docs.length > 0) {
-                let all_comments = [];
-                let new_docs = [];
-                let totalCount = 0;
-                DB.find({}, function(err2, docs2) {
-                    if (err2) {
-                        console.log('出错' + err);
-                        return
-                    }
-                    all_comments = docs2;
-                    new_docs = docs.map((v, i) => {
-                        totalCount++;
-                        all_comments.map((v2, i2) => {
-                            if (v._id == v2.parentId) {
-                                totalCount++;
-                                v.subCommentList.push(v2)
-                            }
-                        })
-                        return v;
-                    })
-                    var data = {
-                        totalCount: totalCount,
-                        list: new_docs
-                    }
-                    res.json({ status: 200, message: '操作成功', data: data })
-                })
+            var totalCount = docs.length;
+            if (JSON.stringify(filter) == "{}") {
+                var data = {
+                    totalCount: totalCount,
+                    list: docs
+                }
+                res.json({ status: 200, message: '操作成功', data: data })
+                return
             }
+            let result = docs.filter((v, i) => {
+                return v.parentId === v.articleId
+            })
+            for (let v of result) {
+                for (let obj of docs) {
+                    if (obj.parentId == v._id) {
+                        v.subCommentList.push(obj)
+                    }
+                }
+            }
+            var data = {
+                totalCount: totalCount,
+                list: result
+            }
+            res.json({ status: 200, message: '操作成功', data: data })
+            return
         })
-    })
+    }
 });
 
 // 新增评论
@@ -472,7 +480,6 @@ api.post('/api/addComment', function(req, res) {
             return
         }
         if (result) {
-            // res.json({ status: 200, message: '操作成功' })
             // 同时把该文章的 commentCount + 1
             var DB2 = db.ArticleList;
             DB2.find({ _id: req.body.articleId }, function(err, docs) {

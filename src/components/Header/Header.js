@@ -24,7 +24,7 @@ class Header extends Component {
                             <Link to="/index/home" replace><i className="ning-icon icon-home"></i>Home</Link>
                         </li>
                         <li className={this.props.nav_active_item.indexOf('ning-ui') > -1 ? 'active' : ''}>
-                            <Link to='/index/ning-ui/icon' replace><i className="ning-icon icon-ning"></i>ning-ui</Link>
+                            <Link to='/index/ning-ui/text' replace><i className="ning-icon icon-ning"></i>ning-ui</Link>
                         </li>
                         <li className={this.props.nav_active_item.indexOf('article-list') > -1 ? 'active' : ''}>
                             <Link to="/index/article-list" replace><i className="ning-icon icon-article"></i>ArticleList</Link>
@@ -59,8 +59,5 @@ class Header extends Component {
         )
     }
 }
-
-{/*<a href="#/login?signup=1"><i className="ning-icon icon-sign-up"></i>Sign-up</a>*/}
-
 
 export default Header;

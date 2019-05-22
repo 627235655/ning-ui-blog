@@ -27,7 +27,7 @@ app.use(session({
     saveUninitialized: false,  // 是否自动保存未初始化的会话，建议 false
     resave: false,  // 是否每次都重新保存会话，建议 false
     cookie: {
-        maxAge: 5 * 60 * 1000  // 有效期，单位是毫秒, 这里设置的是 24 小时
+        maxAge:  24 * 60 * 60 * 1000  // 有效期，单位是毫秒, 这里设置的是 24 小时
     }
 }));
 

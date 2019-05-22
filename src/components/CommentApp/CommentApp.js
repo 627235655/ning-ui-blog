@@ -10,6 +10,7 @@ import notify from 'assets/ning-ui/js/notify'
 class CommentApp extends Component {
 	constructor(props) {
 		super(props)
+		console.log(window.user_name)
 		this.state = {
 			show_comment_input: true,
 			comments: [],
@@ -26,7 +27,6 @@ class CommentApp extends Component {
 		let data = {
 			filter: {
 				articleId: this.props.articleId,
-				parentId: this.props.articleId,
 			}
 		}
 		axios.get('/api/getCommentList', { params: data })
@@ -105,15 +105,17 @@ class CommentInput extends Component {
 			articleName: '',
 	      	articleId: '',
 	      	parentId: '',
-	      	userName: '',
+	      	userName: window.user_name ? 'n顾盼神飞' : '',
 	      	toUserName: '',
-	      	email: '',
-	      	website: '',
+	      	email: window.user_name ? '627235655@qq.com' : '',
+	      	website: window.user_name ? 'http://www.ningzongyuan.com' : '',
 	      	content: '',
 	      	likeCount: 0,
 	      	subCommentList: [],
 	      	createDate: '',
+	      	isAuthor: window.user_name ? 1 : 0,
 	    }
+	    console.log(this.state)
 	}
 
 	setUserName = (e) => {
@@ -143,15 +145,16 @@ class CommentInput extends Component {
 	addComment = () => {
 		let self = this;
 		let data = self.state;
-		if (data.userName == '') {
+		console.log(data)
+		if (!data.isAuthor && data.userName == '') {
 			notify.warning('请输入用户名~')
 			return;
 		}
-		if (data.email == '') {
+		if (!data.isAuthor && data.email == '') {
 			notify.warning('请输入邮箱~')
 			return;
 		}
-		if (!util.checkEmail(data.email)) {
+		if (!data.isAuthor && !util.checkEmail(data.email)) {
 			notify.warning('请输入正确的邮箱~')
 			return;
 		}
@@ -282,7 +285,7 @@ class Comment extends Component {
 	      		<div>
 	      			<span className="_xs _gray">
 	      				{
-	      					comment.website ? <a className="_sm _bold" href={comment.website} target="_blank">{comment.userName}</a> : <span className="_sm _bold">{comment.userName}</span>
+	      					comment.website ? <a className={comment.isAuthor ? "_sm _bold blue" : '_sm _bold'} href={comment.website} target="_blank">{comment.userName}</a> : <span className="_sm _bold">{comment.userName}</span>
 	      				}
 	      				{
 	      					comment.toUserName ? ' 回复 ' + comment.toUserName + '：' : ' 说道：'
