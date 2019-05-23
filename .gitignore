@@ -139,3 +139,5 @@ jspm_packages
 hs_err_pid*
 
 server/alioss.js
+
+package-lock.json
