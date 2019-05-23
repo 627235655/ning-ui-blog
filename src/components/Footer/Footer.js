@@ -11,7 +11,7 @@ class Footer extends Component {
                 <div className="last-content">
                     <span>Designed & Powerd by zongyuan.ning</span>
                     <span>Copyright© 2018 - 2019 n顾盼神飞</span>
-                    <span>鄂ICP备09015569号</span>
+                    <span>鄂ICP备09015569号 hahahha</span>
                 </div>
             </footer>
         )
