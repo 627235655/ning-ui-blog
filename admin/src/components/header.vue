@@ -8,7 +8,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/index.html/#/index/home" target="_blank">Index</a>
+                    <a href="/blog/index/home" target="_blank">博客首页</a>
                 </li>
                 <li class="flex-1 flex-end sign-box"  v-if="user_name">
                     <a href="#/about">Hello，{{ user_name }}</a>
