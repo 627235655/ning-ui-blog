@@ -10,8 +10,8 @@ class Footer extends Component {
             <footer className="ning-row">
                 <div className="last-content">
                     <span>Designed & Powerd by zongyuan.ning</span>
-                    <span>Copyright© 2018 - 2019 n顾盼神飞</span>
-                    <span>还不知道备案号 能不能自动更新啊啊啊</span>
+                    <span>Copyright© 2019 - 2019 n顾盼神飞</span>
+                    <span>蜀 ICP 备 19016370 号</span>
                 </div>
             </footer>
         )

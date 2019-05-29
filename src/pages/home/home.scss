@@ -16,6 +16,7 @@
 			width: 348px;
 			height: 288px;
 			padding: $md;
+			background-color: #fff;
 			@include radius($xs);
 			@include shadow;
 			.head{
@@ -40,6 +41,7 @@
 				@include radius($xs);
 				@include shadow;
 				overflow: hidden;
+				background-color: #fff;
 				img{
 					width: 160px;
 					height: 100px;
@@ -87,6 +89,7 @@
 			transform-origin: center bottom;
 			transform-style: preserve-3d;
 			transition: .5s transform;
+			background-color: #fff;
 			&:nth-child(1),
 			&:nth-child(5)
 			{
@@ -124,6 +127,7 @@
 	.blog-desc-wrap,
 	.blog-list{
 		width: 588px;
+		background-color: #fff;
 	}
 	.blog-desc-wrap{
 		display: flex;

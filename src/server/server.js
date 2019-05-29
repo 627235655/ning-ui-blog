@@ -1,4 +1,7 @@
 const server = {
+	imgPath: {
+
+	},
 	logOut: '/api/logOut',
 	isSignIn: '/api/isSignIn',
 	updateArticle: '/api/updateArticle',

@@ -10,7 +10,6 @@ import notify from 'assets/ning-ui/js/notify'
 class CommentApp extends Component {
 	constructor(props) {
 		super(props)
-		console.log(window.user_name)
 		this.state = {
 			show_comment_input: true,
 			comments: [],
@@ -115,7 +114,6 @@ class CommentInput extends Component {
 	      	createDate: '',
 	      	isAuthor: window.user_name ? 1 : 0,
 	    }
-	    console.log(this.state)
 	}
 
 	setUserName = (e) => {
@@ -145,7 +143,6 @@ class CommentInput extends Component {
 	addComment = () => {
 		let self = this;
 		let data = self.state;
-		console.log(data)
 		if (!data.isAuthor && data.userName == '') {
 			notify.warning('请输入用户名~')
 			return;

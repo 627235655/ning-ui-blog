@@ -4,6 +4,9 @@ import React, {
 import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';
 import './time-progress-bar.scss';
+import creatHistory from 'history/createBrowserHistory'
+
+const history = creatHistory();
 
 const ONE_DAY_TIME_GAP = 1000 * 60 * 60 * 24;
 const PROGRESS_DIV_WIDTH = 360;
@@ -191,7 +194,7 @@ class TimeProgressBar extends Component {
 	render() {
 		return (
 			<div className="time-progress-bar">
-				<Link to="/index/home" className="ning-line-btn _fill _fillet">返回主页</Link>
+				<div className="ning-line-btn _fill _fillet" onClick={() => history.goBack()}>返回上一页</div>
 				<div className="wrap">
 					<h3 className="header">
 						<span>{this.state.year + '.' + this.state.month + '.' + this.state.day }</span>

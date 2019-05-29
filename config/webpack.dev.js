@@ -21,6 +21,7 @@ module.exports = webpackMerge(common, {
         host: getIP(),
         historyApiFallback: true, //不跳转
         inline: true, //实时刷新
+        hot:true, //热加载
         open: true,
         openPage: 'blog/index/home',
         proxy: {

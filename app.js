@@ -50,6 +50,6 @@ app.use(function(req, res, next) {
     })
 });
 
-app.listen(process.env.PORT || 9999, function() {
-    console.log("应用实例，访问地址为 localhost:9999")
+app.listen(process.env.PORT || 80, function() {
+    console.log("应用实例，访问地址为 localhost:80")
 });

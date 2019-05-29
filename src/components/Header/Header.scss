@@ -1,6 +1,6 @@
 header{
 	text-align: center;
-	box-shadow: 0 2px 16px 0 rgba(223, 225, 230, 0.5);
+	// box-shadow: 0 2px 16px 0 rgba(223, 225, 230, 0.5);
 	background: #fff;
 	nav{
 		width: 1200px;
@@ -11,9 +11,11 @@ header{
 			margin: 0 20px;
 		}
 		li{
-			padding: 0 24px;
+			padding: 0 16px;
+			margin: 0 16px;
 			text-align: center;
 			font-weight: bold;
+			@include shadow();
 			&.active{
 				background: linear-gradient(to top, rgba(236, 242, 252, 1), transparent);
 				 a{
