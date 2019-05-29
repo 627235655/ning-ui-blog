@@ -65,7 +65,7 @@ module.exports = {
       openPage: '#/home',
       proxy: {
           '/api/*': {
-              target: 'http://localhost:9999',
+              target: 'http://localhost:80',
               changeOrigin: true,
               secure: false
           }
