@@ -48,6 +48,24 @@ class Util {
         }
     }
 
+    // isType = type => {
+    //     return target => {
+    //         return `[object ${type}]` === Object.prototype.toString.call(target)
+    //     }
+    // }
+
+    isType = type => target => `[object ${type}]` === Object.prototype.toString.call(target);
+    isString = this.isType('String');
+    isNumber = this.isType('Number');
+    isBoolean = this.isType('Boolean');
+    isSymbol = this.isType('Symbol');
+    isNull = this.isType('Null');
+    isUndefined = this.isType('Undefined');
+    isArray = this.isType('Array');
+    isObject = this.isType('Object');
+    isFunction = this.isType('Function');
+
+
     excelExport = ({ url, params }) => {
         url = url + '?';
         for (let key in params) {
@@ -75,8 +93,6 @@ class Util {
             if (globalLoading) globalLoading.className = 'global-loading active'
             // 按钮禁用
             btn && (btn.disabled = true);
-            // 区分环境-设置全局请求头
-            location.hostname.indexOf('ximalaya.com') === -1 && (axios.defaults.headers.common['isolation'] = 'dev');
             // axios 主体
             axios({
                 method: type,

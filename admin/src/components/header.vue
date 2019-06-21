@@ -30,7 +30,7 @@
             }
         },
         mounted: function() {
-            // this.isSignIn()
+            this.isSignIn()
         },
         methods: {
             isSignIn() {

@@ -8,8 +8,76 @@ import {
 } from 'react-router-dom';
 import axios from 'axios';
 import TagLink from 'components/TagLink/TagLink'
-import blog_chart from 'assets/images/blog-chart.png'
+import pic_1 from 'assets/images/random/material-5.png'
+import pic_2 from 'assets/images/random/material-8.png'
+import pic_3 from 'assets/images/random/material-6.png'
 import CodeBox from 'components/CodeBox/CodeBox';
+
+const slider_class_config = [{
+    className: 'fade',
+    title: 'opacity-淡入淡出'
+},{
+    className: 'scale',
+    title: 'scale-放大缩小-中'
+},{
+    className: 'scale-l',
+    title: 'scaleX-展开折叠-左'
+},{
+    className: 'scale-r',
+    title: 'scaleX-展开折叠-右'
+},{
+    className: 'scale-t',
+    title: 'scaleY-展开折叠-上'
+},{
+    className: 'scale-b',
+    title: 'scaleY-展开折叠-下'
+},{
+    className: 'translate-t',
+    title: 'translateY-滑入滑出-上'
+},{
+    className: 'translate-r',
+    title: 'translateX-滑入滑出-右'
+},{
+    className: 'translate-b',
+    title: 'translateY-滑入滑出-下'
+},{
+    className: 'translate-l',
+    title: 'translateX-滑入滑出-左'
+},{
+    className: 'rotate-x',
+    title: 'rotateX-上下翻转'
+},{
+    className: 'rotate-y',
+    title: 'rotateY-左右翻转'
+}]
+
+const slider_class_config_clip_path = [{
+    className: 'clip-circle',
+    title: '圆形效果'
+},{
+    className: 'clip-triangle',
+    title: '三角效果'
+},{
+    className: 'clip-radius',
+    title: '圆角矩形效果'
+},{
+    className: 'clip-diamond',
+    title: '菱形效果'
+},{
+    className: 'clip-to-react',
+    title: '十字星到矩形效果'
+},{
+    className: 'clip-sector',
+    title: '扇形效果'
+},{
+    className: 'clip-123',
+    title: '自定义效果'
+}]
+
+const slider_class_config_mask = [{
+    className: 'clip-circle',
+    title: '圆形'
+}]
 
 
 class Demos extends Component {
@@ -17,12 +85,670 @@ class Demos extends Component {
         super(props)
         this.state = {
             articleList: [],
+            active_slider_num: 1,
+            active_slider_class: 'fade',
+            shape_box_1_class: 'none',
+            shape_box_4_class: 'circle1',
+            grid6_class: 'stretch6',
+            grid8_class: 'row8',
         }
+    }
+
+    handleSlider(num) {
+        this.setState({
+            active_slider_num: num,
+        });
+    }
+
+    setSliderActiveClass = e => {
+        this.setState({
+            active_slider_class: e.target.value,
+        });
+    }
+
+    componentDidMount() {
+        this.autoChange();
+    }
+
+    autoChange = () => {
+        setInterval(() => {
+            let num = this.state.active_slider_num === 3 ? 1 : this.state.active_slider_num + 1;
+            this.setState({
+                active_slider_num: num,
+            });
+        }, 2000)
+    }
+
+    setShapeOutsideClass = e => {
+        this.setState({
+            shape_box_1_class: e.target.value
+        });
+    }
+
+    setShapeOutside4Class = e => {
+        this.setState({
+            shape_box_4_class: e.target.value
+        });
+    }
+
+    setGrid6Class = e => {
+        this.setState({
+            grid6_class: e.target.value
+        });
+    }
+
+    setGrid8Class = e => {
+        this.setState({
+            grid8_class: e.target.value
+        });
     }
 
 	render() {
 		return (
             <div>
+                <div className="ning-container demo-box" id="grid">
+                    <h4>grid 布局</h4>
+                    <div className="example-box flex-row-box">
+                        <div className="grid2">
+                            <div>网格一</div>
+                            <div>网格二</div>
+                            <div>网格三</div>
+                            <div>网格四</div>
+                        </div>
+                        <div className="grid3">
+                            <div>网格一</div>
+                            <div>网格二</div>
+                            <div>网格三</div>
+                            <div>网格四</div>
+                        </div>
+                        <div className="grid4">
+                            <div>宽度：auto</div>
+                            <div>宽度：1fr</div>
+                            <div>宽度：1fr</div>
+                            <div>宽度：1fr</div>
+                        </div>
+                        <div className="grid5">
+                            <div>宽度：auto</div>
+                            <div>宽度：.25fr</div>
+                            <div>宽度：.25fr</div>
+                            <div>宽度：.25fr</div>
+                        </div>
+                        <div className="grid1">
+                            <div className="con">主体</div>
+                            <div className="aside1">侧边栏</div>
+                            <div className="header">顶部</div>
+                            <div className="footer">尾部</div>
+                        </div>
+                        <div>
+                            <div className="ning-form-item">
+                                <label className="w-auto">justify-items：</label>
+                                <div className="flex-1 flex-box">
+                                    <label htmlFor='stretch6' className="radio-label">
+                                        <input
+                                            id='stretch6'
+                                            value='stretch6'
+                                            type="radio"
+                                            name="radio6"
+                                            defaultChecked={this.state.grid6_class === 'stretch6'}
+                                            onChange={e => this.setGrid6Class(e)}/>
+                                        <span className="virtual-radio"></span>
+                                        stretch
+                                    </label>
+                                    <label htmlFor='start6' className="radio-label">
+                                        <input
+                                            id='start6'
+                                            value='start6'
+                                            type="radio"
+                                            name="radio6"
+                                            onChange={e => this.setGrid6Class(e)}/>
+                                        <span className="virtual-radio"></span>
+                                        start
+                                    </label>
+                                    <label htmlFor='end6' className="radio-label">
+                                        <input
+                                            id='end6'
+                                            value='end6'
+                                            type="radio"
+                                            name="radio6"
+                                            onChange={e => this.setGrid6Class(e)}/>
+                                        <span className="virtual-radio"></span>
+                                        end
+                                    </label>
+                                    <label htmlFor='center6' className="radio-label">
+                                        <input
+                                            id='center6'
+                                            value='center6'
+                                            type="radio"
+                                            name="radio6"
+                                            onChange={e => this.setGrid6Class(e)}/>
+                                        <span className="virtual-radio"></span>
+                                        center
+                                    </label>
+                                </div>
+                            </div>
+                            <div className="ning-form-item">
+                                <label className="w-auto">align-items：</label>
+                                <div className="flex-1 flex-box">
+                                    <label htmlFor='stretch7' className="radio-label">
+                                        <input
+                                            id='stretch7'
+                                            value='stretch7'
+                                            type="radio"
+                                            name="radio7"
+                                            defaultChecked={this.state.grid6_class === 'stretch7'}
+                                            onChange={e => this.setGrid6Class(e)}/>
+                                        <span className="virtual-radio"></span>
+                                        stretch
+                                    </label>
+                                    <label htmlFor='start7' className="radio-label">
+                                        <input
+                                            id='start7'
+                                            value='start7'
+                                            type="radio"
+                                            name="radio7"
+                                            onChange={e => this.setGrid6Class(e)}/>
+                                        <span className="virtual-radio"></span>
+                                        start
+                                    </label>
+                                    <label htmlFor='end7' className="radio-label">
+                                        <input
+                                            id='end7'
+                                            value='end7'
+                                            type="radio"
+                                            name="radio7"
+                                            onChange={e => this.setGrid6Class(e)}/>
+                                        <span className="virtual-radio"></span>
+                                        end
+                                    </label>
+                                    <label htmlFor='center7' className="radio-label">
+                                        <input
+                                            id='center7'
+                                            value='center7'
+                                            type="radio"
+                                            name="radio7"
+                                            onChange={e => this.setGrid6Class(e)}/>
+                                        <span className="virtual-radio"></span>
+                                        center
+                                    </label>
+                                </div>
+                            </div>
+                            <div className={"grid6 " + this.state.grid6_class}>
+                                <div>
+                                    <img src={pic_1} alt=""/>
+                                </div>
+                                <div>
+                                    <img src={pic_1} alt=""/>
+                                </div>
+                                <div>
+                                    <img src={pic_1} alt=""/>
+                                </div>
+                                <div>
+                                    <img src={pic_1} alt=""/>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="grid7">
+                            <div className="item1"></div>
+                            <div className="item2"></div>
+                            <div className="item3"></div>
+                        </div>
+                        <div>
+                            <div className="ning-form-item">
+                                <label className="w-auto">grid-auto-flow: </label>
+                                <div className="flex-1 flex-box">
+                                    <label htmlFor='row8' className="radio-label">
+                                        <input
+                                            id='row8'
+                                            value='row8'
+                                            type="radio"
+                                            name="radio8"
+                                            defaultChecked={this.state.grid8_class === 'row8'}
+                                            onChange={e => this.setGrid8Class(e)}/>
+                                        <span className="virtual-radio"></span>
+                                        row
+                                    </label>
+                                    <label htmlFor='column8' className="radio-label">
+                                        <input
+                                            id='column8'
+                                            value='column8'
+                                            type="radio"
+                                            name="radio8"
+                                            onChange={e => this.setGrid8Class(e)}/>
+                                        <span className="virtual-radio"></span>
+                                        column
+                                    </label>
+                                    <label htmlFor='row-dense8' className="radio-label">
+                                        <input
+                                            id='row-dense8'
+                                            value='row-dense8'
+                                            type="radio"
+                                            name="radio8"
+                                            onChange={e => this.setGrid8Class(e)}/>
+                                        <span className="virtual-radio"></span>
+                                        row dense
+                                    </label>
+                                    <label htmlFor='column-dense8' className="radio-label">
+                                        <input
+                                            id='column-dense8'
+                                            value='column-dense8'
+                                            type="radio"
+                                            name="radio8"
+                                            onChange={e => this.setGrid8Class(e)}/>
+                                        <span className="virtual-radio"></span>
+                                        column dense
+                                    </label>
+                                </div>
+                            </div>
+                                <div className={"grid8 " + this.state.grid8_class }>
+                                    <div className="item-a"></div>
+                                    <div className="item-b"></div>
+                                    <div className="item-c"></div>
+                                    <div className="item-d"></div>
+                                    <div className="item-e"></div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="ning-container demo-box" id="shape">
+                    <h4>shapes 布局</h4>
+                    <div className="example-box shapes1">
+                        <div className="ning-form-item">
+                            <label className="w-auto">shape-outside：</label>
+                            <div className="flex-1 flex-box">
+                                <label htmlFor='none' className="radio-label">
+                                    <input
+                                        id='none'
+                                        value='none'
+                                        type="radio"
+                                        name="radio1"
+                                        defaultChecked={this.state.shape_box_1_class === 'none'}
+                                        onChange={e => this.setShapeOutsideClass(e)}/>
+                                    <span className="virtual-radio"></span>
+                                    none
+                                </label>
+                                <label htmlFor='content-box' className="radio-label">
+                                    <input
+                                        id='content-box'
+                                        value='content-box'
+                                        type="radio"
+                                        name="radio1"
+                                        onChange={e => this.setShapeOutsideClass(e)}/>
+                                    <span className="virtual-radio"></span>
+                                    content-box
+                                </label>
+                                <label htmlFor='padding-box' className="radio-label">
+                                    <input
+                                        id='padding-box'
+                                        value='padding-box'
+                                        type="radio"
+                                        name="radio1"
+                                        onChange={e => this.setShapeOutsideClass(e)}/>
+                                    <span className="virtual-radio"></span>
+                                    padding-box
+                                </label>
+                                <label htmlFor='border-box' className="radio-label">
+                                    <input
+                                        id='border-box'
+                                        value='border-box'
+                                        type="radio"
+                                        name="radio1"
+                                        onChange={e => this.setShapeOutsideClass(e)}/>
+                                    <span className="virtual-radio"></span>
+                                    border-box
+                                </label>
+                                <label htmlFor='margin-box' className="radio-label">
+                                    <input
+                                        id='margin-box'
+                                        value='margin-box'
+                                        type="radio"
+                                        name="radio1"
+                                        onChange={e => this.setShapeOutsideClass(e)}/>
+                                    <span className="virtual-radio"></span>
+                                    margin-box
+                                </label>
+                            </div>
+                        </div>
+                        <div>
+                            <span className={"shape-box-1 " + this.state.shape_box_1_class }></span>
+                        冷风如刀，以大地为砧板，视众生为鱼肉。万里飞雪，将穹苍作烘炉，熔万物为白银。
+　　雪将住，风未定，一辆马车自北而来，滚动的车轮辗碎了地上的冰雪，却辗不碎天地间的寂寞。
+　　李寻欢打了个呵欠，将两条长腿在柔软的貂皮上尽量伸直，车厢里虽然很温暖，很舒服，但这段旅途实在太长，太寂寞，他不但已觉得疲倦，而且觉得很厌恶，他平生最厌恶的就是寂寞，但他却偏偏时常与寂寞为伍。
+　　“人生本就充满了矛盾，任何人都无可奈何。”
+　　李寻欢叹了口气，自角落中摸出了个酒瓶，他大口地喝着酒时，也大声地咳嗽起来，不停的咳嗽使得他苍白的脸上，泛起一种病态的嫣红，就仿佛地狱中的火焰，正在焚烧着他的肉体与灵魂。
+　　酒瓶空了，他就拿起把小刀，开始雕刻一个人像，刀锋薄而锋锐，他的手指修长而有力。
+　　这是个女人的人像，在他纯熟的手法下，这人像的轮廓和线条看来是那么柔和而优美，看来就像是活的。
+　　他不但给了“她”动人的线条，也给了她生命和灵魂，只因他的生命和灵魂已悄悄地自刀锋下溜走。
+　　他已不再年轻。
+　　他眼角布满了皱纹，每一条皱纹里都蓄满了他生命中的忧患和不幸，只有他的眼睛，却是年轻的。
+　　这是双奇异的眼睛，竟仿佛是碧绿色的，仿佛春风吹动的柳枝，温柔而灵活，又仿佛夏日阳光下的海水，充满了令人愉快的活力。
+　　也许就因为这双眼睛，才使他能活到如今。
+　　现在人像终于完成了，他痴痴地瞧着这人像，也不知瞧了多少时候，然后他突然推开车门，跳了下去。
+                        </div>
+                    </div>
+                    <div className="example-box shapes4">
+                        <div className="ning-form-item">
+                            <label className="w-auto">shape-outside：</label>
+                            <div className="flex-1 flex-box">
+                                <label htmlFor='circle1' className="radio-label">
+                                    <input
+                                        id='circle1'
+                                        value='circle1'
+                                        type="radio"
+                                        name="radio4"
+                                        defaultChecked={this.state.shape_box_4_class === 'circle1'}
+                                        onChange={e => this.setShapeOutside4Class(e)}/>
+                                    <span className="virtual-radio"></span>
+                                    circle(50% at 50% 50%)
+                                </label>
+                                <label htmlFor='ellipse1' className="radio-label">
+                                    <input
+                                        id='ellipse1'
+                                        value='ellipse1'
+                                        type="radio"
+                                        name="radio4"
+                                        onChange={e => this.setShapeOutside4Class(e)}/>
+                                    <span className="virtual-radio"></span>
+                                    ellipse(45px 25px at 50% 50%)
+                                </label>
+                                <label htmlFor='inset' className="radio-label">
+                                    <input
+                                        id='inset'
+                                        value='inset'
+                                        type="radio"
+                                        name="radio4"
+                                        onChange={e => this.setShapeOutside4Class(e)}/>
+                                    <span className="virtual-radio"></span>
+                                    inset(10px 20px 30px 40px round 10px);
+                                </label>
+                                <label htmlFor='polygon' className="radio-label">
+                                    <input
+                                        id='polygon'
+                                        value='polygon'
+                                        type="radio"
+                                        name="radio4"
+                                        onChange={e => this.setShapeOutside4Class(e)}/>
+                                    <span className="virtual-radio"></span>
+                                    polygon(0 0, 0 150px, 100px 200px);
+                                </label>
+                            </div>
+                        </div>
+                        <div>
+                            <span className={"shape-box-4 " + this.state.shape_box_4_class }></span>
+                        冷风如刀，以大地为砧板，视众生为鱼肉。万里飞雪，将穹苍作烘炉，熔万物为白银。
+　　雪将住，风未定，一辆马车自北而来，滚动的车轮辗碎了地上的冰雪，却辗不碎天地间的寂寞。
+　　李寻欢打了个呵欠，将两条长腿在柔软的貂皮上尽量伸直，车厢里虽然很温暖，很舒服，但这段旅途实在太长，太寂寞，他不但已觉得疲倦，而且觉得很厌恶，他平生最厌恶的就是寂寞，但他却偏偏时常与寂寞为伍。
+　　“人生本就充满了矛盾，任何人都无可奈何。”
+　　李寻欢叹了口气，自角落中摸出了个酒瓶，他大口地喝着酒时，也大声地咳嗽起来，不停的咳嗽使得他苍白的脸上，泛起一种病态的嫣红，就仿佛地狱中的火焰，正在焚烧着他的肉体与灵魂。
+　　酒瓶空了，他就拿起把小刀，开始雕刻一个人像，刀锋薄而锋锐，他的手指修长而有力。
+　　这是个女人的人像，在他纯熟的手法下，这人像的轮廓和线条看来是那么柔和而优美，看来就像是活的。
+　　他不但给了“她”动人的线条，也给了她生命和灵魂，只因他的生命和灵魂已悄悄地自刀锋下溜走。
+　　他已不再年轻。
+　　他眼角布满了皱纹，每一条皱纹里都蓄满了他生命中的忧患和不幸，只有他的眼睛，却是年轻的。
+　　这是双奇异的眼睛，竟仿佛是碧绿色的，仿佛春风吹动的柳枝，温柔而灵活，又仿佛夏日阳光下的海水，充满了令人愉快的活力。
+　　也许就因为这双眼睛，才使他能活到如今。
+　　现在人像终于完成了，他痴痴地瞧着这人像，也不知瞧了多少时候，然后他突然推开车门，跳了下去。
+                        </div>
+                    </div>
+                    <div className="example-box shapes2">
+                        <div>
+                            <span className="shape-box-2"></span>
+                        冷风如刀，以大地为砧板，视众生为鱼肉。万里飞雪，将穹苍作烘炉，熔万物为白银。
+　　雪将住，风未定，一辆马车自北而来，滚动的车轮辗碎了地上的冰雪，却辗不碎天地间的寂寞。
+　　李寻欢打了个呵欠，将两条长腿在柔软的貂皮上尽量伸直，车厢里虽然很温暖，很舒服，但这段旅途实在太长，太寂寞，他不但已觉得疲倦，而且觉得很厌恶，他平生最厌恶的就是寂寞，但他却偏偏时常与寂寞为伍。
+　　“人生本就充满了矛盾，任何人都无可奈何。”
+　　李寻欢叹了口气，自角落中摸出了个酒瓶，他大口地喝着酒时，也大声地咳嗽起来，不停的咳嗽使得他苍白的脸上，泛起一种病态的嫣红，就仿佛地狱中的火焰，正在焚烧着他的肉体与灵魂。
+　　酒瓶空了，他就拿起把小刀，开始雕刻一个人像，刀锋薄而锋锐，他的手指修长而有力。
+　　这是个女人的人像，在他纯熟的手法下，这人像的轮廓和线条看来是那么柔和而优美，看来就像是活的。
+　　他不但给了“她”动人的线条，也给了她生命和灵魂，只因他的生命和灵魂已悄悄地自刀锋下溜走。
+　　他已不再年轻。
+　　他眼角布满了皱纹，每一条皱纹里都蓄满了他生命中的忧患和不幸，只有他的眼睛，却是年轻的。
+　　这是双奇异的眼睛，竟仿佛是碧绿色的，仿佛春风吹动的柳枝，温柔而灵活，又仿佛夏日阳光下的海水，充满了令人愉快的活力。
+　　也许就因为这双眼睛，才使他能活到如今。
+　　现在人像终于完成了，他痴痴地瞧着这人像，也不知瞧了多少时候，然后他突然推开车门，跳了下去。
+                        </div>
+                    </div>
+                    <div className="example-box shapes3">
+                        <div>
+                            <span className="shape-box-3-start"></span>
+                            <span className="shape-box-3-end"></span>
+                            <span className="shape-box-3-content">
+                                冷风如刀，以大地为砧板，视众生为鱼肉。万里飞雪，将穹苍作烘炉，熔万物为白银。
+　　雪将住，风未定，一辆马车自北而来，滚动的车轮辗碎了地上的冰雪，却辗不碎天地间的寂寞。
+　　李寻欢打了个呵欠，将两条长腿在柔软的貂皮上尽量伸直，车厢里虽然很温暖，很舒服，但这段旅途实在太长，太寂寞，他不但已觉得疲倦，而且觉得很厌恶，他平生最厌恶的就是寂寞，但他却偏偏时常与寂寞为伍。
+　　“人生本就充满了矛盾，任何人都无可奈何。”
+　　李寻欢叹了口气，自角落中摸出了个酒瓶，他大口地喝着酒时，也大声地咳嗽起来，不停的咳嗽使得他苍白的脸上，泛起一种病态的嫣红，就仿佛地狱中的火焰，正在焚烧着他的肉体与灵魂。
+　　酒瓶空了，他就拿起把小刀，开始雕刻一个人像，刀锋薄而锋锐，他的手指修长而有力。
+　　这是个女人的人像，在他纯熟的手法下，这人像的轮廓和线条看来是那么柔和而优美，看来就像是活的。
+　　他不但给了“她”动人的线条，也给了她生命和灵魂，只因他的生命和灵魂已悄悄地自刀锋下溜走。
+　　他已不再年轻。
+　　他眼角布满了皱纹，每一条皱纹里都蓄满了他生命中的忧患和不幸，只有他的眼睛，却是年轻的。
+　　这是双奇异的眼睛，竟仿佛是碧绿色的，仿佛春风吹动的柳枝，温柔而灵活，又仿佛夏日阳光下的海水，充满了令人愉快的活力。
+　　也许就因为这双眼睛，才使他能活到如今。
+　　现在人像终于完成了，他痴痴地瞧着这人像，也不知瞧了多少时候，然后他突然推开车门，跳了下去。
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div className="ning-container demo-box" id="column">
+                    <h4>columns 布局</h4>
+                    <div className="example-box column1">
+                        <p>冷风如刀，以大地为砧板，视众生为鱼肉。万里飞雪，将穹苍作烘炉，熔万物为白银。
+　　雪将住，风未定，一辆马车自北而来，滚动的车轮辗碎了地上的冰雪，却辗不碎天地间的寂寞。
+　　李寻欢打了个呵欠，将两条长腿在柔软的貂皮上尽量伸直，车厢里虽然很温暖，很舒服，但这段旅途实在太长，太寂寞，他不但已觉得疲倦，而且觉得很厌恶，他平生最厌恶的就是寂寞，但他却偏偏时常与寂寞为伍。
+　　“人生本就充满了矛盾，任何人都无可奈何。”
+　　李寻欢叹了口气，自角落中摸出了个酒瓶，他大口地喝着酒时，也大声地咳嗽起来，不停的咳嗽使得他苍白的脸上，泛起一种病态的嫣红，就仿佛地狱中的火焰，正在焚烧着他的肉体与灵魂。
+　　酒瓶空了，他就拿起把小刀，开始雕刻一个人像，刀锋薄而锋锐，他的手指修长而有力。</p>
+<p className="fill">我是广告我是广告我是广告我是广告我是广告我是广告我是广告我是广告我是广告我是广告我是广告我是广告我是广告我是广告我是广告我是广告我是广告</p>
+　　<p>这是个女人的人像，在他纯熟的手法下，这人像的轮廓和线条看来是那么柔和而优美，看来就像是活的。
+　　他不但给了“她”动人的线条，也给了她生命和灵魂，只因他的生命和灵魂已悄悄地自刀锋下溜走。
+　　他已不再年轻。
+　　他眼角布满了皱纹，每一条皱纹里都蓄满了他生命中的忧患和不幸，只有他的眼睛，却是年轻的。
+　　这是双奇异的眼睛，竟仿佛是碧绿色的，仿佛春风吹动的柳枝，温柔而灵活，又仿佛夏日阳光下的海水，充满了令人愉快的活力。
+　　也许就因为这双眼睛，才使他能活到如今。
+　　现在人像终于完成了，他痴痴地瞧着这人像，也不知瞧了多少时候，然后他突然推开车门，跳了下去。</p>
+                    </div>
+                    <div className="example-box">
+                        <div className="view-port">
+                            <div className="column2">
+                                冷风如刀，以大地为砧板，视众生为鱼肉。万里飞雪，将穹苍作烘炉，熔万物为白银。
+　　雪将住，风未定，一辆马车自北而来，滚动的车轮辗碎了地上的冰雪，却辗不碎天地间的寂寞。
+　　李寻欢打了个呵欠，将两条长腿在柔软的貂皮上尽量伸直，车厢里虽然很温暖，很舒服，但这段旅途实在太长，太寂寞，他不但已觉得疲倦，而且觉得很厌恶，他平生最厌恶的就是寂寞，但他却偏偏时常与寂寞为伍。
+　　“人生本就充满了矛盾，任何人都无可奈何。”
+　　李寻欢叹了口气，自角落中摸出了个酒瓶，他大口地喝着酒时，也大声地咳嗽起来，不停的咳嗽使得他苍白的脸上，泛起一种病态的嫣红，就仿佛地狱中的火焰，正在焚烧着他的肉体与灵魂。
+　　酒瓶空了，他就拿起把小刀，开始雕刻一个人像，刀锋薄而锋锐，他的手指修长而有力。
+　　这是个女人的人像，在他纯熟的手法下，这人像的轮廓和线条看来是那么柔和而优美，看来就像是活的。
+　　他不但给了“她”动人的线条，也给了她生命和灵魂，只因他的生命和灵魂已悄悄地自刀锋下溜走。
+　　他已不再年轻。
+　　他眼角布满了皱纹，每一条皱纹里都蓄满了他生命中的忧患和不幸，只有他的眼睛，却是年轻的。
+　　这是双奇异的眼睛，竟仿佛是碧绿色的，仿佛春风吹动的柳枝，温柔而灵活，又仿佛夏日阳光下的海水，充满了令人愉快的活力。
+　　也许就因为这双眼睛，才使他能活到如今。
+　　现在人像终于完成了，他痴痴地瞧着这人像，也不知瞧了多少时候，然后他突然推开车门，跳了下去。
+                            </div>
+                        </div>
+                    </div>
+                    <div className="example-box column3">
+                        <div className="img-box small"></div>
+                        <div className="img-box large"></div>
+                        <div className="img-box mid"></div>
+                        <div className="img-box small"></div>
+                        <div className="img-box large"></div>
+                        <div className="img-box small"></div>
+                        <div className="img-box mid"></div>
+                        <div className="img-box large"></div>
+                        <div className="img-box mid"></div>
+                        <div className="img-box small"></div>
+                        <div className="img-box mid"></div>
+                    </div>
+                </div>
+                <div className="ning-container demo-box">
+                    <h4 id="css-column-list">css-column-list</h4>
+                    <div className="example-box flex-row-box">
+                        <ul className="css-column-list">
+                            <li>Multiple-column布局，也称多列布局、多栏布局，我自己喜欢叫做分栏布局，这种布局可以讲内容布局到一组列框，类似于报纸上的排版。Multiple-column布局，也称多列布局、多栏布局，我自己喜欢叫做分栏布局，这种布局可以讲内容布局到一组列框，类似于报纸上的排版。</li>
+                            <li>分栏布局非常特殊，有别于传统布局方法，它将包括包括所有子元素在内的所有内容拆分为列，这与我们打印网页时候时页面内容分割成不同的页面的方式类似。</li>
+                            <li>分栏布局IE10+都可以使用，API稳定，移动端兼容性比flex布局要好，虽然设计初衷不一样，但很多布局都可以实现。甚至某些场景下，只能使用分栏布局才能实现。很有学习的必要。分栏布局IE10+都可以使用，API稳定，移动端兼容性比flex布局要好，虽然设计初衷不一样，但很多布局都可以实现。甚至某些场景下，只能使用分栏布局才能实现。很有学习的必要。</li>
+                            <li>column-width表示每一栏/列的最佳宽度。如果我们只设定column-width，浏览器会自动根据现有容器宽度划分栏目的个数。</li>
+                            <li>表示设定的最佳列宽值。实际呈现的每一栏的宽度可能与指定值不同，具体内容参见下面的细节描述。表示设定的最佳列宽值。实际呈现的每一栏的宽度可能与指定值不同，具体内容参见下面的细节描述。</li>
+                            <li>表示设定的最佳列宽值。实际呈现的每一栏的宽度可能与指定值不同，具体内容参见下面的细节描述。表示设定的最佳列宽值。实际呈现的每一栏的宽度可能与指定值不同，具体内容参见下面的细节描述。</li>
+                        </ul>
+                    </div>
+                </div>
+                <div className="ning-container demo-box" id="css-selector-4">
+                    <h4>mask 实践</h4>
+                    <div className="example-box flex-box flex-center-box">
+                        <ul className="css-not">
+                            <li>第一项第一项第一项第一项第一项第一项</li>
+                            <li>第一项第一项第一项第一项第一项第一项</li>
+                            <li className="blue">第一项第一项第一项第一项第一项第一项</li>
+                            <li>第一项第一项第一项第一项第一项第一项</li>
+                            <li>第一项第一项第一项第一项第一项第一项</li>
+                            <li className="red">第一项第一项第一项第一项第一项第一项</li>
+                            <li>第一项第一项第一项第一项第一项第一项</li>
+                            <li>第一项第一项第一项第一项第一项第一项</li>
+                        </ul>
+                        <ul className="css-matches">
+                            <li>第一项第一项第一项第一项第一项第一项</li>
+                            <li>第一项第一项第一项第一项第一项第一项</li>
+                            <li className="blue">第一项第一项第一项第一项第一项第一项</li>
+                            <li>第一项第一项第一项第一项第一项第一项</li>
+                            <li>第一项第一项第一项第一项第一项第一项</li>
+                            <li className="red">第一项第一项第一项第一项第一项第一项</li>
+                            <li>第一项第一项第一项第一项第一项第一项</li>
+                            <li>第一项第一项第一项第一项第一项第一项</li>
+                        </ul>
+                    </div>
+                </div>
+                <div className="ning-container demo-box" id="mask">
+                    <h4>mask 实践</h4>
+                    <div className="example-box flex-row-box flex-center-box">
+                        <img src={pic_1} alt=""/>
+                        <img src={pic_1} alt="" className="mask1"/>
+                        <img src={pic_1} alt="" className="mask2"/>
+                        <img src={pic_1} alt="" className="mask3"/>
+                        <img src={pic_1} alt="" className="mask4"/>
+                        <img src={pic_1} alt="" className="mask5"/>
+                        <img src={pic_1} alt="" className="mask6"/>
+                        <img src={pic_1} alt="" className="mask7"/>
+                    </div>
+                </div>
+                <div className="ning-container demo-box" id="clip_path">
+                    <h4>clip-path 图形构建</h4>
+                    <div className="example-box flex-row-box flex-center-box">
+                        <img src={pic_1} alt=""/>
+                        <img src={pic_1} alt="" className="circle"/>
+                        <img src={pic_1} alt="" className="triangle"/>
+                        <img src={pic_1} alt="" className="diamond"/>
+                        <img src={pic_1} alt="" className="szx"/>
+                        <img src={pic_1} alt="" className="inset"/>
+                        <img src={pic_1} alt="" className="path"/>
+                    </div>
+                </div>
+                <div className="ning-container demo-box"  id="ning_slider">
+                    <h4>css 转场动画</h4>
+                    <div className="example-box flex-center-box">
+                        <div className="flex-1">
+                            <div className="ning-form-item">
+                                <label>传统转场：</label>
+                                <div className="flex-1 flex-box">
+                                {
+                                    slider_class_config.map(v => {
+                                        return <label key={v.className} htmlFor={v.className} className="radio-label">
+                                                    <input
+                                                        id={v.className}
+                                                        value={v.className}
+                                                        type="radio"
+                                                        name="radio"
+                                                        defaultChecked={v.className === 'fade' && this.state.active_slider_class === 'fade'}
+                                                        onChange={e => this.setSliderActiveClass(e)}/>
+                                                    <span className="virtual-radio"></span>
+                                                    {v.title}
+                                                </label>
+                                    })
+                                }
+                                </div>
+                            </div>
+                            <div className="ning-form-item">
+                                <label>clip-path：</label>
+                                <div className="flex-1 flex-box">
+                                {
+                                    slider_class_config_clip_path.map(v => {
+                                        return <label key={v.className} htmlFor={v.className} className="radio-label">
+                                                    <input
+                                                        id={v.className}
+                                                        value={v.className}
+                                                        type="radio"
+                                                        name="radio"
+                                                        onChange={e => this.setSliderActiveClass(e)}/>
+                                                    <span className="virtual-radio"></span>
+                                                    {v.title}
+                                                </label>
+                                    })
+                                }
+                                </div>
+                            </div>
+                            <div className="ning-form-item">
+                                <label>mask：</label>
+                                <div className="flex-1 flex-box">
+                                {
+                                    slider_class_config_mask.map(v => {
+                                        return <label key={v.className} htmlFor={v.className} className="radio-label">
+                                                    <input
+                                                        id={v.className}
+                                                        value={v.className}
+                                                        type="radio"
+                                                        name="radio"
+                                                        onChange={e => this.setSliderActiveClass(e)}/>
+                                                    <span className="virtual-radio"></span>
+                                                    {v.title}
+                                                </label>
+                                    })
+                                }
+                                </div>
+                            </div>
+                        </div>
+                        <div className={"ning-slider " + this.state.active_slider_class}>
+                            <div className="ning-slider-list">
+                                <a className={(this.state.active_slider_num === 1 ? 'in' : 'out') + " ning-slider-item"}>
+                                    <img src={pic_1} alt=""/>
+                                </a>
+                                <a className={(this.state.active_slider_num === 2 ? 'in' : 'out') + " ning-slider-item"}>
+                                    <img src={pic_2} alt=""/>
+                                </a>
+                                <a className={(this.state.active_slider_num === 3 ? 'in' : 'out') + " ning-slider-item"}>
+                                    <img src={pic_3} alt=""/>
+                                </a>
+                            </div>
+                            <ul className="ning-slider-page">
+                                <li className="ning-slider-page-item" onClick={() => this.handleSlider(1)}></li>
+                                <li className="ning-slider-page-item" onClick={() => this.handleSlider(2)}></li>
+                                <li className="ning-slider-page-item" onClick={() => this.handleSlider(3)}></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div className="ning-container demo-box"  id="css-dynamic-progress">
+                    <h4>css 实现动态进度条</h4>
+                    <div className="example-box flex-row-box">
+                        <div className="view-box flex-row-box">
+                            <div className="dynamic-progress"></div>
+                        </div>
+                    </div>
+                </div>
+                <div className="ning-container demo-box"  id="css-countdown">
+                    <h4>css 实现倒计时</h4>
+                    <div className="example-box flex-row-box">
+                        <div className="view-box flex-row-box">
+                            <div className="num-box num5 minutes-ten">9876543210</div>
+                            <div className="num-box num9 minutes">9876543210</div>
+                            <span className="m-l-xs m-r-xs">:</span>
+                            <div className="num-box num5 seconds-ten">9876543210</div>
+                            <div className="num-box num9 seconds">9876543210</div>
+                            <span className="m-l-xs m-r-xs">:</span>
+                            <div className="num-box num9 hundred-ten">9876543210</div>
+                            <div className="num-box num9 hundred">9876543210</div>
+                        </div>
+                    </div>
+                </div>
                 <div className="ning-container demo-box">
                     <h4 id="all-center-box">水平垂直居中的实现</h4>
                     <div className="example-box flex-row-box">
@@ -402,19 +1128,7 @@ class Demos extends Component {
                         </div>
                     </div>
                 </div>
-                <div className="ning-container demo-box">
-                    <h4 id="css-column-list">css-column-list</h4>
-                    <div className="example-box flex-row-box">
-                        <ul className="css-column-list">
-                            <li>Multiple-column布局，也称多列布局、多栏布局，我自己喜欢叫做分栏布局，这种布局可以讲内容布局到一组列框，类似于报纸上的排版。Multiple-column布局，也称多列布局、多栏布局，我自己喜欢叫做分栏布局，这种布局可以讲内容布局到一组列框，类似于报纸上的排版。</li>
-                            <li>分栏布局非常特殊，有别于传统布局方法，它将包括包括所有子元素在内的所有内容拆分为列，这与我们打印网页时候时页面内容分割成不同的页面的方式类似。</li>
-                            <li>分栏布局IE10+都可以使用，API稳定，移动端兼容性比flex布局要好，虽然设计初衷不一样，但很多布局都可以实现。甚至某些场景下，只能使用分栏布局才能实现。很有学习的必要。分栏布局IE10+都可以使用，API稳定，移动端兼容性比flex布局要好，虽然设计初衷不一样，但很多布局都可以实现。甚至某些场景下，只能使用分栏布局才能实现。很有学习的必要。</li>
-                            <li>column-width表示每一栏/列的最佳宽度。如果我们只设定column-width，浏览器会自动根据现有容器宽度划分栏目的个数。</li>
-                            <li>表示设定的最佳列宽值。实际呈现的每一栏的宽度可能与指定值不同，具体内容参见下面的细节描述。表示设定的最佳列宽值。实际呈现的每一栏的宽度可能与指定值不同，具体内容参见下面的细节描述。</li>
-                            <li>表示设定的最佳列宽值。实际呈现的每一栏的宽度可能与指定值不同，具体内容参见下面的细节描述。表示设定的最佳列宽值。实际呈现的每一栏的宽度可能与指定值不同，具体内容参见下面的细节描述。</li>
-                        </ul>
-                    </div>
-                </div>
+                
                 <div className="ning-container demo-box">
                     <h4 id="css-secret-bg-list-2">css-secret-bg-list-2</h4>
                     <div className="example-box flex-row-box css-secret-bg-list-2">
@@ -590,9 +1304,6 @@ class Demos extends Component {
 
     clear = () => {
         document.getElementById('debounce_res').innerHTML = '';
-    }
-
-    componentDidMount() {
     }
 }
 

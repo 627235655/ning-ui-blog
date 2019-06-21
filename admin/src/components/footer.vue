@@ -2,8 +2,8 @@
     <footer class="ning-row">
         <div class="last-content">
             <span>Designed & Powerd by zongyuan.ning</span>
-            <span>Copyright© 2018 - 2018 n顾盼神飞</span>
-            <span>鄂ICP备09015569号</span>
+            <span>Copyright© 2019 - 2019 n顾盼神飞</span>
+            <span>蜀 ICP 备 19016370 号</span>
         </div>
     </footer>
 </template>

@@ -254,7 +254,7 @@ class Profile extends Component {
                                 <p className="section-sub-title m-b-lg">email: 627235655@qq.com</p>
                                 <div>
                                     <a target="_blank" href="index/home" className="ning-line-btn _shadow _fillet">我的博客</a>
-                                    <a target="_blank" href="index/home" className="ning-line-btn _shadow _fillet m-l-md">简历 pdf</a>
+                                    <a target="_blank" href="https://zongyuan.oss-cn-shenzhen.aliyuncs.com/ning-ui-blog/%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6-%E5%AE%81%E5%AE%97%E6%BA%90-web%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%88.pdf" className="ning-line-btn _shadow _fillet m-l-md">简历 pdf</a>
                                 </div>
                                 <p className="m-t-lg">享受生命中每一个脚步，感谢观看~</p>
                             </div>

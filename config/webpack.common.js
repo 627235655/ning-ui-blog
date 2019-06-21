@@ -1,6 +1,5 @@
 const path = require('path')
 const HtmlWebPackPlugin = require("html-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin") //打包css的插件
 const Version = Date.now()
 
 module.exports = {
@@ -8,9 +7,9 @@ module.exports = {
     module: {
         rules: [{
             test: /\.js$/,
-            exclude: /node_modules/,
+            exclude: /node_modules/, // 不能排除 node_modules，UglifyJsPlugin 不会对 es6 格式的 js 压缩
             use: {
-                loader: 'babel-loader?presets[]=react,presets[]=es2015,presets[]=stage-0'
+                loader: 'babel-loader'
             }
         }, {
             test: /\.html$/,
@@ -18,38 +17,6 @@ module.exports = {
                 loader: "html-loader",
                 options: {
                     minimize: true
-                }
-            }]
-        }, {
-            test: /\.css$/,
-            use: [
-                'style-loader',
-                MiniCssExtractPlugin.loader,
-                "css-loader?minimize"
-            ],
-            include: path.join(__dirname, '../src'), //限制范围，提高打包速度
-            exclude: path.join(__dirname, '../node_modules'), // 排除 node_modules 目录下的文件
-        }, {
-            test: /\.scss/,
-            use: [{
-                loader: 'style-loader'
-            }, {
-                loader: 'css-loader'
-            }, {
-                loader: 'postcss-loader',
-                options: {
-                    sourceMap: true,
-                    config: {
-                        path: 'postcss.config.js' // 这个得在项目根目录创建此文件
-                    }
-                }
-            }, {
-                loader: 'sass-loader'
-            }, {
-                loader: 'sass-resources-loader',
-                options: {
-                    sourceMap: true,
-                    resources: ['./src/assets/ning-ui/sass/variable.scss'],
                 }
             }]
         }, {

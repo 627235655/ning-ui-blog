@@ -10,13 +10,14 @@ import axios from 'axios';
 import util from 'assets/js/util';
 import server from 'server/server';
 import TagLink from 'components/TagLink/TagLink'
-import blog_chart from 'assets/images/blog-chart.png'
-import ning_ui from 'assets/images/ning-ui.png'
-import blog_article_list from 'assets/images/blog-article-list.png'
-import blog_admin from 'assets/images/blog-admin.png'
-import antd_admin from 'assets/images/antd-admin.png'
-import blog_hexo from 'assets/images/blog-hexo.png'
-import online_resume from 'assets/images/online-resume.png'
+import ArticleItem from 'components/ArticleItem/ArticleItem'
+const blog_chart = 'https://zongyuan.oss-cn-shenzhen.aliyuncs.com/ning-ui-blog/blog-chart.png',
+        ning_ui = 'https://zongyuan.oss-cn-shenzhen.aliyuncs.com/ning-ui-blog/ning-ui.png',
+        blog_article_list = 'https://zongyuan.oss-cn-shenzhen.aliyuncs.com/ning-ui-blog/blog-article-list.png',
+        blog_admin = 'https://zongyuan.oss-cn-shenzhen.aliyuncs.com/ning-ui-blog/blog-admin.png',
+        antd_admin = 'https://zongyuan.oss-cn-shenzhen.aliyuncs.com/ning-ui-blog/antd-admin.png',
+        blog_hexo = 'https://zongyuan.oss-cn-shenzhen.aliyuncs.com/ning-ui-blog/blog-hexo.png',
+        online_resume = 'https://zongyuan.oss-cn-shenzhen.aliyuncs.com/ning-ui-blog/online-resume.png';
 
 class Home extends Component {
 	constructor(props) {
@@ -96,6 +97,18 @@ class Home extends Component {
             }]
         }
     }
+    // ,{
+    //             name: '喜马拉雅 APP - 我的客服',
+    //             name_url: 'https://627235655.github.io/#',
+    //             desc_list: [{
+    //                 desc: '静态资源博客',
+    //             },{
+    //                 desc: 'hexo + github',
+    //             },{
+    //                 desc: '样式自定义，已弃用',
+    //             }],
+    //             img_adress: blog_hexo,
+    //         }
 
 	render() {
 		let el_article_list = this.state.articleList.map((v, i, a) => {
@@ -160,42 +173,6 @@ class Home extends Component {
 		            	<ul className="work-list">
 		            		{work_list_dom}
 		            	</ul>
-	            	</section>
-	            	<section className="flex-center-box ning-ui-list">
-	            		<div className="ning-ui-item">
-	            			<div className="ning-ui-item-wrap">
-	            				<p>自然交互</p>
-		            			<p>面向设计</p>
-	            			</div>
-	            			<div className="title">基于 Atnd</div>
-	            		</div>
-	            		<div className="ning-ui-item">
-	            			<div className="ning-ui-item-wrap">
-		            			<p>基本构架</p>
-		            			<p>灵活配置</p>
-	            			</div>
-	            			<div className="title">半封装</div>
-	            		</div>
-	            		<div className="ning-ui-item">
-	            			<div className="ning-ui-item-wrap">
-	            				<i className="ning-icon icon-ning"></i>
-	            			</div>
-	            			<Link className="title" to="/index/ning-ui/mind">ning-ui</Link>
-	            		</div>
-	            		<div className="ning-ui-item">
-	            			<div className="ning-ui-item-wrap">
-	            				<p>不拘于框架</p>
-		            			<p>拥抱原生</p>
-	            			</div>
-	            			<div className="title">原生 Js 组件</div>
-	            		</div>
-	            		<div className="ning-ui-item">
-	            			<div className="ning-ui-item-wrap">
-	            				<p>自定义</p>
-		            			<p>少网络请求</p>
-	            			</div>
-	            			<div className="title">单标签 Icon</div>
-	            		</div>
 	            	</section>
 	            	<section className="flex-row-box">
 	            		<div className="blog-desc-wrap">
