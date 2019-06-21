@@ -264,8 +264,10 @@ api.get('/api/getDateList', function(req, res) {
 api.get('/api/getArticleList', function(req, res) {
     var DB = db.ArticleList;
     var options = req.query;
-    console.log(options)
     var is_search_all = JSON.stringify(options) == "{}";
+    var sess = req.session;
+    var loginUser = sess.loginUser;
+    var isLogined = !!loginUser;
     var filter = {};
     if (!is_search_all) {
         var sort = options.sort || { _id: -1 };
@@ -290,16 +292,14 @@ api.get('/api/getArticleList', function(req, res) {
                 let arr = filter.createDates;
                 filter = { "$and": [{ "createDate": { "$gt": arr[0] } }, { "createDate": { "$lt": arr[1] } }] }
             }
+            if (!isLogined) {
+                filter.isPrivate = '0';
+            }
         }
     }
-    // 是否尽自己可见
-    // var sess = req.session;
-    // var loginUser = sess.loginUser;
-    // var isLogined = !!loginUser;
-    // if (!isLogined) {
-    //     filter.isPrivate = 0.0;
-    // }
-    // console.log(filter)
+    if (!isLogined) {
+        filter.isPrivate = '0';
+    }
     // 先查询总条数
     DB.find(filter, function(err, docs) {
         if (err) {
@@ -315,14 +315,12 @@ api.get('/api/getArticleList', function(req, res) {
             res.json({ status: 200, message: '操作成功', data: data })
             return
         }
-        // console.log(filter,currentPage,pageSize,sort)
         // 此部分为条件查询/分页查询
         DB.find(filter).sort(sort).skip((currentPage - 1) * pageSize).limit(pageSize).exec(function(err, docs) {
             if (err) {
                 console.log('出错' + err);
                 return
             }
-            // console.log(docs)
             var data = {
                 totalCount: totalCount,
                 list: docs

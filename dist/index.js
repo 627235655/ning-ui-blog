@@ -1214,7 +1214,7 @@ module.exports = warning;
 /* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var DESCRIPTORS = __webpack_require__(25);
+var DESCRIPTORS = __webpack_require__(26);
 var IE8_DOM_DEFINE = __webpack_require__(129);
 var anObject = __webpack_require__(22);
 var toPrimitive = __webpack_require__(54);
@@ -1236,29 +1236,6 @@ exports.f = DESCRIPTORS ? nativeDefineProperty : function defineProperty(O, P, A
 
 /***/ }),
 /* 25 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var fails = __webpack_require__(16);
-
-// Thank's IE8 for his funny defineProperty
-module.exports = !fails(function () {
-  return Object.defineProperty({}, 'a', { get: function () { return 7; } }).a != 7;
-});
-
-
-/***/ }),
-/* 26 */
-/***/ (function(module, exports) {
-
-var hasOwnProperty = {}.hasOwnProperty;
-
-module.exports = function (it, key) {
-  return hasOwnProperty.call(it, key);
-};
-
-
-/***/ }),
-/* 27 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1373,6 +1350,29 @@ Link.contextTypes = {
 
 
 /* harmony default export */ __webpack_exports__["a"] = (Link);
+
+/***/ }),
+/* 26 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var fails = __webpack_require__(16);
+
+// Thank's IE8 for his funny defineProperty
+module.exports = !fails(function () {
+  return Object.defineProperty({}, 'a', { get: function () { return 7; } }).a != 7;
+});
+
+
+/***/ }),
+/* 27 */
+/***/ (function(module, exports) {
+
+var hasOwnProperty = {}.hasOwnProperty;
+
+module.exports = function (it, key) {
+  return hasOwnProperty.call(it, key);
+};
+
 
 /***/ }),
 /* 28 */,
@@ -1888,7 +1888,7 @@ Route_Route.childContextTypes = {
 /* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var DESCRIPTORS = __webpack_require__(25);
+var DESCRIPTORS = __webpack_require__(26);
 var definePropertyModule = __webpack_require__(24);
 var createPropertyDescriptor = __webpack_require__(53);
 
@@ -1907,7 +1907,7 @@ module.exports = DESCRIPTORS ? function (object, key, value) {
 var global = __webpack_require__(13);
 var shared = __webpack_require__(55);
 var hide = __webpack_require__(32);
-var has = __webpack_require__(26);
+var has = __webpack_require__(27);
 var setGlobal = __webpack_require__(92);
 var nativeFunctionToString = __webpack_require__(130);
 var InternalStateModule = __webpack_require__(48);
@@ -3280,7 +3280,7 @@ var NATIVE_WEAK_MAP = __webpack_require__(230);
 var global = __webpack_require__(13);
 var isObject = __webpack_require__(21);
 var hide = __webpack_require__(32);
-var objectHas = __webpack_require__(26);
+var objectHas = __webpack_require__(27);
 var sharedKey = __webpack_require__(67);
 var hiddenKeys = __webpack_require__(57);
 
@@ -3527,12 +3527,12 @@ var _default = TagLink;
 /* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var DESCRIPTORS = __webpack_require__(25);
+var DESCRIPTORS = __webpack_require__(26);
 var propertyIsEnumerableModule = __webpack_require__(65);
 var createPropertyDescriptor = __webpack_require__(53);
 var toIndexedObject = __webpack_require__(44);
 var toPrimitive = __webpack_require__(54);
-var has = __webpack_require__(26);
+var has = __webpack_require__(27);
 var IE8_DOM_DEFINE = __webpack_require__(129);
 
 var nativeGetOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
@@ -3747,7 +3747,7 @@ module.exports = function (METHOD_NAME) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var defineProperty = __webpack_require__(24).f;
-var has = __webpack_require__(26);
+var has = __webpack_require__(27);
 var wellKnownSymbol = __webpack_require__(17);
 
 var TO_STRING_TAG = wellKnownSymbol('toStringTag');
@@ -14312,7 +14312,7 @@ module.exports = function (object, key, value) {
 /* 99 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var DESCRIPTORS = __webpack_require__(25);
+var DESCRIPTORS = __webpack_require__(26);
 var global = __webpack_require__(13);
 var isForced = __webpack_require__(59);
 var inheritIfRequired = __webpack_require__(100);
@@ -14439,7 +14439,7 @@ module.exports = function () {
 var getBuiltIn = __webpack_require__(242);
 var definePropertyModule = __webpack_require__(24);
 var wellKnownSymbol = __webpack_require__(17);
-var DESCRIPTORS = __webpack_require__(25);
+var DESCRIPTORS = __webpack_require__(26);
 
 var SPECIES = wellKnownSymbol('species');
 
@@ -14554,11 +14554,11 @@ fixRegExpWellKnownSymbolLogic('search', 1, function (SEARCH, nativeSearch, maybe
 
 "use strict";
 
-var DESCRIPTORS = __webpack_require__(25);
+var DESCRIPTORS = __webpack_require__(26);
 var global = __webpack_require__(13);
 var isForced = __webpack_require__(59);
 var redefine = __webpack_require__(33);
-var has = __webpack_require__(26);
+var has = __webpack_require__(27);
 var classof = __webpack_require__(39);
 var inheritIfRequired = __webpack_require__(100);
 var toPrimitive = __webpack_require__(54);
@@ -15017,7 +15017,7 @@ function valueEqual(a, b) {
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_7__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(12);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(27);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(25);
 /* harmony import */ var _ArticleItem_scss__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(245);
 /* harmony import */ var _ArticleItem_scss__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_ArticleItem_scss__WEBPACK_IMPORTED_MODULE_10__);
 /* harmony import */ var components_TagLink_TagLink__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(51);
@@ -15149,7 +15149,7 @@ var _default = ArticleItem;
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_7__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(12);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(27);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(25);
 /* harmony import */ var _Aside_scss__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(247);
 /* harmony import */ var _Aside_scss__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_Aside_scss__WEBPACK_IMPORTED_MODULE_10__);
 
@@ -17504,7 +17504,7 @@ addToUnscopables('includes');
 /* 129 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var DESCRIPTORS = __webpack_require__(25);
+var DESCRIPTORS = __webpack_require__(26);
 var fails = __webpack_require__(16);
 var createElement = __webpack_require__(91);
 
@@ -17529,7 +17529,7 @@ module.exports = shared('native-function-to-string', Function.toString);
 /* 131 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var has = __webpack_require__(26);
+var has = __webpack_require__(27);
 var ownKeys = __webpack_require__(231);
 var getOwnPropertyDescriptorModule = __webpack_require__(52);
 var definePropertyModule = __webpack_require__(24);
@@ -17549,7 +17549,7 @@ module.exports = function (target, source) {
 /* 132 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var has = __webpack_require__(26);
+var has = __webpack_require__(27);
 var toIndexedObject = __webpack_require__(44);
 var arrayIncludes = __webpack_require__(93);
 var hiddenKeys = __webpack_require__(57);
@@ -17856,7 +17856,7 @@ exports.f = __webpack_require__(17);
 /***/ (function(module, exports, __webpack_require__) {
 
 var path = __webpack_require__(104);
-var has = __webpack_require__(26);
+var has = __webpack_require__(27);
 var wrappedWellKnownSymbolModule = __webpack_require__(143);
 var defineProperty = __webpack_require__(24).f;
 
@@ -17876,7 +17876,7 @@ module.exports = function (NAME) {
 
 var getPrototypeOf = __webpack_require__(146);
 var hide = __webpack_require__(32);
-var has = __webpack_require__(26);
+var has = __webpack_require__(27);
 var wellKnownSymbol = __webpack_require__(17);
 var IS_PURE = __webpack_require__(56);
 
@@ -17914,7 +17914,7 @@ module.exports = {
 /* 146 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var has = __webpack_require__(26);
+var has = __webpack_require__(27);
 var toObject = __webpack_require__(43);
 var sharedKey = __webpack_require__(67);
 var CORRECT_PROTOTYPE_GETTER = __webpack_require__(462);
@@ -18208,7 +18208,7 @@ module.exports.f = function (C) {
 
 var hiddenKeys = __webpack_require__(57);
 var isObject = __webpack_require__(21);
-var has = __webpack_require__(26);
+var has = __webpack_require__(27);
 var defineProperty = __webpack_require__(24).f;
 var uid = __webpack_require__(68);
 var FREEZING = __webpack_require__(473);
@@ -18552,7 +18552,7 @@ var _default = IndexHtml;
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_6__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(12);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(27);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(25);
 /* harmony import */ var _Header_scss__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(234);
 /* harmony import */ var _Header_scss__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_Header_scss__WEBPACK_IMPORTED_MODULE_9__);
 
@@ -18811,7 +18811,7 @@ var _default = Footer;
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_11__);
 /* harmony import */ var _home_scss__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(239);
 /* harmony import */ var _home_scss__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(_home_scss__WEBPACK_IMPORTED_MODULE_12__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(27);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(25);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(18);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_14__);
 /* harmony import */ var assets_js_util__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(20);
@@ -22573,7 +22573,7 @@ var _default = paginator;
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_15__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(12);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_16__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(27);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(25);
 /* harmony import */ var _article_detail_scss__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(260);
 /* harmony import */ var _article_detail_scss__WEBPACK_IMPORTED_MODULE_18___default = /*#__PURE__*/__webpack_require__.n(_article_detail_scss__WEBPACK_IMPORTED_MODULE_18__);
 /* harmony import */ var assets_js_util__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(20);
@@ -84829,10 +84829,11 @@ module.exports = __webpack_require__.p + "images/antd-admin.png?f5b9adca230cd96e
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_12__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(12);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_13__);
-/* harmony import */ var _time_progress_bar_scss__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(495);
-/* harmony import */ var _time_progress_bar_scss__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(_time_progress_bar_scss__WEBPACK_IMPORTED_MODULE_14__);
-/* harmony import */ var history_createBrowserHistory__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(87);
-/* harmony import */ var history_createBrowserHistory__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(history_createBrowserHistory__WEBPACK_IMPORTED_MODULE_15__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(25);
+/* harmony import */ var _time_progress_bar_scss__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(495);
+/* harmony import */ var _time_progress_bar_scss__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(_time_progress_bar_scss__WEBPACK_IMPORTED_MODULE_15__);
+/* harmony import */ var history_createBrowserHistory__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(87);
+/* harmony import */ var history_createBrowserHistory__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(history_createBrowserHistory__WEBPACK_IMPORTED_MODULE_16__);
 
 
 
@@ -84856,7 +84857,7 @@ module.exports = __webpack_require__.p + "images/antd-admin.png?f5b9adca230cd96e
 
 
 
-var history = history_createBrowserHistory__WEBPACK_IMPORTED_MODULE_15___default()();
+var history = history_createBrowserHistory__WEBPACK_IMPORTED_MODULE_16___default()();
 var ONE_DAY_TIME_GAP = 1000 * 60 * 60 * 24;
 var PROGRESS_DIV_WIDTH = 360;
 var lunar = {
@@ -85069,12 +85070,10 @@ function (_Component) {
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_12___default.a.createElement("div", {
         className: "time-progress-bar"
-      }, react__WEBPACK_IMPORTED_MODULE_12___default.a.createElement("div", {
+      }, react__WEBPACK_IMPORTED_MODULE_12___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_14__[/* default */ "a"], {
         className: "ning-line-btn _fill _fillet",
-        onClick: function onClick() {
-          return history.goBack();
-        }
-      }, "\u8FD4\u56DE\u4E0A\u4E00\u9875"), react__WEBPACK_IMPORTED_MODULE_12___default.a.createElement("div", {
+        to: "/index/home"
+      }, "\u8FD4\u56DE\u9996\u9875"), react__WEBPACK_IMPORTED_MODULE_12___default.a.createElement("div", {
         className: "wrap"
       }, react__WEBPACK_IMPORTED_MODULE_12___default.a.createElement("h3", {
         className: "header"
@@ -86856,7 +86855,7 @@ module.exports = Reflect && Reflect.ownKeys || function ownKeys(it) {
 /* 232 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var DESCRIPTORS = __webpack_require__(25);
+var DESCRIPTORS = __webpack_require__(26);
 var definePropertyModule = __webpack_require__(24);
 var anObject = __webpack_require__(22);
 var objectKeys = __webpack_require__(71);
@@ -86878,7 +86877,7 @@ module.exports = DESCRIPTORS ? Object.defineProperties : function defineProperti
 
 "use strict";
 
-var DESCRIPTORS = __webpack_require__(25);
+var DESCRIPTORS = __webpack_require__(26);
 var fails = __webpack_require__(16);
 var objectKeys = __webpack_require__(71);
 var getOwnPropertySymbolsModule = __webpack_require__(70);
@@ -87025,7 +87024,7 @@ module.exports = ReactPropTypesSecret;
 /* 238 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var DESCRIPTORS = __webpack_require__(25);
+var DESCRIPTORS = __webpack_require__(26);
 var defineProperty = __webpack_require__(24).f;
 
 var FunctionPrototype = Function.prototype;
@@ -110529,9 +110528,9 @@ module.exports = FORCED ? function parseInt(str, radix) {
 
 var $ = __webpack_require__(15);
 var global = __webpack_require__(13);
-var has = __webpack_require__(26);
+var has = __webpack_require__(27);
 var NATIVE_SYMBOL = __webpack_require__(133);
-var DESCRIPTORS = __webpack_require__(25);
+var DESCRIPTORS = __webpack_require__(26);
 var IS_PURE = __webpack_require__(56);
 var redefine = __webpack_require__(33);
 var hiddenKeys = __webpack_require__(57);
@@ -110878,9 +110877,9 @@ module.exports.f = function getOwnPropertyNames(it) {
 // https://tc39.github.io/ecma262/#sec-symbol.prototype.description
 
 var $ = __webpack_require__(15);
-var DESCRIPTORS = __webpack_require__(25);
+var DESCRIPTORS = __webpack_require__(26);
 var global = __webpack_require__(13);
-var has = __webpack_require__(26);
+var has = __webpack_require__(27);
 var isObject = __webpack_require__(21);
 var defineProperty = __webpack_require__(24).f;
 var copyConstructorProperties = __webpack_require__(131);
@@ -111661,7 +111660,7 @@ var anInstance = __webpack_require__(113);
 var iterate = __webpack_require__(114);
 var defineIterator = __webpack_require__(112);
 var setSpecies = __webpack_require__(103);
-var DESCRIPTORS = __webpack_require__(25);
+var DESCRIPTORS = __webpack_require__(26);
 var fastKey = __webpack_require__(154).fastKey;
 var InternalStateModule = __webpack_require__(48);
 
@@ -113337,4 +113336,4 @@ Switch_Switch.propTypes = {
 
 /***/ })
 /******/ ]);
-//# sourceMappingURL=index.js.map?v=1561085212815
+//# sourceMappingURL=index.js.map?v=1561086919271

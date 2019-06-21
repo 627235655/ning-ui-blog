@@ -194,7 +194,7 @@ class TimeProgressBar extends Component {
 	render() {
 		return (
 			<div className="time-progress-bar">
-				<div className="ning-line-btn _fill _fillet" onClick={() => history.goBack()}>返回上一页</div>
+				<Link className="ning-line-btn _fill _fillet" to="/index/home">返回首页</Link>
 				<div className="wrap">
 					<h3 className="header">
 						<span>{this.state.year + '.' + this.state.month + '.' + this.state.day }</span>
