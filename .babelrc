@@ -7,8 +7,8 @@
             {
                 "browsers": ["> 1%", "last 2 versions", "not ie <= 8"]
             },
-            "useBuiltIns": "usage",
-            "corejs": 3
+            "corejs": 3,
+            "useBuiltIns": "usage"
         }],
         "@babel/preset-react"
     ],

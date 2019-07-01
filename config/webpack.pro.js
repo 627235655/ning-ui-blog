@@ -6,57 +6,104 @@ const { root } = require('./webpack.util');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin"); // css 提取到单独文件
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin'); // css 压缩插件
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin'); // js 压缩插件
+const SpeedMeasurePlugin = require("speed-measure-webpack-plugin"); // 检测webpack打包过程中各个部分所花费的时间
+const smp = new SpeedMeasurePlugin();
 const Version = Date.now();
 
-module.exports = webpackMerge(common, {
-    mode: 'production',
-    devtool: 'cheap-module-source-map',
+module.exports = smp.wrap(webpackMerge(common, {
+    mode: 'production', // 生产模式
+    devtool: 'cheap-module-source-map', // 用于定位文件报错信息
     output: {
-        path: root('dist'),
-        publicPath: '/',
-        filename: 'index.js?v=' + Version
+        path: root('dist'), // 输出的文件目录
+        publicPath: '/', // 输出文件名前加的默认资源路径
+        filename: 'index.js?v=' + Version, // 输出的文件名，与 entry 对应
+        chunkFilename: 'js/[name].[chunkhash:8].js', // 非入口 entry 的模块，会自动拆分文件，即按需加载
+        // hash - 模块标识符的hash,一般应用于filename：'[name].[hash].js'
+        // chunkhash - 按需加载块内容的 hash，根据chunk自身的内容计算而来,'js/[name].[chunkhash:8].js'
+        // contenthash - 这个没有用过，看了下文档它是在提取css文件时根据内容计算而来的 hash ，结合ExtractTextWebpackPlugin插件使用
+        // hash长度 - 默认20，可自定:[hash:8]、[chunkhash:16]
     },
-    optimization: {
-        minimizer: [
-            // new UglifyJsPlugin({
-            //     cache: true, // Boolean/String,字符串即是缓存文件存放的路径
-            //     parallel: true, // 启用多线程并行运行提高编译速度
-            //     sourceMap: true,
-            //     uglifyOptions: {
-            //         output: {
-            //             comments: false // 删掉所有注释
-            //         },
-            //         compress: {
-            //             warning: false, // 插件在进行删除一些无用的代码时不提示警告
-            //             drop_console: true // 过滤console,即使写了console,线上也不显示
-            //         }
-            //     }
-            // }),
-            new OptimizeCssAssetsPlugin()
-        ],
+    optimization: { // 根据需要自定义一些优化构建打包的策略配置
+        // minimizer: [
+        //     // 自定义js优化配置，将会覆盖默认配置
+        //     new UglifyJsPlugin({
+        //         exclude: /\.min\.js$/, // 过滤掉以".min.js"结尾的文件，我们认为这个后缀本身就是已经压缩好的代码，没必要进行二次压缩
+        //         cache: true,
+        //         parallel: true, // 开启并行压缩，充分利用cpu
+        //         sourceMap: false,
+        //         extractComments: false, // 移除注释
+        //         uglifyOptions: {
+        //             compress: {
+        //                 // 在UglifyJs删除没有用到的代码时不输出警告
+        //                 warnings: false,
+        //                 // 删除所有的 `console` 语句，可以兼容ie浏览器
+        //                 drop_console: true,
+        //                 // 内嵌定义了但是只用到一次的变量
+        //                 collapse_vars: true,
+        //                 // 提取出出现多次但是没有定义成变量去引用的静态值
+        //                 reduce_vars: true,
+        //             },
+        //             output: {
+        //                 // 最紧凑的输出
+        //                 beautify: false,
+        //                 // 删除所有的注释
+        //                 comments: false,
+        //             }
+        //         }
+        //     })
+        // ],
+        // minimizer: [ // 用于配置 minimizers 和选项
+        //     new UglifyJsPlugin({
+        //         cache: true,
+        //         parallel: true,
+        //         sourceMap: true
+        //     }),
+        //     new OptimizeCssAssetsPlugin({})
+        // ],
         splitChunks: {
+            chunks: 'async',
+            minSize: 30000,
+            maxSize: 0,
+            minChunks: 1,
+            maxAsyncRequests: 5,
+            maxInitialRequests: 3,
+            automaticNameDelimiter: '~',
+            name: true,
             cacheGroups: {
+                vendors: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: 'vendors',
+                    minSize: 30000,
+                    minChunks: 1,
+                    chunks: 'initial',
+                    priority: 1 // 该配置项是设置处理的优先级，数值越大越优先处理
+                },
                 commons: {
-                    name: 'commons', // 提取出来的文件命名
-                    // name： ‘common/common’ //  即先生成common文件夹
-                    chunks: 'initial', // initial表示提取入口文件的公共css及js部分
-                    // chunks: 'all' // 提取所有文件的公共部分
-                    test: '/\.css$/', // 只提取公共css ，命名可改styles
-                    minChunks: 2, // 表示提取公共部分最少的文件数
-                    minSize: 0 // 表示提取公共部分最小的大小
-                    // 如果发现页面中未引用公共文件，加上enforce: true
+                    test: /[\\/]src[\\/]assets[\\/]/,
+                    name: 'commons',
+                    minSize: 30000,
+                    minChunks: 3,
+                    chunks: 'initial',
+                    priority: -1,
+                    reuseExistingChunk: true // 这个配置允许我们使用已经存在的代码块
                 }
             }
         }
     },
     module: {
         rules: [{
+                // exclude: /node_modules/,
+                test: /\.js$/, // 生产环境不能排除 node_modules，UglifyJsPlugin 不会对 es6 格式的 js 压缩
+                use: {
+                    loader: 'babel-loader'
+                }
+            }, {
                 test: /\.css$/,
                 use: [
                     MiniCssExtractPlugin.loader,
                     "css-loader"
                 ],
-                include: path.join(__dirname, '../src'), //限制范围，提高打包速度
+                include: path.join(__dirname, '../src'), // 限制范围，提高打包速度
                 exclude: path.join(__dirname, '../node_modules') // 排除 node_modules 目录下的文件
             },
             {
@@ -101,10 +148,17 @@ module.exports = webpackMerge(common, {
         //     cssProcessorPluginOptions: {
         //         preset: ['default', {
         //             discardComments: { removeAll: true }, // 对注释的处理
-        //             normalizeUnicode: false // 建议false,否则在使用unicode-range的时候会产生乱码
+        //             normalizeUnicode: false, // 建议false,否则在使用unicode-range的时候会产生乱码
+        //             // 避免 cssnano 重新计算 z-index
+        //             safe: true,
+        //             // cssnano 集成了autoprefixer的功能
+        //             // 会使用到autoprefixer进行无关前缀的清理
+        //             // 关闭autoprefixer功能
+        //             // 使用postcss的autoprefixer功能
+        //             autoprefixer: false
         //         }]
         //     },
         //     canPrint: true // 是否打印编译过程中的日志
         // })
     ]
-});
+}));
