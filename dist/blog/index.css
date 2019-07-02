@@ -6115,7 +6115,7 @@ footer {
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  background: url(/images/me.png?76bf21eb83fad1010f0b5d2fe6306faf) center/cover;
+  background: url(/blog/images/me.png?76bf21eb83fad1010f0b5d2fe6306faf) center/cover;
   -webkit-transform: scale(1);
           transform: scale(1);
   overflow: hidden; }
@@ -6460,7 +6460,7 @@ footer {
             transform: rotate(45deg); }
 
 .css-secret-border {
-  background: url(/images/lunar.jpg?3f53eddf17380e8b81ba8367025eb91f) center/cover;
+  background: url("https://zongyuan.oss-cn-shenzhen.aliyuncs.com/ning-ui-blog/lunar.jpg") center/cover;
   color: #fff; }
   .css-secret-border .opacity-border {
     width: 200px;
@@ -8460,6 +8460,81 @@ footer {
         cursor: pointer; }
       .ning-editor-wrap .ning-editor-h-list li:not(:first-child):hover {
         color: #0081fe; }
+
+/* Ocean Dark Theme */
+/* https://github.com/gavsiu */
+/* Original theme - https://github.com/chriskempson/base16 */
+
+/* Ocean Comment */
+.hljs-comment,
+.hljs-quote {
+  color: #65737e;
+}
+
+/* Ocean Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+  color: #bf616a;
+}
+
+/* Ocean Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+  color: #d08770;
+}
+
+/* Ocean Yellow */
+.hljs-attribute {
+  color: #ebcb8b;
+}
+
+/* Ocean Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+  color: #a3be8c;
+}
+
+/* Ocean Blue */
+.hljs-title,
+.hljs-section {
+  color: #8fa1b3;
+}
+
+/* Ocean Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+  color: #b48ead;
+}
+
+.hljs {
+  display: block;
+  overflow-x: auto;
+  background: #2b303b;
+  color: #c0c5ce;
+  padding: 0.5em;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
 
 @charset "UTF-8";
 /**
@@ -11060,7 +11135,7 @@ textarea:disabled {
     content: '';
     width: 100%;
     height: 100%;
-    background: url(/images/weibo.png?fe30fe6cdf5e2ed34a28a5933191c8a3) center/cover;
+    background: url(/blog/images/weibo.png?fe30fe6cdf5e2ed34a28a5933191c8a3) center/cover;
     -webkit-transform: translateX(-100%);
             transform: translateX(-100%);
     -webkit-filter: drop-shadow(16px 0);
@@ -12138,5 +12213,3 @@ pre {
     -webkit-transform: scale(2) translateY(-50px);
             transform: scale(2) translateY(-50px); } }
 
-
-/*# sourceMappingURL=index.css.map?v=1561964353347*/

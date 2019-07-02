@@ -21,7 +21,7 @@ module.exports = {
                     options: {
                         limit: 10000,
                         name: '[name].[ext]?[hash]',
-                        outputPath: 'images/', // 图片输出的路径
+                        outputPath: './blog/images/', // 图片输出的路径
                     }
                 }]
             },
@@ -33,8 +33,8 @@ module.exports = {
                     options: {
                         name: '[name]-[hash:5].min.[ext]',
                         limit: 5000, // fonts file size <= 5KB, use 'base64'; else, output svg file
-                        publicPath: 'fonts/',
-                        outputPath: 'fonts/'
+                        publicPath: './blogfonts/',
+                        outputPath: './blogfonts/'
                     }
                 }]
             }

@@ -25,7 +25,7 @@ class Home extends Component {
         this.state = {
             articleList: [],
             work_list: [{
-            	name: 'ning-ui123',
+            	name: 'ning-ui',
             	name_url: '/blog/index/ning-ui/mind',
             	desc_list: [{
             		desc: 'Ant Design 的设计理念',

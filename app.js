@@ -9,6 +9,7 @@ var session = require('express-session');
 var FileStore = require('session-file-store')(session);
 var app = express();
 
+
 var resolve = file => path.resolve(__dirname, file);
 
 app.use(compression());

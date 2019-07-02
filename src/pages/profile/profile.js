@@ -11,16 +11,17 @@ import Swiper from 'swiper'
 import css from 'style-loader!css-loader!swiper/dist/css/swiper.min.css';
 import G2 from '@antv/g2';
 
-// import me from 'assets/images/me.png'
-import ximalaya from 'assets/images/ximalaya.jpeg'
-import xiakedaoli from 'assets/images/xiakedaoli.jpeg'
-import maipu from 'assets/images/maipu.jpg'
-import ning_ui from 'assets/images/ning-ui.png'
-import blog_article_list from 'assets/images/blog-article-list.png'
-import blog_admin from 'assets/images/blog-admin.png'
-import blog_hexo from 'assets/images/blog-hexo.png'
-import bgt_pc from 'assets/images/bgt-pc.png'
-import antd_admin from 'assets/images/antd-admin.png'
+const blog_chart = 'https://zongyuan.oss-cn-shenzhen.aliyuncs.com/ning-ui-blog/blog-chart.png',
+        ning_ui = 'https://zongyuan.oss-cn-shenzhen.aliyuncs.com/ning-ui-blog/ning-ui.png',
+        blog_article_list = 'https://zongyuan.oss-cn-shenzhen.aliyuncs.com/ning-ui-blog/blog-article-list.png',
+        blog_admin = 'https://zongyuan.oss-cn-shenzhen.aliyuncs.com/ning-ui-blog/blog-admin.png',
+        antd_admin = 'https://zongyuan.oss-cn-shenzhen.aliyuncs.com/ning-ui-blog/antd-admin.png',
+        blog_hexo = 'https://zongyuan.oss-cn-shenzhen.aliyuncs.com/ning-ui-blog/blog-hexo.png',
+        online_resume = 'https://zongyuan.oss-cn-shenzhen.aliyuncs.com/ning-ui-blog/online-resume.png',
+        ximalaya = 'https://zongyuan.oss-cn-shenzhen.aliyuncs.com/ning-ui-blog/ximalaya.jpeg',
+        xiakedaoli = 'https://zongyuan.oss-cn-shenzhen.aliyuncs.com/ning-ui-blog/xiakedaoli.jpeg',
+        maipu = 'https://zongyuan.oss-cn-shenzhen.aliyuncs.com/ning-ui-blog/maipu.jpg',
+        bgt_pc = 'https://zongyuan.oss-cn-shenzhen.aliyuncs.com/ning-ui-blog/bgt-pc.png';
 
 
 
