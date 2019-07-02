@@ -27,7 +27,7 @@ module.exports = smp.wrap(webpackMerge(common, {
     // 属性名 react-dom 指的是 import ReactDOM from 'react-dom' 的 react-dom
     // 属性值 ReactDOM 指的是 import ReactDOM from 'react-dom' 的 ReactDOM
     externals : {
-       'react': 'react',
+       'react': 'React',
        'react-dom': 'ReactDOM',
        'swiper': 'Swiper',
        '@antv/g2': 'G2',
