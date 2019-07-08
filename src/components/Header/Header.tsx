@@ -1,13 +1,17 @@
-import React, {
-    Component
-} from 'react';
-import ReactDOM from 'react-dom';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';
 import './Header.scss';
 
-const LOGO_URL = 'https://zongyuan.oss-cn-shenzhen.aliyuncs.com/ning-ui-blog/1543199721357.png'
+const LOGO_URL: string = 'https://zongyuan.oss-cn-shenzhen.aliyuncs.com/ning-ui-blog/1543199721357.png'
 
-class Header extends Component {
+interface Props {
+    nav_active_item: string;
+    user_name: string;
+    logOut: () => void;
+};
+
+class Header extends React.Component<Props> {
     constructor(props) {
         super(props)
     }

@@ -1,11 +1,8 @@
-import React, {
-	Component
-} from 'react';
-import ReactDOM from 'react-dom';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import {
 	Route
 } from 'react-router-dom';
-import axios from 'axios';
 import notify from 'assets/ning-ui/js/notify'
 
 import Header from 'components/Header/Header';
@@ -21,12 +18,20 @@ import Aside from 'components/Aside/Aside';
 import Container from 'components/Container/Container';
 import ning_ui from 'assets/ning-ui/js/ning-ui'
 
-import util from 'assets/ning-ui/js/utils.js';
-import server from 'server/server.js'
+import util from 'assets/ning-ui/js/utils';
+import server from 'server/server'
 
+declare global {
+   interface Window { user_name: string }
+}
 
+interface States {
+    nav_active_item: string;
+    user_name: string;
+    show_return_top: boolean;
+}
 
-class IndexHtml extends Component {
+class IndexHtml extends React.Component<{}, States> {
 	constructor(props) {
 		super(props)
 		this.state = {

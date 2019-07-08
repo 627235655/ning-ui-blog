@@ -10,15 +10,29 @@ const {
 
 module.exports = webpackMerge(common, {
     mode: 'development',
-    devtool: 'cheap-module-eval-source-map',
+    // devtool: 'cheap-module-eval-source-map',
+    devtool: "source-map",
     module: {
-        rules: [{
+        rules: [
+            {
                 test: /\.js$/,
                 exclude: /node_modules/,
                 use: {
                     loader: 'babel-loader'
                 }
-            }, {
+            },
+            {
+                test: /\.tsx?$/,
+                loader: "ts-loader"
+            },
+            {
+                // 使用sourcemap调试
+                // enforce:pre表示这个loader要在别的loader执行前执行
+                enforce: "pre",
+                test: /\.js$/,
+                loader: "source-map-loader"
+            },
+            {
                 test: /\.css$/,
                 use: [
                     "style-loader", // 使用 style-loader 可以配合热刷新(HotModuleReplacementPlugin)功能，MiniCssExtractPlugin 则不行

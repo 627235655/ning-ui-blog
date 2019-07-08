@@ -3,7 +3,7 @@ const HtmlWebPackPlugin = require("html-webpack-plugin");
 const Version = Date.now()
 
 module.exports = {
-    entry: './src/index.js',
+    entry: './src/index.tsx',
     module: {
         rules: [{
                 test: /\.html$/,
@@ -48,7 +48,7 @@ module.exports = {
     ],
     resolve: {
         // extensions: 指定extensions之后可以不用在require或是import的时候加文件扩展名,会依次尝试添加扩展名进行匹配
-        extensions: [".js", ".jsx"],
+        extensions: [".ts", ".tsx", ".js", ".json"],
         // alias: 配置别名可以加快webpack查找模块的速度
         alias: {
             assets: path.join(__dirname, '../src/assets'),

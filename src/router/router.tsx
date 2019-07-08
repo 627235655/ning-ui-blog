@@ -1,7 +1,5 @@
-import React, {
-	Component
-} from 'react';
-import ReactDOM from 'react-dom';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import {
 	BrowserRouter
 	as
@@ -17,7 +15,7 @@ import TimeProgressBar from 'pages/time-progress-bar/time-progress-bar';
 import NingEditor from 'pages/ning-editor/ning-editor';
 
 
-class BasicRoute extends Component {
+class BasicRoute extends React.Component {
 	render() {
 		return (
 			<Router basename="/blog">

@@ -1,7 +1,5 @@
-import React, {
-	Component
-} from 'react';
-import ReactDOM from 'react-dom';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import './home.scss';
 import {
     Link
@@ -11,7 +9,7 @@ import util from 'assets/js/util';
 import server from 'server/server';
 import TagLink from 'components/TagLink/TagLink'
 import ArticleItem from 'components/ArticleItem/ArticleItem'
-const blog_chart = 'https://zongyuan.oss-cn-shenzhen.aliyuncs.com/ning-ui-blog/blog-chart.png',
+const blog_chart: string = 'https://zongyuan.oss-cn-shenzhen.aliyuncs.com/ning-ui-blog/blog-chart.png',
         ning_ui = 'https://zongyuan.oss-cn-shenzhen.aliyuncs.com/ning-ui-blog/ning-ui.png',
         blog_article_list = 'https://zongyuan.oss-cn-shenzhen.aliyuncs.com/ning-ui-blog/blog-article-list.png',
         blog_admin = 'https://zongyuan.oss-cn-shenzhen.aliyuncs.com/ning-ui-blog/blog-admin.png',
@@ -19,7 +17,7 @@ const blog_chart = 'https://zongyuan.oss-cn-shenzhen.aliyuncs.com/ning-ui-blog/b
         blog_hexo = 'https://zongyuan.oss-cn-shenzhen.aliyuncs.com/ning-ui-blog/blog-hexo.png',
         online_resume = 'https://zongyuan.oss-cn-shenzhen.aliyuncs.com/ning-ui-blog/online-resume.png';
 
-class Home extends Component {
+class Home extends React.Component {
 	constructor(props) {
         super(props)
         this.state = {

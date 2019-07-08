@@ -1,8 +1,8 @@
 /**
- * 
- * @authors Your Name (you@example.org)
+ * 工具函数
+ * @authors zongyuan.ning<627235655@qq.com>
  * @date    2019-05-21 16:35:40
- * @version $Id$
+ * @version 1.0.0
  */
 
 import axios from 'axios';

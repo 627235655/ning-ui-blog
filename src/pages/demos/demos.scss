@@ -1293,18 +1293,18 @@
 
     .progress-box {
         position: relative;
+        background-image: linear-gradient(to right top, $blue-5 50%, transparent 50%);
+        background-size: calc(100% + 4px) calc(100% - 200px + 4px);
+        background-repeat: no-repeat;
 
         &:before {
             content: '';
             position: absolute;
-            z-index: 1;
-            top: -4px;
+            top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background-image: linear-gradient(to right top, $blue-5 50%, transparent 50%);
-            background-size: calc(100% + 4px) calc(100% - 200px + 4px);
-            background-repeat: no-repeat;
+            background: #fff;
         }
     }
 }
