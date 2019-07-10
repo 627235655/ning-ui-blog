@@ -116,7 +116,7 @@ hr {
 }
 
 hr:before {
-    content: attr(text);
+    content: attr(data-text);
     position: relative;
     top: -$sm;
     display: inline-block;

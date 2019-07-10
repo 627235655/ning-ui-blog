@@ -25,13 +25,13 @@ module.exports = webpackMerge(common, {
                 test: /\.tsx?$/,
                 loader: "ts-loader"
             },
-            {
-                // 使用sourcemap调试
-                // enforce:pre表示这个loader要在别的loader执行前执行
-                enforce: "pre",
-                test: /\.js$/,
-                loader: "source-map-loader"
-            },
+            // {
+            //     // 使用sourcemap调试
+            //     // enforce:pre表示这个loader要在别的loader执行前执行
+            //     enforce: "pre",
+            //     test: /\.js$/,
+            //     loader: "source-map-loader"
+            // },
             {
                 test: /\.css$/,
                 use: [
@@ -75,7 +75,7 @@ module.exports = webpackMerge(common, {
         filename: 'index.js'
     },
     devServer: {
-        hot: true,
+        // hot: true,
         contentBase: path.join(__dirname, "./dist"),
         host: getIP(),
         port: 1111,
@@ -91,6 +91,6 @@ module.exports = webpackMerge(common, {
         },
     },
     plugins: [
-        new webpack.HotModuleReplacementPlugin()
+        // new webpack.HotModuleReplacementPlugin()
     ]
 });

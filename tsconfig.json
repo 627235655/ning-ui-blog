@@ -8,9 +8,14 @@
     "sourceMap": true, // 生成sourceMap方便我们在开发过程中调试
     "noImplicitAny": true, // 每个变量都要标明类型
     "jsx": "react", // jsx的版本,使用这个就不需要额外使用babel了，会编译成React.createElement
+    "allowJs": true, // 允许编译js文件
+    "downlevelIteration": true,
+    "strict": false,
+    "noImplicitThis": false,
   },
   // 为了加快整个编译过程，我们指定相应的路径
   "include": [
     "./src/**/*"
-  ]
+  ],
+  "exclude": ["dist", "node_modules"]  //编译时排除 dist、node_modules文件夹
 }

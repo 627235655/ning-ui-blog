@@ -170,4 +170,5 @@ class Notify {
     }
 }
 let notify = new Notify();
+notify.init();
 export default notify;

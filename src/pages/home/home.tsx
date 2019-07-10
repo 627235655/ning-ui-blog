@@ -4,8 +4,7 @@ import './home.scss';
 import {
     Link
 } from 'react-router-dom';
-import axios from 'axios';
-import util from 'assets/js/util';
+import util from 'assets/js/utils';
 import server from 'server/server';
 import TagLink from 'components/TagLink/TagLink'
 import ArticleItem from 'components/ArticleItem/ArticleItem'
@@ -17,8 +16,17 @@ const blog_chart: string = 'https://zongyuan.oss-cn-shenzhen.aliyuncs.com/ning-u
         blog_hexo = 'https://zongyuan.oss-cn-shenzhen.aliyuncs.com/ning-ui-blog/blog-hexo.png',
         online_resume = 'https://zongyuan.oss-cn-shenzhen.aliyuncs.com/ning-ui-blog/online-resume.png';
 
-class Home extends React.Component {
-	constructor(props) {
+interface IProps{
+    history: any;
+}
+
+interface IState{
+    articleList: Array<any>;
+    work_list: Array<any>;
+}
+
+class Home extends React.Component<IProps, IState> {
+	constructor(props: any) {
         super(props)
         this.state = {
             articleList: [],
@@ -109,7 +117,7 @@ class Home extends React.Component {
     //         }
 
 	render() {
-		let el_article_list = this.state.articleList.map((v, i, a) => {
+		let el_article_list = this.state.articleList.map((v: any, i: number) => {
             return (
                 <li key={i} className="blog-list-item">
 					<span className="flex-1 content-wrap flex-col-box">
@@ -122,7 +130,7 @@ class Home extends React.Component {
 						<span className="flex-row-box">
 							<span>
 								{
-			                        v.articleTags.map((v2, i2, a2) => {
+			                        v.articleTags.map((v2: any, i2: number) => {
 			                            return <TagLink
 	                                                key={i2}
 	                                                tagName={v2}
@@ -139,13 +147,13 @@ class Home extends React.Component {
             )
         })
 
-        let work_list_dom = this.state.work_list.map((v, i) => {
+        let work_list_dom = this.state.work_list.map((v: any, i: number) => {
 			return 	<li key={i}>
             			<img className="ning-imgview-trigger" src={v.img_adress} alt={v.name}/>
             			<div>
             				<h2>{v.name_url ? <a target="_blank" href={v.name_url}>{v.name}</a> : v.name}</h2>
             				{
-            					v.desc_list.map((v2, i2) => {
+            					v.desc_list.map((v2: any, i2: number) => {
             						return <p key={i2}>{v2.desc}</p>
             					})
             				}
@@ -210,13 +218,12 @@ class Home extends React.Component {
 	            currentPage: 1,
 	            pageSize: 4,
 	        },
-	        cb = (res) => {
+	        cb = (res: any) => {
 	        	self.setState({
                     articleList: res.data.list,
-                    totalCount: res.data.totalCount
                 })
 	        }
-        util.axiosFn(server.getArticleList, 'get', data, cb)
+        util.axiosFn({url: server.getArticleList, method: 'get', data, cb})
     }
 
     componentDidMount() {

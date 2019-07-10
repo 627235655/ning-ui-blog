@@ -5,14 +5,14 @@ import './Header.scss';
 
 const LOGO_URL: string = 'https://zongyuan.oss-cn-shenzhen.aliyuncs.com/ning-ui-blog/1543199721357.png'
 
-interface Props {
+interface IProps {
     nav_active_item: string;
     user_name: string;
     logOut: () => void;
 };
 
-class Header extends React.Component<Props> {
-    constructor(props) {
+class Header extends React.Component<IProps> {
+    constructor(props: any) {
         super(props)
     }
 

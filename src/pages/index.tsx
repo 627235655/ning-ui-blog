@@ -7,6 +7,7 @@ import notify from 'assets/ning-ui/js/notify'
 
 import Header from 'components/Header/Header';
 import Footer from 'components/Footer/Footer';
+
 import Home from 'pages/home/home';
 import NingUI from 'pages/ning-ui/ning-ui';
 import ArticleList from 'pages/article-list/article-list'
@@ -14,25 +15,31 @@ import ArticleDetail from 'pages/article-detail/article-detail'
 import Demos from 'pages/demos/demos'
 import PseudoDemos from 'pages/demos-pseudo/demos-pseudo'
 
-import Aside from 'components/Aside/Aside';
-import Container from 'components/Container/Container';
-import ning_ui from 'assets/ning-ui/js/ning-ui'
-
-import util from 'assets/ning-ui/js/utils';
+import util from 'assets/js/utils';
 import server from 'server/server'
 
 declare global {
-   interface Window { user_name: string }
+   interface Window {
+       user_name: string;
+   }
+
+   interface Math{
+       easeout: (A: number, B: number, rate: number, callback: any) => void;
+   }
 }
 
-interface States {
+interface IProps{
+    location: any;
+}
+
+interface IState {
     nav_active_item: string;
     user_name: string;
     show_return_top: boolean;
 }
 
-class IndexHtml extends React.Component<{}, States> {
-	constructor(props) {
+class IndexHtml extends React.Component<IProps, IState> {
+	constructor(props: any) {
 		super(props)
 		this.state = {
 			nav_active_item: this.props.location.pathname,
@@ -63,7 +70,7 @@ class IndexHtml extends React.Component<{}, States> {
 		);
 	}
 
-	componentWillReceiveProps(nextProps) {
+	componentWillReceiveProps(nextProps: any) {
 		this.setState({
 			nav_active_item: nextProps.location.pathname,
 		});
@@ -71,7 +78,7 @@ class IndexHtml extends React.Component<{}, States> {
 
 	componentDidMount() {
 		let self = this;
-        ning_ui.init();
+        // ning_ui.init();
 		Math.easeout = function(A, B, rate, callback) {
             if (A == B || typeof A != 'number') {
                 return;
@@ -91,30 +98,32 @@ class IndexHtml extends React.Component<{}, States> {
             };
             step();
         };
-        window.onscroll = function(e) {
-            var doc = document.body.scrollTop ? document.body : document.documentElement;
-            let show_return_top = (doc.scrollTop - doc.clientHeight) > 0;
-            if (self.state.show_return_top !== show_return_top) {
-                self.setState({
-                    show_return_top,
-                })
-            }
-        }
+        // window.onscroll = function(e: any) {
+        //     var doc = document.body.scrollTop ? document.body : document.documentElement;
+        //     let show_return_top = (doc.scrollTop - doc.clientHeight) > 0;
+        //     if (self.state.show_return_top !== show_return_top) {
+        //         self.setState({
+        //             show_return_top,
+        //         })
+        //     }
+        // }
     }
 
     // 滚动到顶部缓动实现
     // rate表示缓动速率，默认是5
     // author: https://www.zhangxinxu.com
-    returnTop = (rate) => {
+    returnTop = (rate?: number) => {
         var doc = document.body.scrollTop ? document.body : document.documentElement;
-        Math.easeout(doc.scrollTop, 0, rate, function(value) {
+        Math.easeout(doc.scrollTop, 0, rate, function(value: any) {
             doc.scrollTop = value;
         });
     }
 
     logOut = () => {
         let self = this,
-            cb = res => {
+            url = server.logOut,
+            data = {},
+            cb = (res: any) => {
                 notify.success(res.message);
                 self.setState({
                     user_name: null,
@@ -122,7 +131,7 @@ class IndexHtml extends React.Component<{}, States> {
                     window.user_name = undefined;
                 })
             }
-    	util.axiosFn(server.logOut, {}, 'post', cb);
+    	util.axiosFn({url, data, method: 'post', cb});
     }
 }
 

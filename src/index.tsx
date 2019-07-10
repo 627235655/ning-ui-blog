@@ -2,8 +2,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import Router from 'router/router';
 import 'assets/sass/common.scss';
-import util from 'assets/ning-ui/js/utils';
-console.log(util)
+import util from 'assets/js/utils';
 import server from 'server/server'
 
 declare global {
@@ -24,7 +23,13 @@ let isSignIn = () => {
                 document.getElementById('app') as HTMLElement
             )
         };
-    util.axiosFn(server.isSignIn, {}, 'get', cb, null, errcb)
+    util.axiosFn({
+        url: server.isSignIn,
+        data: {},
+        method: 'get',
+        cb,
+        errcb,
+    })
 }
 
 isSignIn()

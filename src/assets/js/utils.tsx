@@ -6,20 +6,51 @@
  */
 
 import axios from 'axios';
-import notify from './notify'
+import notify from 'assets/ning-ui/js/notify'
+
+interface AxiosOptions{
+    url: string;
+    data: object;
+    method: string;
+    cb: (res:any) => void;
+    btn?: any;
+    errcb?: (res:any) => void;
+}
+
+declare global {
+    interface String{
+        firstUpperCase: () => string;
+        $trim: () => string;
+        trim: () => string;
+    }
+
+    interface Date{
+        Format: (param?: any) => string;
+    }
+
+    interface Array<T>{
+        hasRepeatItem: () => void;
+    }
+}
+
 
 class Util {
     init = () => {
         this.bindEvents();
+    }
+
+    bindEvents = () => {
+        let self = this;
+
         String.prototype.firstUpperCase = function() {
-            return this.replace(/\b(\w)(\w*)/g, function($0, $1, $2) {
+            return this.replace(/\b(\w)(\w*)/g, function($0: any, $1: any, $2: any) {
                 return $1.toUpperCase() + $2.toLowerCase();
             });
         }
 
         Date.prototype.Format = function(param) {
-            let fmt = param || "yyyy-MM-dd hh:mm:ss";
-            let o = {
+            let fmt: string = param || "yyyy-MM-dd hh:mm:ss";
+            let o: any = {
                 "M+": this.getMonth() + 1, //月份
                 "d+": this.getDate(), //日
                 "h+": this.getHours(), //小时
@@ -29,8 +60,11 @@ class Util {
                 "S": this.getMilliseconds() //毫秒
             };
             if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
-            for (let k in o)
-                if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+            for (let k in o){
+                if (new RegExp("(" + k + ")").test(fmt)){
+                    fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+                };
+            }
             return fmt;
         };
 
@@ -47,48 +81,13 @@ class Util {
         }
     }
 
-    bindEvents = () => {
-        let self = this;
-
-        // yyyy-MM-dd hh:mm:ss
-        Date.prototype.Format = function(param) {
-            let fmt = param || "yyyy-MM-dd hh:mm";
-            let o = {
-                "M+": this.getMonth() + 1, //月份
-                "d+": this.getDate(), //日
-                "h+": this.getHours(), //小时
-                "m+": this.getMinutes(), //分
-                "s+": this.getSeconds(), //秒
-                "q+": Math.floor((this.getMonth() + 3) / 3), //季度
-                "S": this.getMilliseconds() //毫秒
-            };
-            if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
-            for (let k in o)
-                if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-            return fmt;
-        };
-
-        // 去掉所有空格
-        String.prototype.$trim = function() {
-            return this.replace(/\s+/g, "");
-        }
-        // 去掉前后空格
-        String.prototype.trim = function() {
-            return this.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
-        }
-
-        Array.prototype.hasRepeatItem = function() {
-            return !(this.length === [...new Set(this)].length)
-        }
-    }
-
     // isType = type => {
     //     return target => {
     //         return `[object ${type}]` === Object.prototype.toString.call(target)
     //     }
     // }
 
-    isType = type => target => `[object ${type}]` === Object.prototype.toString.call(target);
+    isType = (type: string) => (target: any) => `[object ${type}]` === Object.prototype.toString.call(target);
     isString = this.isType('String');
     isNumber = this.isType('Number');
     isBoolean = this.isType('Boolean');
@@ -100,7 +99,7 @@ class Util {
     isFunction = this.isType('Function');
 
 
-    excelExport = ({ url, params }) => {
+    excelExport = ({url, params}: { url: string; params: any }) => {
         url = url + '?';
         for (let key in params) {
             if (params[key] !== undefined) {
@@ -111,12 +110,12 @@ class Util {
         window.location.href = url;
     }
 
-    excelExportAsJson = ({ url, params }) => {
+    excelExportAsJson = ({url, params}: { url: string; params: any }) => {
         url = `${url}?searchJson=${encodeURI(JSON.stringify(params))}`
         window.location.href = url;
     }
 
-    clone = (source) => {
+    clone = (source: any) => {
         return JSON.parse(JSON.stringify(source));
     };
 
@@ -124,39 +123,32 @@ class Util {
      * 封装 axios
      * @param  {[string]}   url   [接口地址]
      * @param  {[string]}   data  [请求数据]
-     * @param  {[string]}   type  [请求方法]
+     * @param  {[string]}   method  [请求方法]
      * @param  {Function} cb    [成功回调]
      * @param  {[string]}   btn   [按钮]
      * @param  {Function}   errcb [错误回调]
      * @return {[type]}         [a promise]
      */
-    axiosFn = (options = {
-        url,
-        data,
-        type,
-        cb,
-        btn,
-        errcb
-    }) => {
-        return new Promise((resolve, reject) => {
+    axiosFn = (options: AxiosOptions) => {
+        return new Promise((resolve: any, reject: any) => {
             // 全局 loading active
             let globalLoading = document.querySelector('#global_loading')
             if (globalLoading) globalLoading.className = 'global-loading active'
             // 按钮禁用
-            btn && (btn.disabled = true);
+            options.btn && (options.btn.disabled = true);
             // axios 主体
             axios({
-                method: type,
-                url: url,
-                data: (type === 'post' || type === 'POST') && data,
-                params: (type === 'get' || type === 'GET') && data,
+                method: options.method,
+                url: options.url,
+                data: (options.method === 'post' || options.method === 'POST') && options.data,
+                params: (options.method === 'get' || options.method === 'GET') && options.data,
             }).then(function(res) {
                 resolve(true)
                 if (res.data.status === 200) {
-                    cb && cb(res.data);
+                    options.cb && options.cb(res.data);
                 } else {
-                    if (errcb) {
-                        errcb()
+                    if (options.errcb) {
+                        options.errcb(res)
                     } else {
                         notify.warning(res.data.message)
                     }
@@ -166,11 +158,11 @@ class Util {
                     globalLoading.className = 'global-loading inactive'
                 }
                 // 按钮开放
-                btn && (btn.disabled = false);
+                options.btn && (options.btn.disabled = false);
             }).catch(function(error) {
                 reject(false)
                 if (globalLoading) globalLoading.className = 'global-loading active error'
-                btn && (btn.disabled = false);
+                options.btn && (options.btn.disabled = false);
                 notify.danger('网络或服务异常:' + error);
             });
         })
@@ -180,7 +172,7 @@ class Util {
      * 时间戳转时间
      * String connect:连接符;Boolean time:是否显示时分秒
      */
-    timestampToTime = (timestamp, connect = ".", time = true) => {
+    timestampToTime = (timestamp: number, connect: string = ".", time: string = "") => {
         let itemdate = timestamp ? new Date(timestamp) : new Date();
         let year = itemdate.getFullYear();
         let month = itemdate.getMonth() < 9 ? "0" + (itemdate.getMonth() + 1) : itemdate.getMonth() + 1;
@@ -199,13 +191,11 @@ class Util {
     /**
      * 时间转时间戳
      */
-    timeToTimestamp(time) {
+    timeToTimestamp(time: Date) {
         if (!time) {
             return
         } else {
-            let date = new Date(time);
-            let timestamp = Date.parse(date);
-            return timestamp
+            return new Date(time).getTime()
         }
     }
 
@@ -213,43 +203,24 @@ class Util {
      * 获取日期
      * Number num:与当前时间差距的天数;String str:格式符
      */
-    getDay(num, str) {
+    getDay(num: number, str: string) {
         let today = new Date();
         let nowTime = today.getTime();
         let ms = 24 * 3600 * 1000 * num;
-        today.setTime(parseInt(nowTime + ms));
-        let oYear = today.getFullYear();
-        let oMoth = (today.getMonth() + 1).toString();
+        today.setTime(nowTime + ms);
+        let oYear:number = today.getFullYear();
+        let oMoth: string = (today.getMonth() + 1).toString();
         if (oMoth.length <= 1) oMoth = '0' + oMoth;
-        let oDay = today.getDate().toString();
+        let oDay: string = today.getDate().toString();
         if (oDay.length <= 1) oDay = '0' + oDay;
         return oYear + str + oMoth + str + oDay;
-    }
-
-    /**
-     * 获取页面url参数
-     */
-    getUrlParams() {
-        const pageUrl = window.location.href;
-        let result = {};
-        let query = (pageUrl.indexOf('?') > -1) ? pageUrl.split("?")[1] : null;
-        let queryArr = query ? query.split("&") : [];
-        if (queryArr) {
-            queryArr.forEach(function(item) {
-                let key = item.split("=")[0];
-                let value = item.split("=")[1];
-                result[key] = value;
-            });
-            result['length'] = queryArr.length;
-        }
-        return result;
     }
 
     /**
      * 去除 html 字符串的 html 标签， 可选择保留部分 标签
      * params tags = ['p', 'em'] 等等
      */
-    formatHtmlStr(str = null, tags = []) {
+    formatHtmlStr(str: string = '', tags: Array<string> = []) {
         let tags_str = '';
         if (!str) {
             console.log('请传入参数-需要格式化的html字符串~');
@@ -267,24 +238,24 @@ class Util {
         }
     }
 
-    getMonthFirstDay = (date) => {
+    getMonthFirstDay = (date: Date) => {
         let y = date.getFullYear();
         let m = date.getMonth();
         return new Date(y, m, 1)
     }
 
-    getMonthLastDay = (date) => {
+    getMonthLastDay = (date: Date) => {
         let y = date.getFullYear();
         let m = date.getMonth() + 1;
         return new Date(y, m, 0)
     }
 
-    firstUpperCase(str) {
+    firstUpperCase(str: string) {
         return str.toLowerCase().replace(/( |^)[a-z]/g, (L) => L.toUpperCase());
     }
 
     // 存储单位转换
-    bytesToSize(bytes) {
+    bytesToSize(bytes: number) {
         if (bytes === 0) return '0 B';
         var k = 1000, // or 1024
             sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
@@ -298,11 +269,11 @@ class Util {
         if (!window.location.search) {
             return {};
         }
-        let result = {},
+        let result: any = {},
             queryArr = window.location.search.substr(1).split('&'),
             len = queryArr.length;
         if (len > 0) {
-            queryArr.forEach(function(item) {
+            queryArr.forEach(function(item: any) {
                 let key = item.split("=")[0];
                 let value = item.split("=")[1];
                 result[key] = value;
@@ -312,15 +283,15 @@ class Util {
         return result;
     }
 
-    checkEmail(email) {
+    checkEmail(email: string) {
         let reg = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
         return reg.test(email);
     }
 
-    getPassedTime(old_time) {
+    getPassedTime(old_time: Date) {
         old_time = new Date(old_time)
         let now_time = new Date();
-        let gap = now_time.getTime() - old_time.getTime();
+        let gap:any = now_time.getTime() - old_time.getTime();
         gap = Math.ceil(gap / 1000)
         if (gap >= 3600 * 24 * 2) {
             gap = old_time.Format()
@@ -340,7 +311,7 @@ class Util {
         return gap;
     }
 
-    getElOffset(el) { //获取某元素以浏览器左上角为原点的坐标
+    getElOffset(el: any) { //获取某元素以浏览器左上角为原点的坐标
         var t = el.offsetTop, // 获取该元素对应父容器的上边距
             l = el.offsetLeft, // 对应父容器的上边距
             el_w = el.offsetWidth,
@@ -361,12 +332,12 @@ class Util {
     }
 
     // 获取随机颜色
-    getRandomRGB = (opacity = 1) => {
+    getRandomRGB = (opacity: number = 1) => {
         return 'rgba('+(Math.random() * 255)+','+(Math.random() * 255)+','+(Math.random() * 255)+',' + opacity+')';
     }
 
     // 气泡
-   fnTextPopup = (point) => {
+   fnTextPopup = (point: any) => {
         let self = this,
             x = point.pageX,
             y = point.pageY
