@@ -3996,6 +3996,25 @@ footer {
       margin: 16px 0;
       border: 1px solid #e2ecf4;
       border-radius: 4px; }
+    #article_detail #articleContentResult table {
+      display: inline-block !important;
+      font-size: 1rem;
+      width: auto;
+      max-width: 100%;
+      overflow: auto;
+      border: 1px solid #f6f6f6; }
+    #article_detail #articleContentResult thead {
+      background: #f6f6f6;
+      color: #000;
+      text-align: left; }
+    #article_detail #articleContentResult th,
+    #article_detail #articleContentResult td {
+      padding: 1rem .6rem;
+      line-height: 2rem; }
+    #article_detail #articleContentResult td {
+      min-width: 10rem; }
+    #article_detail #articleContentResult tr:nth-child(2n) {
+      background-color: #fcfcfc; }
   #article_detail .blog-list {
     width: 100%;
     padding: 0 16px;

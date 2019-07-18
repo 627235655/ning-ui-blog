@@ -356,6 +356,34 @@ export default {
             font-size: 12px;
             color: $gray;
         }
+        table {
+            display: inline-block !important;
+            font-size: 1rem;
+            width: auto;
+            max-width: 100%;
+            overflow: auto;
+            border: 1px solid #f6f6f6;
+        }
+
+        thead {
+            background: #f6f6f6;
+            color: #000;
+            text-align: left;
+        }
+
+        th,
+        td {
+            padding: 1rem .6rem;
+            line-height: 2rem;
+        }
+
+        td {
+            min-width: 10rem;
+        }
+
+        tr:nth-child(2n) {
+            background-color: #fcfcfc;
+        }
     }
     #articleContent {
         display: block;
