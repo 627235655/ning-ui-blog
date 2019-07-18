@@ -373,8 +373,10 @@ export default {
 
         th,
         td {
-            padding: 1rem .6rem;
-            line-height: 2rem;
+            padding: .6rem .6rem;
+            line-height: 1.5rem;
+            text-align: center;
+            border: 1px solid #fff;
         }
 
         td {

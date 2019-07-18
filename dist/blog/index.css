@@ -4009,8 +4009,10 @@ footer {
       text-align: left; }
     #article_detail #articleContentResult th,
     #article_detail #articleContentResult td {
-      padding: 1rem .6rem;
-      line-height: 2rem; }
+      padding: .6rem .6rem;
+      line-height: 1.5rem;
+      text-align: center;
+      border: 1px solid #fff; }
     #article_detail #articleContentResult td {
       min-width: 10rem; }
     #article_detail #articleContentResult tr:nth-child(2n) {
