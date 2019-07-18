@@ -4002,7 +4002,8 @@ footer {
       width: auto;
       max-width: 100%;
       overflow: auto;
-      border: 1px solid #f6f6f6; }
+      border: 1px solid #f6f6f6;
+      margin: 16px 0; }
     #article_detail #articleContentResult thead {
       background: #f6f6f6;
       color: #000;
@@ -4011,7 +4012,7 @@ footer {
     #article_detail #articleContentResult td {
       padding: .6rem .6rem;
       line-height: 1.5rem;
-      text-align: center;
+      text-align: center !important;
       border: 1px solid #fff; }
     #article_detail #articleContentResult td {
       min-width: 10rem; }

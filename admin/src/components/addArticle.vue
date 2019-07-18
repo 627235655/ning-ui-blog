@@ -363,6 +363,7 @@ export default {
             max-width: 100%;
             overflow: auto;
             border: 1px solid #f6f6f6;
+            margin: 16px 0;
         }
 
         thead {
@@ -375,7 +376,7 @@ export default {
         td {
             padding: .6rem .6rem;
             line-height: 1.5rem;
-            text-align: center;
+            text-align: center!important;
             border: 1px solid #fff;
         }
 
