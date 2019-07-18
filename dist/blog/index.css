@@ -4012,7 +4012,7 @@ footer {
     #article_detail #articleContentResult td {
       padding: .6rem .6rem;
       line-height: 1.5rem;
-      text-align: center !important;
+      text-align: left !important;
       border: 1px solid #fff; }
     #article_detail #articleContentResult td {
       min-width: 10rem; }
