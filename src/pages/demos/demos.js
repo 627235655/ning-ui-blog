@@ -13,6 +13,8 @@ import pic_2 from 'assets/images/random/material-8.png'
 import pic_3 from 'assets/images/random/material-6.png'
 import CodeBox from 'components/CodeBox/CodeBox';
 
+import Layout from './layout'
+
 const slider_class_config = [{
     className: 'fade',
     title: 'opacity-淡入淡出'
@@ -146,6 +148,7 @@ class Demos extends Component {
 	render() {
 		return (
             <div>
+                <Layout/>
                 <div className="ning-container demo-box" id="grid">
                     <h4>grid 布局</h4>
                     <div className="example-box flex-row-box">

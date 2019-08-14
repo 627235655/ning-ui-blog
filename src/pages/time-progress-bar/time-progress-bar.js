@@ -174,7 +174,6 @@ class TimeProgressBar extends Component {
 			if (lunarDay % 10 != 0 || lunarDay == 10) {
 					data.day += lunar.number.charAt((lunarDay - 1) % 10);
 			}
-			console.log(data)
 			return data;
 	}
 

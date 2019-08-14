@@ -467,20 +467,12 @@ export default {
                         textBaseline: 'top'
                     },
                     formatter: function formatter(val) {
-                        if (val === '1') {
-                            return '2018-11';
-                        } else if (val === '5') {
-                            return '2018-12';
-                        } else if (val === '10') {
-                            return '2019-01';
-                        } else if (val === '14') {
-                            return '2019-02';
-                        } else if (val === '18') {
-                            return '2019-03';
-                        } else if (val === '22') {
-                            return '2019-04';
-                        } else if (val === '27') {
-                            return '2019-05';
+                        const start_time = new Date('2018-10-27').getTime(),
+                              one_week_time = 60 * 60 * 24 * 7 * 1000;
+                        let date = new Date(start_time + one_week_time * val).Format('yyyy-MM-dd'),
+                            day = new Date(start_time + one_week_time * val).getDate()
+                        if (day < 8) {
+                            return date.substr(0, 7)
                         }
                         return '';
                     }

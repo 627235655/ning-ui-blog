@@ -1,0 +1,102 @@
+#layout{
+    text-align: center;
+    line-height: 60px;
+    .body{
+        @include border;
+    }
+    .header{
+        background: $blue-3;
+    }
+    .footer{
+        background: $green-3;
+    }
+    .left,
+    .right{
+        width: 200px;
+    }
+    .left{
+        background: $red-3;
+        height: 100px;
+    }
+    .right{
+        background: $orange-3;
+        height: 50px;
+    }
+    .content{
+        background: $purple;
+        height: 150px;
+    }
+    #sfy{
+        @include clear-float;
+        .container,
+        .left{
+            float: left;
+        }
+        .right{
+            float: right;
+        }
+        .container{
+            width: 100%;
+            padding: 0 200px;
+        }
+        .left,
+        .right{
+            margin-left: -100%;
+        }
+        .footer{
+            float: right;
+            width: 100%;
+        }
+    }
+    #sb{
+        .container{
+            @include clear-float;
+        }
+        .content,
+        .left{
+            float: left;
+        }
+
+        .right{
+            float: right;
+        }
+        .left,
+        .right{
+            margin-left: -100%;
+        }
+        .content{
+            width: 100%;
+            padding: 0 200px;
+            background-clip: content-box;
+        }
+    }
+    #flex{
+        .container{
+            display: flex;
+        }
+        .content{
+            flex: 1;
+            width: 0;
+        }
+        .left{
+            order: -1;
+        }
+    }
+    #calc{
+        .container{
+            @include clear-float;
+        }
+        .content,
+        .left,
+        .right{
+            float: left;
+        }
+        .left{
+            margin-left: calc(-100% + 200px);
+        }
+        .content{
+            width: calc(100% - 400px);
+            margin-left: 200px;
+        }
+    }
+}

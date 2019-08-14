@@ -1,7 +1,7 @@
-const server = {
-	imgPath: {
+import axios from 'assets/js/axios';
 
-	},
+const server = {
+	imgPath: {},
 	logOut: '/api/logOut',
 	isSignIn: '/api/isSignIn',
 	updateArticle: '/api/updateArticle',
@@ -10,3 +10,10 @@ const server = {
 }
 
 export default server
+
+// 获取文章列表
+export const getArticleList = params =>
+    axios
+        .get(server.getArticleList, {params})
+        .then(res => res)
+        .catch();
