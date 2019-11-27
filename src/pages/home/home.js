@@ -229,10 +229,6 @@ class Home extends Component {
 }
 
 const mapStateToProps = (state, ownProps) =>{
-    console.log('state')
-    console.log(state)
-    console.log('ownProps')
-    console.log(ownProps)
     return  ({
         articleList: state.ArticleReducer.articleList,
     })
