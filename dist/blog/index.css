@@ -6212,7 +6212,7 @@ footer {
         background: #e2ecf4; }
     #article_detail #articleContentResult p {
       margin-top: 16px;
-      line-height: 22px;
+      line-height: 1.8;
       word-break: break-word; }
       #article_detail #articleContentResult p + p,
       #article_detail #articleContentResult p + li,
