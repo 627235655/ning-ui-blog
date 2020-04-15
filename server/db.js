@@ -10,6 +10,7 @@ var { mongodb_connect_str } = require('./alioss'); // 这里不方便暴露自�
 // 	}
 // })
 
+// 配置密码连接
 mongoose.connect(
 	mongodb_connect_str,
 	{
