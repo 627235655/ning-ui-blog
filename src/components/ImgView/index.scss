@@ -1,0 +1,49 @@
+.ning-imgview-trigger {
+    cursor: zoom-in;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+
+.ning-imgview-wrap {
+    z-index: -1000;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: none;
+
+    &.active {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        background: rgba(0, 0, 0, .75);
+        animation: fadeIn .5s;
+    }
+
+    .ning-imgview-content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        width: 90%;
+        height: 90%;
+
+        img {
+            max-height: 100%;
+            max-width: 100%;
+            border-radius: 8px;
+            cursor: zoom-out;
+        }
+    }
+}

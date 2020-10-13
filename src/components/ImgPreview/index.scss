@@ -1,0 +1,39 @@
+.ning-img-preview-mask {
+    position: fixed;
+    z-index: -1;
+    top: 0;
+    left: 0;
+
+    overflow: auto;
+
+    width: 100vw;
+    height: 100vh;
+
+    font-size: 14px;
+
+    user-select: none;
+    transition: all linear .2s;
+
+    background-color: transparent;
+
+    scroll-behavior: smooth;
+
+    &.active {
+        z-index: 999;
+
+        background-color: rgba(0, 0, 0, .85);
+    }
+    &.inactive {
+        z-index: -1;
+
+        background-color: transparent;
+    }
+    .ning-img-preview-img-placeholder {
+        position: absolute;
+
+        max-width: none;
+
+        user-select: none;
+        transition: all linear .2s;
+    }
+}

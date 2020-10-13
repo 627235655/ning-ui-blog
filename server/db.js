@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
-var { mongodb_connect_str } = require('./alioss'); // 这里不方便暴露自己的信息， 配置可看以下注释
+var { MONGODB_CONNECT_STR } = require('./private-constants'); // 这里不方便暴露自己的信息， 配置可看以下注释
 
 // mongoose.connect('mongodb://127.0.0.1:27017/test', {
 // 	useNewUrlParser: true
@@ -10,9 +10,15 @@ var { mongodb_connect_str } = require('./alioss'); // 这里不方便暴露自�
 // 	}
 // })
 
+console.log('process.env.NODE_ENV', process.env.NODE_ENV);
+let connectPath =
+	process.env.NODE_ENV === 'development'
+		? 'mongodb://127.0.0.1:27017/test'
+		: MONGODB_CONNECT_STR;
+
 // 配置密码连接
 mongoose.connect(
-	mongodb_connect_str,
+	connectPath,
 	{
 		useNewUrlParser: true,
 	},

@@ -1,0 +1,8 @@
+# 开源 CI 工具 travis CI
+language: node_js
+cache:
+    - yarn
+install:
+    - yarn
+script:
+    - yarn test
