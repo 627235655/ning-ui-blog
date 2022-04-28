@@ -1,0 +1,84 @@
+.elis {
+  overflow: hidden;
+  text-overflow: ellipsis; // 文本溢出显示省略号
+  white-space: nowrap; // 文本不会换行（单行文本溢出）
+}
+
+.elis-2 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.text-collapse-wrap {
+  display: flex;
+  color: #333;
+  .text-collapse {
+    position: relative;
+    line-height: var(--lineHeight);
+    max-height: calc(var(--lineClamp) * var(--lineHeight) * 1em);
+    overflow: hidden;
+    transition: 0.3s max-height;
+    &::before {
+      content: '';
+      float: right;
+      width: 0px;
+      height: 100%;
+      margin-bottom: calc(var(--lineHeight) * 1em * -1);
+      background: $red;
+    }
+    &::after {
+      content: '';
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      background: #fff;
+    }
+    .text-collapse-btn {
+      float: right;
+      position: relative; // 用于模拟 ... 效果定位
+      clear: both; // 让 btn 能正确定位
+      /* 按钮样式 */
+      background-color: $blue;
+      padding: 0 8px;
+      border-radius: 2px;
+      color: #fff;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-left: 25px;
+      &:hover {
+        filter: brightness(1.1); // 按钮 hover 效果
+      }
+      &::before {
+        content: '...';
+        position: absolute;
+        right: 100%;
+        color: #333;
+        padding: 0 4px 0 25px;
+        background: linear-gradient(90deg, transparent, #fff 50%);
+      }
+      &::after {
+        content: attr(data-open);
+      }
+    }
+  }
+  #collapse {
+    width: 0;
+    height: 0;
+    opacity: 0;
+    &:checked + .text-collapse {
+      // max-height: none; // 展开无动效
+      max-height: 300px; // 展开有动效 设置一个安全的值 超过最大行高度
+      &::after {
+        visibility: hidden; // 展开时隐藏按钮的覆盖层
+      }
+      .text-collapse-btn::before {
+        visibility: hidden; // 展开时隐藏省略号
+      }
+      .text-collapse-btn::after {
+        content: attr(data-close); // 展开时改变文案
+      }
+    }
+  }
+}

@@ -1,0 +1,16 @@
+.demos {
+  padding: 16px;
+  display: flex;
+
+  .demos-aside {
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    a {
+      padding: 8px 16px;
+    }
+  }
+  .demos-content {
+    flex: 1;
+  }
+}

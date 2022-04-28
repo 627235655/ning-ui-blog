@@ -1,21 +1,24 @@
 {
-    "presets": [
-        ["@babel/preset-env",
-        {
-            "modules": false,
-            "targets":
-            {
-                "browsers": ["> 1%", "last 2 versions", "not ie <= 8"]
-            },
-            "corejs": 3,
-            "useBuiltIns": "usage"
-        }],
-        "@babel/preset-react"
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "modules": false,
+        "targets": {
+          "browsers": ["> 1%", "last 2 versions", "not ie <= 8"]
+        },
+        "corejs": 3,
+        "useBuiltIns": "usage"
+      }
     ],
-    "plugins": [
-        "@babel/plugin-transform-runtime",
-        "react-hot-loader/babel",
-        "@babel/plugin-proposal-class-properties",
-        "dynamic-import-webpack"
-    ]
+    "@babel/preset-react"
+  ],
+  "plugins": [
+    "@babel/plugin-transform-runtime",
+    "react-hot-loader/babel",
+    "@babel/plugin-proposal-class-properties",
+    "dynamic-import-webpack",
+    "@babel/plugin-proposal-optional-chaining",
+    "@babel/plugin-proposal-nullish-coalescing-operator"
+  ]
 }

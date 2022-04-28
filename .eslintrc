@@ -1,0 +1,85 @@
+module.exports = {
+  env: {
+    browser: true,
+    amd: true,
+    es6: true,
+    node: true
+  },
+  extends: ["react-app",
+      "react-app/jest",'eslint:recommended',
+    'airbnb', // 添加prettier
+    'prettier',
+    'plugin:react/recommended',
+    'plugin:@typescript-eslint/eslint-recommended',
+    "plugin:@typescript-eslint/recommended-requiring-type-checking"
+],
+  parserOptions: {
+    ecmaVersion: 6,
+    sourceType: 'module',
+    ecmaFeatures: {
+      legacyDecorators: true, // 无视 eslint decorator 在export 前 后问题
+      jsx: true,
+      impliedStrict: true
+    }
+  },
+  rules: {
+    'global-require': 0,
+    'no-console': 0,
+    'no-debugger': 0,
+    'no-nested-ternary': 0, // 防止使用多级三元运算符
+    'no-underscore-dangle': 0, // 可以使用 使用 _ or __ 代表内置对象内置对象
+    'no-plusplus': 0, // 允许使用 ++ 和 --
+    'no-shadow': 0,
+    'prefer-promise-reject-errors': 0, // 允许使用 promise.reject(对象)
+    'import/prefer-default-export': 0, // 允许默认不导出 export  default
+    'import/no-unresolved': 0, // TODO webpack别名识别不出来
+    'import/no-webpack-loader-syntax': 0, // 允许使用 import 使用webpack-loader 解析语法
+    'import/no-extraneous-dependencies': 0, // 允许使用额外的包
+    'import/no-dynamic-require': 0, // 允许动态加载
+    'linebreak-style': [0, 'error', 'windows'], // \r\n  处理跨平台换行
+    // "no-unused-vars": ["warn", { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }], // 禁止未使用过的变量
+    'comma-dangle': [
+      'error',
+      {
+        // 逗号处理
+        arrays: 'never',
+        objects: 'never',
+        imports: 'never',
+        exports: 'never',
+        functions: 'ignore'
+      }
+    ],
+    'max-len': 0, // ['error', 300, 4],
+    'arrow-body-style': 0, // 箭头函数允许使用 return ()
+    'react/jsx-uses-react': 'error',
+    'react/jsx-uses-vars': 'error',
+    'react/no-array-index-key': 0,
+    'react/prefer-stateless-function': 0, // 允许使用无状态的 class component
+    'react/no-did-mount-set-state': 0,
+    'react/prop-types': 0, // 纯函数 可以不考虑这部分逻辑
+    'react/jsx-one-expression-per-line': 0, // 允许字符串模版换行
+    'react/jsx-filename-extension': 0, // 可以使用js 代替jsx
+    'react/jsx-uses-react': 'error',
+    'react/jsx-uses-vars': 'error',
+    'react-hooks/rules-of-hooks': 'error',
+    'react-hooks/exhaustive-deps': 'error',
+    'jsx-a11y/no-noninteractive-element-interactions': 0, // 移除交互类的dom的 使用规则
+    'jsx-a11y/no-static-element-interactions': 0,
+    'jsx-a11y/click-events-have-key-events': 0, // 点击事件不再绑定keyDown keyUp keyPress事件
+    'jsx-a11y/no-autofocus': [
+      0,
+      {
+        ignoreNonDOM: true
+      }
+    ],
+    // 'no-unused-vars': ['warn', { vars: 'all', args: 'after-used', ignoreRestSiblings: false }], // 禁止未使用过的变量
+    'operator-linebreak': 0, // 关闭赋值语句过长换行检测，因为有些语句确实超长，换行是为了更易于查看
+    'object-curly-newline': 0, // 防止函数参数解构报错：一行内解构情况下
+    // 'arrow-parens': ["error", "as-needed"], // 设置箭头函数只有一个参数时省略小括号
+    'implicit-arrow-linebreak': 0, // 设置箭头函数后面可以直接换行，因为有些语句过长需要换行
+    'jsx-a11y/anchor-is-valid': 0, // 手动设置a
+    semi: 'warn',
+    'react/jsx-no-target-blank': 0
+  },
+  globals: {}
+}

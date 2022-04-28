@@ -1,0 +1,49 @@
+.wrap {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    width: 200px;
+    height: 200px;
+    border: 1px solid #000;
+}
+.font {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    height: 50%;
+    z-index: 1;
+    font-size: 80px;
+    mix-blend-mode: hue;
+}
+@keyframes move {
+    0% {
+        top: 0;
+        left: 0;
+    }
+    25% {
+        top: 0;
+        left: 50%;
+    }
+    50% {
+        top: 50%;
+        left: 50%;
+    }
+    75% {
+        top: 50%;
+        left: 0;
+    }
+    100% {
+        top: 0;
+        left: 0;
+    }
+}
+.wrap::before {
+    position: absolute;
+    z-index: 0;
+    content: '';
+    width: 50%;
+    height: 50%;
+    background: #ff8b00;
+    animation: move 2s linear infinite;
+}

@@ -1,13 +1,13 @@
-import { post, get } from '../assets/js/axios';
+import { get, post } from "../assets/js/axios";
 
 const API_PATH = {
-	imgPath: {},
-	signIn: '/api/signIn',
-	logOut: '/api/logOut',
-	isSignIn: '/api/isSignIn',
-	updateArticle: '/api/updateArticle',
-	getArticleDetail: '/api/getArticleDetail',
-	getArticleList: '/api/getArticleList',
+  imgPath: {},
+  signIn: "/api/signIn",
+  logOut: "/api/logOut",
+  isSignIn: "/api/isSignIn",
+  updateArticle: "/api/updateArticle",
+  getArticleDetail: "/api/getArticleDetail",
+  getArticleList: "/api/getArticleList"
 };
 
 export default API_PATH;

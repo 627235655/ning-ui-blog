@@ -1,15 +1,9 @@
-import React, {
-	Component
-} from 'react';
-import ReactDOM from 'react-dom';
-import './profile.scss';
-import {
-    Link
-} from 'react-router-dom';
-import axios from 'axios';
-import Swiper from 'swiper'
-import css from 'style-loader!css-loader!swiper/dist/css/swiper.min.css';
 import G2 from '@antv/g2';
+import React, {
+    Component
+} from 'react';
+import Swiper from 'swiper';
+import './profile.scss';
 
 const blog_chart = 'https://zongyuan.oss-cn-shenzhen.aliyuncs.com/ning-ui-blog/blog-chart.png',
         ning_ui = 'https://zongyuan.oss-cn-shenzhen.aliyuncs.com/ning-ui-blog/ning-ui.png',
@@ -19,7 +13,7 @@ const blog_chart = 'https://zongyuan.oss-cn-shenzhen.aliyuncs.com/ning-ui-blog/b
         blog_hexo = 'https://zongyuan.oss-cn-shenzhen.aliyuncs.com/ning-ui-blog/blog-hexo.png',
         online_resume = 'https://zongyuan.oss-cn-shenzhen.aliyuncs.com/ning-ui-blog/online-resume.png',
         ximalaya = 'https://zongyuan.oss-cn-shenzhen.aliyuncs.com/ning-ui-blog/ximalaya.jpeg',
-        xiakedaoli = 'https://zongyuan.oss-cn-shenzhen.aliyuncs.com/ning-ui-blog/xiakedaoli.jpeg',
+        xiakedaoli = '../../../static/images/xiakedaoli.jpeg',
         maipu = 'https://zongyuan.oss-cn-shenzhen.aliyuncs.com/ning-ui-blog/maipu.jpg',
         bgt_pc = 'https://zongyuan.oss-cn-shenzhen.aliyuncs.com/ning-ui-blog/bgt-pc.png';
 

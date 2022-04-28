@@ -1,19 +1,11 @@
+import CodeBox from '@/components/CodeBox/CodeBox';
 import React, {
-	Component
+    Component
 } from 'react';
-import ReactDOM from 'react-dom';
+import pic_1 from '~/static/images/random/material-5.png';
+import pic_3 from '~/static/images/random/material-6.png';
+import pic_2 from '~/static/images/random/material-8.png';
 import './demos.scss';
-import {
-    Link
-} from 'react-router-dom';
-import axios from 'axios';
-import TagLink from 'components/TagLink/TagLink'
-import pic_1 from 'assets/images/random/material-5.png'
-import pic_2 from 'assets/images/random/material-8.png'
-import pic_3 from 'assets/images/random/material-6.png'
-import CodeBox from 'components/CodeBox/CodeBox';
-
-import Layout from './layout'
 
 const slider_class_config = [{
     className: 'fade',
@@ -148,7 +140,6 @@ class Demos extends Component {
 	render() {
 		return (
             <div>
-                <Layout/>
                 <div className="ning-container demo-box" id="grid">
                     <h4>grid 布局</h4>
                     <div className="example-box flex-row-box">
@@ -1131,7 +1122,7 @@ class Demos extends Component {
                         </div>
                     </div>
                 </div>
-                
+
                 <div className="ning-container demo-box">
                     <h4 id="css-secret-bg-list-2">css-secret-bg-list-2</h4>
                     <div className="example-box flex-row-box css-secret-bg-list-2">
